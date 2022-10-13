@@ -22,10 +22,6 @@ public class User implements UserDetails {
 
     private String surname;
 
-    private String phoneNumber;
-
-    private String address;
-
     @Enumerated(EnumType.STRING)
     private Role userRole;
 
@@ -40,14 +36,12 @@ public class User implements UserDetails {
 
     }
 
-    public User(String username, String password, String name, String surname, String phoneNumber,String address,Role userRole)
+    public User(String username, String password, String name, String surname, Role userRole)
     {
         this.username=username;
         this.password=password;
         this.name=name;
         this.surname=surname;
-        this.phoneNumber=phoneNumber;
-        this.address=address;
         this.userRole=userRole;
     }
 

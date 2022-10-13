@@ -1,13 +1,183 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+#root{
+  font-family: Verdana, Helvetica, sans-serif;
+}
+.logos{
+  height: 80px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.title{
+  font-size: 36px;
+  color: #515153;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.companyName{
+  font-size: 36px;
+  color: #cccec9;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.darkBackground{
+  background-color: #515153;
+}
+
+.purpleBackground{
+  background-color: #515153;
+}
+
+.footerWorldMap{
+  background-image: url('images/world map.png');
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 40rem;
+}
+
+.greyText{
+  color: #f3f7f0;
+}
+
+.blueBackground{
+  background-color: #e7e9f3;
+}
+
+.greyButtonBackground{
+  background-color: #cccec9;
+}
+
+.lightBackground{
+  background-color: #f3f7f0;
+}
+
+.whiteBackground{
+  background-color: #fff;
+}
+
+.headerButton{
+  background-color: #8AA6CA;
+}
+
+.customDatePickerWidth,
+.customDatePickerWidth .DateRangePicker,
+.customDatePickerWidth .DateRangePicker .DateRangePickerInput,
+.customDatePickerWidth .DateRangePicker .DateRangePickerInput input {
+  width: 100%;
+}
+
+.customDatePickerWidth .DateRangePicker .DateRangePickerInput input{
+  margin: 0;
+  padding: 0;
+}
+
+#check_out{
+  margin-left: 15%
+}
+
+.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover{
+  background-color: #8AA6CA !important;
+  border: 1px double #8AA6CA !important;
+}
+
+.CalendarDay__hovered_span, .CalendarDay__hovered_span:active {
+  background: #BFD8EB !important;
+  border: 1px double #BFD8EB !important;
+  color: #000 !important;
+}
+
+.rate-area {
+  float: left;
+  border-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rate-area:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+  clip: rect(0,0,0,0);
+}
+
+.rate-area:not(:checked) > label {
+  float: right;
+  width: 1em;
+  padding: 0 .1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 170%;
+  line-height: 1.2;
+  color: lightgrey;
+  text-shadow: 1px 1px #bbb;
+}
+
+.rate-area:not(:checked) > label:before { content: '★ '; }
+
+.rate-area > input:checked ~ label {
+  color: gold;
+  text-shadow: 1px 1px #c60;
+
+}
+
+.rate-area:not(:checked) > label:hover, .rate-area:not(:checked) > label:hover ~ label { color: gold; }
+
+.rate-area > input:checked + label:hover, .rate-area > input:checked + label:hover ~ label, .rate-area > input:checked ~ label:hover, .rate-area > input:checked ~ label:hover ~ label, .rate-area > label:hover ~ input:checked ~ label {
+  color: gold;
+  text-shadow: 1px 1px goldenrod;
+}
+
+.rate-area > label:active {
+  position: relative;
+  top: 2px;
+  left: 2px;
+}
+
+.reviewImages{
+  width: 50px;
+  height: 50px;
+  margin-left: 20px;
+}
+
+.bubble {
+  position: relative;
+  font-family: sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  width: 300px;
+  background: #fff;
+  border-radius: 40px;
+  padding: 24px;
+  text-align: center;
+  color: #000;
+}
+
+.bubble-bottom-left:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-left: 24px solid #fff;
+  border-right: 12px solid transparent;
+  border-top: 12px solid #fff;
+  border-bottom: 20px solid transparent;
+  left: 60px;
+  bottom: -24px;
+}
+
+.destinationImages{
+  max-height: 120px;
+  max-width: 120px;
+}
+.underline{
+  font-weight: bold !important;
+}
+.underline:after {
+  content: '';
+  display: block;
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 5px;
+  height: 3px;
+  background-color: #BB0422;
+  border-radius: 2px;
 }

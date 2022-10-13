@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import "react-dates/lib/css/_datepicker.css";
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
