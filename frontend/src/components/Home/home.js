@@ -32,7 +32,7 @@ const Home=(props)=>{
             <div className={"blueBackground pt-5 pb-4"} id={"reviewList"}>
                 <div className={"container text-center"}>
                     <span className={"title"}>Our customers said...</span>
-                    <ReviewList />
+                    <ReviewList reviews={props.reviews}/>
                 </div>
             </div>
 

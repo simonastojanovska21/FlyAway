@@ -1,71 +1,35 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faQuoteLeft, faPlus, faMinus, faCalendarDays} from "@fortawesome/free-solid-svg-icons";
+import {faCircleUser} from "@fortawesome/free-solid-svg-icons";
+import moment from "moment";
+import Stars from "../RatingStars/stars";
 
 const ReviewList=(props)=>{
 
     return(
         <div className={"p-5"}>
             <div className={"row "}>
-                <div className="col">
 
-                    <div className={"bubble bubble-bottom-left mb-5 pb-3 shadow"}>
-                        Perfect service, best quality, thanks
-                    </div>
+                {props.reviews.map((term)=>{
+                    return(
+                        <div className="col">
+                            <div className={"bubble bubble-bottom-left mb-5 pb-3 shadow"}>
+                                {term.description}
+                            </div>
 
-                    <div className="row">
-                        <div className="col-3">
-                            <img
-                                src="https://e7.pngegg.com/pngimages/439/19/png-clipart-avatar-user-profile-icon-women-wear-frock-face-holidays.png"
-                                className="rounded-circle reviewImages"
-                                alt="Cinque Terre"/>
+                            <div className="row">
+                                <div className="col-3 pt-2">
+                                    <FontAwesomeIcon icon={faCircleUser} size={"4x"}/>
+                                </div>
+                                <div className="col-9 text-start ps-2">
+                                    <span>{term.user.name} {term.user.surname}</span><br/>
+                                    <span>{moment(term.time).format('Do MMM YYYY')}</span>
+                                    <Stars numberStars={term.stars}/>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-9 text-start ps-2">
-                            <span>Username</span><br/>
-                            <span>Date</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col">
-
-                    <div className={"bubble bubble-bottom-left mb-5 pb-3 shadow"}>
-                        Perfect service, best quality, thanks
-                    </div>
-
-                    <div className="row">
-                        <div className="col-3">
-                            <img
-                                src="https://e7.pngegg.com/pngimages/439/19/png-clipart-avatar-user-profile-icon-women-wear-frock-face-holidays.png"
-                                className="rounded-circle reviewImages"
-                                alt="Cinque Terre"/>
-                        </div>
-                        <div className="col-9 text-start ps-2">
-                            <span>Username</span><br/>
-                            <span>Date</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col">
-
-                    <div className={"bubble bubble-bottom-left mb-5 pb-3 shadow"}>
-                        Perfect service, best quality, thanks
-                    </div>
-
-                    <div className="row">
-                        <div className="col-3">
-                            <img
-                                src="https://e7.pngegg.com/pngimages/439/19/png-clipart-avatar-user-profile-icon-women-wear-frock-face-holidays.png"
-                                className="rounded-circle reviewImages"
-                                alt="Cinque Terre"/>
-                        </div>
-                        <div className="col-9 text-start ps-2">
-                            <span>Username</span><br/>
-                            <span>Date</span>
-                        </div>
-                    </div>
-                </div>
+                    )
+                })}
             </div>
         </div>
     )

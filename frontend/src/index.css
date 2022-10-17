@@ -23,10 +23,6 @@
   background-color: #515153;
 }
 
-.purpleBackground{
-  background-color: #515153;
-}
-
 .footerWorldMap{
   background-image: url('images/world map.png');
   background-position: 50% 50%;
@@ -85,6 +81,35 @@
   color: #000 !important;
 }
 
+.stars_rating{
+  float: left;
+  border-style: none;
+  margin: 0;
+  padding: 0;
+}
+.stars_rating:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+  clip: rect(0,0,0,0);
+}
+.stars_rating:not(:checked) > label {
+  float: right;
+  width: 1em;
+  padding: 0 .1em;
+  overflow: hidden;
+  white-space: nowrap;
+
+  line-height: 1.2;
+  color: lightgrey;
+  text-shadow: 1px 1px #bbb;
+}
+
+.stars_rating:not(:checked) > label:before { content: '★ '; }
+.stars_rating > input:checked ~ label {
+  color: gold;
+  text-shadow: 1px 1px #c60;
+}
+
 .rate-area {
   float: left;
   border-style: none;
@@ -105,7 +130,7 @@
   overflow: hidden;
   white-space: nowrap;
   cursor: pointer;
-  font-size: 170%;
+
   line-height: 1.2;
   color: lightgrey;
   text-shadow: 1px 1px #bbb;
@@ -116,7 +141,6 @@
 .rate-area > input:checked ~ label {
   color: gold;
   text-shadow: 1px 1px #c60;
-
 }
 
 .rate-area:not(:checked) > label:hover, .rate-area:not(:checked) > label:hover ~ label { color: gold; }
@@ -180,4 +204,8 @@
   height: 3px;
   background-color: #BB0422;
   border-radius: 2px;
+}
+
+.selectedProfileLink{
+  border-left: 2px solid #BB0422;
 }

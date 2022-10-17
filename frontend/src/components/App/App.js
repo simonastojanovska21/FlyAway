@@ -6,6 +6,9 @@ import Header from "../Header/header";
 import Footer from "../Footer/footer";
 import AuthenticationService from "../../services/AuthenticationService";
 import Profile from "../Profile/profile";
+import ReviewService from "../../services/ReviewService";
+import AddNewHotel from "../Hotel/addNewHotel";
+import HotelService from "../../services/HotelService";
 
 class App extends Component{
   constructor(props) {
@@ -13,6 +16,8 @@ class App extends Component{
     this.state={
         loggedInUser:{},
         userInfo:{},
+        reviews:[],
+        hotelData:[]
       }
   }
 
@@ -24,9 +29,12 @@ class App extends Component{
             <main>
                 <div>
                     <Routes>
-                        <Route path={"/"} element={ <Home/>  }/>
+                        <Route path={"/"} element={ <Home reviews={this.state.reviews} />  }/>
                         <Route path={"/profile"} element={
-                            <Profile   />  }  />
+                            <Profile user={this.state.userInfo}  onLeaveReview={this.leaveReview} />  }  />
+
+                        <Route path={"/hotels/add"} element={
+                            <AddNewHotel onAddNewHotel={this.addNewHotel} /> } />
                     </Routes>
                 </div>
             </main>
@@ -36,12 +44,13 @@ class App extends Component{
   }
 
   componentDidMount() {
+      this.getThreeReviews()
       const currentUser = AuthenticationService.getCurrentUser();
-      if (currentUser)
-      {
+      if (currentUser) {
           this.setState({ loggedInUser: currentUser })
           this.getInfoAboutUser(currentUser.username);
       }
+
   }
 
     loginUser=(username,password)=>{
@@ -71,7 +80,7 @@ class App extends Component{
         AuthenticationService.logout();
         localStorage.removeItem("userRole");
         //console.log('User is logged out');
-        //window.location.href="http://localhost:3000/"
+        window.location.href="http://localhost:3000/"
     }
     getInfoAboutUser=(username)=>{
         AuthenticationService.getInfoAboutUser(username)
@@ -80,6 +89,28 @@ class App extends Component{
                     userInfo:data.data
                 })
             })
+    }
+
+    leaveReview=(stars,description,username)=>{
+        ReviewService.leaveReview(stars,description,username)
+            .then(()=>{
+                this.getInfoAboutUser(username);
+            })
+    }
+    getThreeReviews=()=>{
+        ReviewService.getThreeReviews()
+            .then((data)=>{
+                this.setState({
+                    reviews : data.data
+                })
+            })
+    }
+
+    addNewHotel=(name, description, address, city, country, amenities, checkInHour, checkOutHour, latitude, longitude, imagesUrl)=>{
+      HotelService.addNewHotel(name, description, address, city, country, amenities, checkInHour, checkOutHour, latitude, longitude, imagesUrl)
+          .then(()=>{
+
+          })
     }
 }
 

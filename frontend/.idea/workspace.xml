@@ -43,11 +43,11 @@
       <recent name="D:\GitHub\FlyAway\frontend\src\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GitHub\FlyAway\frontend\src\components\RatingStars" />
+      <recent name="D:\GitHub\FlyAway\frontend\src\components\TopOffers" />
       <recent name="D:\GitHub\FlyAway\frontend\public" />
       <recent name="D:\GitHub\FlyAway\frontend\src\components\Search" />
       <recent name="D:\GitHub\FlyAway\frontend\src\components\DatePicker" />
-      <recent name="D:\GitHub\FlyAway\frontend\src\images" />
-      <recent name="D:\GitHub\FlyAway\frontend\src\components\App" />
     </key>
   </component>
   <component name="RunManager" selected="npm.npm start">
@@ -83,7 +83,11 @@
       <workItem from="1665314136274" duration="24906000" />
       <workItem from="1665488125557" duration="10266000" />
       <workItem from="1665572055671" duration="15764000" />
-      <workItem from="1665660676743" duration="14258000" />
+      <workItem from="1665660676743" duration="31184000" />
+      <workItem from="1665754048616" duration="1196000" />
+      <workItem from="1665831242281" duration="10797000" />
+      <workItem from="1665920407831" duration="44000" />
+      <workItem from="1665920465538" duration="28160000" />
     </task>
     <servers />
   </component>

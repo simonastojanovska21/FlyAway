@@ -7,13 +7,13 @@ import DatePicker from "../DatePicker/datePicker";
 
 const Search=(props)=>{
     let peopleVariable = 2;
-    let inputText = "2 people"
+    let inputText = "2 guests"
 
     const handleMinusClick = (e) => {
         e.preventDefault();
         if (peopleVariable > 1)
             peopleVariable -= 1;
-        inputText = peopleVariable + (peopleVariable === 1 ? " person" : " people")
+        inputText = peopleVariable + (peopleVariable === 1 ? " guest" : " guests")
         $('#quantity').val(inputText)
     };
 
@@ -21,7 +21,7 @@ const Search=(props)=>{
         e.preventDefault();
         if (peopleVariable < 10)
             peopleVariable += 1
-        inputText = peopleVariable + (peopleVariable === 1 ? " person" : " people")
+        inputText = peopleVariable + (peopleVariable === 1 ? " guest" : " guests")
         $('#quantity').val(inputText)
     };
 

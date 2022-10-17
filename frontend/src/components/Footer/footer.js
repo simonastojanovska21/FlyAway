@@ -4,7 +4,7 @@ import {faHome, faEnvelope, faPhone, faPrint, faLocationDot, faCircleQuestion} f
 
 const Footer=(props)=>{
     return(
-        <footer className={"purpleBackground"} >
+        <footer className={"darkBackground"} >
             <div className={"container pt-5 pb-5 footerWorldMap"}>
 
                 <div className={"row"}>
