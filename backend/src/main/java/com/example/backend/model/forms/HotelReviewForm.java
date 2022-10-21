@@ -1,9 +1,9 @@
-package com.example.backend.model.dto;
+package com.example.backend.model.forms;
 
 import lombok.Data;
 
 @Data
-public class HotelReviewDto {
+public class HotelReviewForm {
     Integer stars;
     String descriptions;
     String username;

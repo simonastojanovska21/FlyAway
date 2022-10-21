@@ -1,11 +1,11 @@
-package com.example.backend.model.dto;
+package com.example.backend.model.forms;
 
 import lombok.Data;
 
-import javax.persistence.ManyToOne;
+import java.util.List;
 
 @Data
-public class RoomDto {
+public class RoomForm {
     private String roomNumber;
 
     private double pricePerNight;
@@ -15,4 +15,6 @@ public class RoomDto {
     private String roomType;
 
     private String hotelId;
+
+    private List<String> imagesUrl;
 }

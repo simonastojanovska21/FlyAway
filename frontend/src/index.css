@@ -7,7 +7,7 @@
 
 .title{
   font-size: 36px;
-  color: #515153;
+  color: #BB0422;
   font-style: italic;
   font-weight: bold;
 }
@@ -61,6 +61,20 @@
   width: 100%;
 }
 
+.customTripDatePickerWidth,
+.customTripDatePickerWidth .SingleDatePicker,
+.customTripDatePickerWidth .SingleDatePicker .SingleDatePickerInput,
+.customTripDatePickerWidth .SingleDatePicker .SingleDatePickerInput .DateInput  {
+  width: 100%;
+}
+
+.customTripDatePickerWidth .SingleDatePicker .SingleDatePickerInput  {
+  border-radius: 5px;
+}
+
+.customTripDatePickerWidth .SingleDatePicker .SingleDatePickerInput .DateInput_input{
+  width: 100%;
+}
 .customDatePickerWidth .DateRangePicker .DateRangePickerInput input{
   margin: 0;
   padding: 0;
@@ -209,3 +223,13 @@
 .selectedProfileLink{
   border-left: 2px solid #BB0422;
 }
+
+.form-floating > .form-control::placeholder {
+  color:revert;
+}
+
+/*&:not(:focus)::placeholder {*/
+/*   color: transparent;*/
+/* }*/
+/*...*/
+/*}*/

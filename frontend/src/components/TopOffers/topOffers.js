@@ -8,11 +8,12 @@ import Stars from "../RatingStars/stars";
 
 const TopOffers=(props)=>{
     return(
-        <div className={"p-5"}>
-            <OwlCarousel className='owl-theme' loop margin={20} >
+        <div className={"p-5"} >
+            <OwlCarousel className='owl-theme' responsive={false} loop margin={20} >
                 <div className={'item'}>
+
                     <div className="card mb-3 shadow p-3 mb-5 rounded">
-                        <img src="https://ireward.superghs.com/resource/microtelmonticello/homepage_gallery/microtelmonticello_2020Oct15_15_58_hm-deluxe-room.jpg" className="card-img-top" alt="..."/>
+                        <img src="https://i.insider.com/5718f3e5dd0895fc4d8b49e2?width=1000&format=jpeg&auto=webp" className="card-img-top" alt="..."/>
                         <div className="card-body">
                             <p className={"card-text text-start"}>
                                 <FontAwesomeIcon icon={faMapPin} size={"lg"}/>
@@ -39,7 +40,7 @@ const TopOffers=(props)=>{
 
                 <div className={'item'}>
                     <div className="card mb-3 shadow p-3 mb-5 rounded">
-                        <img src="https://ireward.superghs.com/resource/microtelmonticello/homepage_gallery/microtelmonticello_2020Oct15_15_58_hm-deluxe-room.jpg" className="card-img-top" alt="..."/>
+                        <img src="https://i.insider.com/5718f3e5dd0895fc4d8b49e2?width=1000&format=jpeg&auto=webp" className="card-img-top" alt="..."/>
                         <div className="card-body">
                             <p className={"card-text text-start"}>
                                 <FontAwesomeIcon icon={faMapPin} size={"lg"}/>
@@ -66,7 +67,7 @@ const TopOffers=(props)=>{
 
                 <div className={'item'}>
                     <div className="card mb-3 shadow p-3 mb-5 rounded">
-                        <img src="https://ireward.superghs.com/resource/microtelmonticello/homepage_gallery/microtelmonticello_2020Oct15_15_58_hm-deluxe-room.jpg" className="card-img-top" alt="..."/>
+                        <img src="https://i.insider.com/5718f3e5dd0895fc4d8b49e2?width=1000&format=jpeg&auto=webp" className="card-img-top" alt="..."/>
                         <div className="card-body">
                             <p className={"card-text text-start"}>
                                 <FontAwesomeIcon icon={faMapPin} size={"lg"}/>
@@ -93,7 +94,7 @@ const TopOffers=(props)=>{
 
                 <div className={'item'}>
                     <div className="card mb-3 shadow p-3 mb-5 rounded">
-                        <img src="https://ireward.superghs.com/resource/microtelmonticello/homepage_gallery/microtelmonticello_2020Oct15_15_58_hm-deluxe-room.jpg" className="card-img-top" alt="..."/>
+                        <img src="https://i.insider.com/5718f3e5dd0895fc4d8b49e2?width=1000&format=jpeg&auto=webp" className="card-img-top" alt="..."/>
                         <div className="card-body">
                             <p className={"card-text text-start"}>
                                 <FontAwesomeIcon icon={faMapPin} size={"lg"}/>
@@ -120,7 +121,7 @@ const TopOffers=(props)=>{
 
                 <div className={'item'}>
                     <div className="card mb-3 shadow p-3 mb-5 rounded">
-                        <img src="https://ireward.superghs.com/resource/microtelmonticello/homepage_gallery/microtelmonticello_2020Oct15_15_58_hm-deluxe-room.jpg" className="card-img-top" alt="..."/>
+                        <img src="https://i.insider.com/5718f3e5dd0895fc4d8b49e2?width=1000&format=jpeg&auto=webp" className="card-img-top" alt="..."/>
                         <div className="card-body">
                             <p className={"card-text text-start"}>
                                 <FontAwesomeIcon icon={faMapPin} size={"lg"}/>

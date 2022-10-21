@@ -1,7 +1,7 @@
 package com.example.backend.web;
 
 import com.example.backend.model.User;
-import com.example.backend.model.dto.RegisterDto;
+import com.example.backend.model.forms.RegisterForm;
 import com.example.backend.model.exceptions.UserNotFoundException;
 import com.example.backend.service.UserService;
 import lombok.AllArgsConstructor;
@@ -32,8 +32,8 @@ public class AuthenticationRestController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody RegisterDto registerDto) {
-        return this.userService.register(registerDto)
+    public ResponseEntity<?> registerUser(@RequestBody RegisterForm registerForm) {
+        return this.userService.register(registerForm)
                 .map(user->ResponseEntity.ok().body(user))
                 .orElseGet(()->ResponseEntity.badRequest().build());
     }

@@ -7,8 +7,19 @@ import Footer from "../Footer/footer";
 import AuthenticationService from "../../services/AuthenticationService";
 import Profile from "../Profile/profile";
 import ReviewService from "../../services/ReviewService";
-import AddNewHotel from "../Hotel/addNewHotel";
+import AddHotel from "../Hotel/admin/addHotel";
 import HotelService from "../../services/HotelService";
+import HotelAdminList from "../Hotel/admin/hotelAdminList";
+import RoomAdminList from "../Room/roomAdminList";
+import AddRoom from "../Room/addRoom";
+import ScrollToTop from "./ScrollToTop";
+import EditHotel from "../Hotel/admin/editHotel";
+import EditHotelImages from "../Hotel/admin/editHotelImages";
+import EditRoom from "../Room/editRoom";
+import EditRoomImages from "../Room/editRoomImages";
+import HotelList from "../Hotel/hotelList";
+import AddTrip from "../Trip/addTrip";
+import TripList from "../Trip/tripList";
 
 class App extends Component{
   constructor(props) {
@@ -17,13 +28,16 @@ class App extends Component{
         loggedInUser:{},
         userInfo:{},
         reviews:[],
-        hotelData:[]
+        selectedHotelId:'',
+        selectedHotelName:'',
+        selectedRoomId:'',
       }
   }
 
   render() {
     return(
         <Router>
+            <ScrollToTop />
             <Header username={this.state.loggedInUser.username} onLogoutUser={this.logoutUser}
                     onLoginUser={this.loginUser} onRegisterUser={this.registerUser}/>
             <main>
@@ -33,8 +47,31 @@ class App extends Component{
                         <Route path={"/profile"} element={
                             <Profile user={this.state.userInfo}  onLeaveReview={this.leaveReview} />  }  />
 
-                        <Route path={"/hotels/add"} element={
-                            <AddNewHotel onAddNewHotel={this.addNewHotel} /> } />
+                        <Route path={"/admin/hotels/add"} element={
+                            <AddHotel /> } />
+                        <Route path={"/admin/hotels/edit/:hotelId"}
+                               element={ <EditHotel selectedHotelId={this.state.selectedHotelId} /> } />
+                        <Route path={"/admin/hotels/imagesForHotel/:hotelId"}
+                               element={<EditHotelImages selectedHotelId={this.state.selectedHotelId} /> } />
+                        <Route path={"/admin/hotels"}
+                               element={ <HotelAdminList setSelectedHotelId={this.setSelectedHotelId} /> } />
+
+                        <Route path={"/trips/add"} element={ <AddTrip  /> } />
+                        <Route path={"/trips"} element={ <TripList  /> } />
+
+                        <Route path={"/admin/rooms/add"}
+                               element={<AddRoom selectedHotelId={this.state.selectedHotelId}/> } />
+                        <Route path={"/admin/rooms/edit/:roomId"}
+                               element={<EditRoom selectedRoomId={this.state.selectedRoomId}/>} />
+                        <Route path={"/admin/rooms/imagesForRoom/:roomId"}
+                               element={<EditRoomImages selectedRoomId={this.state.selectedRoomId} />} />
+                        <Route path={"/admin/rooms/roomsInHotel/:hotelId"}
+                               element={ <RoomAdminList selectedHotelId={this.state.selectedHotelId}
+                                                        selectedHotelName={this.state.selectedHotelName}
+                                                        setSelectedRoomId={this.setSelectedRoomId}/> } />
+
+
+
                     </Routes>
                 </div>
             </main>
@@ -50,8 +87,30 @@ class App extends Component{
           this.setState({ loggedInUser: currentUser })
           this.getInfoAboutUser(currentUser.username);
       }
-
+      if(localStorage.getItem("selectedHotelId") !== null) {
+          this.setState({selectedHotelId: localStorage.getItem("selectedHotelId")})
+          this.setState({selectedHotelName: localStorage.getItem("selectedHotelName")})
+      }
+      if(localStorage.getItem("selectedRoomId") !== null)
+          this.setState({selectedRoomId: localStorage.getItem("selectedRoomId")})
   }
+
+    setSelectedHotelId=(hotelId,hotelName)=>{
+      localStorage.setItem("selectedHotelId",hotelId)
+      localStorage.setItem("selectedHotelName",hotelName)
+      this.setState({
+          selectedHotelId:hotelId,
+          selectedHotelName:hotelName
+          //selectedHotelId :'c07018fd-42e0-44f6-b42d-5a20cdbb55f4'
+      })
+    }
+
+    setSelectedRoomId=(roomId)=>{
+      localStorage.setItem("selectedRoomId",roomId)
+        this.setState({
+            selectedRoomId:roomId
+        })
+    }
 
     loginUser=(username,password)=>{
         AuthenticationService.loginUser(username,password)
@@ -106,12 +165,7 @@ class App extends Component{
             })
     }
 
-    addNewHotel=(name, description, address, city, country, amenities, checkInHour, checkOutHour, latitude, longitude, imagesUrl)=>{
-      HotelService.addNewHotel(name, description, address, city, country, amenities, checkInHour, checkOutHour, latitude, longitude, imagesUrl)
-          .then(()=>{
 
-          })
-    }
 }
 
 export default App;

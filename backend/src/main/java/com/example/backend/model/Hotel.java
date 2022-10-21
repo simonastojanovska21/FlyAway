@@ -29,16 +29,20 @@ public class Hotel {
 
     private String checkOutHour;
 
+    private int stars;
+
     @OneToOne
     private Location hotelLocation;
 
-    public Hotel(String name, String description, String address, String amenities, String checkInHour, String checkOutHour, Location hotelLocation) {
+    public Hotel(String name, String description, String address, String amenities, String checkInHour,
+                 String checkOutHour, int stars,Location hotelLocation) {
         this.name = name;
         this.description = description;
         this.address = address;
         this.amenities = amenities;
         this.checkInHour = checkInHour;
         this.checkOutHour = checkOutHour;
+        this.stars=stars;
         this.hotelLocation = hotelLocation;
     }
 }

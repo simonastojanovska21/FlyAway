@@ -1,7 +1,7 @@
 package com.example.backend.service.impl;
 
 import com.example.backend.model.User;
-import com.example.backend.model.dto.RegisterDto;
+import com.example.backend.model.forms.RegisterForm;
 import com.example.backend.model.enumerations.Role;
 import com.example.backend.model.exceptions.InvalidUsernameOrPasswordException;
 import com.example.backend.model.exceptions.PasswordsDoNotMatchException;
@@ -24,16 +24,16 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Optional<User> register(RegisterDto registerDto) throws InvalidUsernameOrPasswordException, PasswordsDoNotMatchException,UsernameAlreadyExistsException {
+    public Optional<User> register(RegisterForm registerForm) throws InvalidUsernameOrPasswordException, PasswordsDoNotMatchException,UsernameAlreadyExistsException {
 
-        if(registerDto.getUsername()==null || registerDto.getPassword()==null)
+        if(registerForm.getUsername()==null || registerForm.getPassword()==null)
             throw new InvalidUsernameOrPasswordException("The username or password entered is not correct.");
-        if(!registerDto.getPassword().equals(registerDto.getRepeatedPassword()))
+        if(!registerForm.getPassword().equals(registerForm.getRepeatedPassword()))
             throw new PasswordsDoNotMatchException("Entered passwords do not match.");
-        if(this.userRepository.findByUsername(registerDto.getUsername()).isPresent())
-            throw new UsernameAlreadyExistsException("Username: "+registerDto.getUsername()+" already exists.");
-        String encrypted=this.passwordEncoder.encode(registerDto.getPassword());
-        User user=new User(registerDto.getUsername(),encrypted,registerDto.getName(),registerDto.getSurname()
+        if(this.userRepository.findByUsername(registerForm.getUsername()).isPresent())
+            throw new UsernameAlreadyExistsException("Username: "+ registerForm.getUsername()+" already exists.");
+        String encrypted=this.passwordEncoder.encode(registerForm.getPassword());
+        User user=new User(registerForm.getUsername(),encrypted, registerForm.getName(), registerForm.getSurname()
                  ,Role.ROLE_USER);
         return Optional.of(this.userRepository.save(user));
     }

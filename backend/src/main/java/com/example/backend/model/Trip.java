@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -17,23 +18,16 @@ public class Trip {
     @GeneratedValue
     private UUID id;
 
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
-    private LocalDateTime endDate;
-
-    private double price;
-
-    @ManyToOne
-    private Destination tripForDestination;
+    private LocalDate endDate;
 
     @ManyToOne
     private Hotel tripInHotel;
 
-    public Trip(LocalDateTime startDate, LocalDateTime endDate, double price, Destination tripForDestination, Hotel tripInHotel) {
+    public Trip(LocalDate startDate, LocalDate endDate, Hotel tripInHotel) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.price = price;
-        this.tripForDestination = tripForDestination;
         this.tripInHotel = tripInHotel;
     }
 }

@@ -1,8 +1,8 @@
 package com.example.backend.web;
 
 import com.example.backend.model.Review;
-import com.example.backend.model.dto.HotelReviewDto;
-import com.example.backend.model.dto.ReviewDto;
+import com.example.backend.model.forms.HotelReviewForm;
+import com.example.backend.model.forms.ReviewForm;
 import com.example.backend.service.ReviewService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +23,15 @@ public class ReviewRestController {
     }
 
     @PostMapping("/addReview")
-    public ResponseEntity<?> addNewReview(@RequestBody ReviewDto reviewDto){
-        return this.reviewService.addNewReview(reviewDto)
+    public ResponseEntity<?> addNewReview(@RequestBody ReviewForm reviewForm){
+        return this.reviewService.addNewReview(reviewForm)
                 .map(review->ResponseEntity.ok().body(review))
                 .orElseGet(()->ResponseEntity.badRequest().build());
     }
 
     @PostMapping("/addHotelReview")
-    public ResponseEntity<?> addHotelReview(@RequestBody HotelReviewDto hotelReviewDto){
-        return this.reviewService.addNewHotelReview(hotelReviewDto)
+    public ResponseEntity<?> addHotelReview(@RequestBody HotelReviewForm hotelReviewForm){
+        return this.reviewService.addNewHotelReview(hotelReviewForm)
                 .map(hotelReview->ResponseEntity.ok().body(hotelReview))
                 .orElseGet(()->ResponseEntity.badRequest().build());
     }

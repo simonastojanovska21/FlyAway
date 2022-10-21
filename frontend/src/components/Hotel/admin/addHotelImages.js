@@ -1,6 +1,6 @@
 import React from "react";
 
-const HotelImages=(props)=>{
+const AddHotelImages=(props)=>{
     return(
         <div className={"text-start pt-3 row g-4"}>
             <div className="col-md-6 form-floating">
@@ -21,4 +21,4 @@ const HotelImages=(props)=>{
     )
 }
 
-export default HotelImages;
+export default AddHotelImages;

@@ -4,10 +4,9 @@ import com.example.backend.model.Hotel;
 import com.example.backend.model.HotelReview;
 import com.example.backend.model.Review;
 import com.example.backend.model.User;
-import com.example.backend.model.dto.HotelReviewDto;
-import com.example.backend.model.dto.ReviewDto;
+import com.example.backend.model.forms.HotelReviewForm;
+import com.example.backend.model.forms.ReviewForm;
 import com.example.backend.model.exceptions.HotelNotFoundException;
-import com.example.backend.model.exceptions.UserNotFoundException;
 import com.example.backend.repository.HotelReviewRepository;
 import com.example.backend.repository.ReviewRepository;
 import com.example.backend.service.HotelService;
@@ -30,23 +29,23 @@ public class ReviewServiceImpl implements ReviewService {
     private final UserService userService;
     private final HotelService hotelService;
     @Override
-    public Optional<Review> addNewReview(ReviewDto reviewDto) {
-        User user = this.userService.getUserInfo(reviewDto.getUsername())
-                .orElseThrow(()->new UsernameNotFoundException("User with username "+ reviewDto.getUsername()
+    public Optional<Review> addNewReview(ReviewForm reviewForm) {
+        User user = this.userService.getUserInfo(reviewForm.getUsername())
+                .orElseThrow(()->new UsernameNotFoundException("User with username "+ reviewForm.getUsername()
                         + " is not found"));
-        Review review = new Review(reviewDto.getStars(),reviewDto.getDescriptions(),user);
+        Review review = new Review(reviewForm.getStars(), reviewForm.getDescriptions(),user);
         return Optional.of(this.reviewRepository.save(review));
     }
 
     @Override
-    public Optional<HotelReview> addNewHotelReview(HotelReviewDto hotelReviewDto) {
-        User user = this.userService.getUserInfo(hotelReviewDto.getUsername())
-                .orElseThrow(()->new UsernameNotFoundException("User with username "+ hotelReviewDto.getUsername()
+    public Optional<HotelReview> addNewHotelReview(HotelReviewForm hotelReviewForm) {
+        User user = this.userService.getUserInfo(hotelReviewForm.getUsername())
+                .orElseThrow(()->new UsernameNotFoundException("User with username "+ hotelReviewForm.getUsername()
                         + " is not found"));
-        Hotel hotel = this.hotelService.getHotel(hotelReviewDto.getHotelId())
-                .orElseThrow(()->new HotelNotFoundException("Hotel with id " + hotelReviewDto.getHotelId()
+        Hotel hotel = this.hotelService.getHotelDetails(hotelReviewForm.getHotelId())
+                .orElseThrow(()->new HotelNotFoundException("Hotel with id " + hotelReviewForm.getHotelId()
                         +" is not found"));
-        HotelReview hotelReview = new HotelReview(hotelReviewDto.getStars(), hotelReviewDto.getDescriptions(),
+        HotelReview hotelReview = new HotelReview(hotelReviewForm.getStars(), hotelReviewForm.getDescriptions(),
                 hotel,user);
         return Optional.of(this.hotelReviewRepository.save(hotelReview));
     }

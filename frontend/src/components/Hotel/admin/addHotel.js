@@ -1,14 +1,14 @@
 import React, {Component} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircleQuestion, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faCircleQuestion, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 import $ from "jquery";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import HotelService from "../../services/HotelService";
-import HotelImages from "./hotelImages";
-import {Redirect, useNavigate} from "react-router-dom";
+import HotelService from "../../../services/HotelService";
+import AddHotelImages from "./addHotelImages";
+import {Navigate} from "react-router-dom";
 
-class AddNewHotel extends Component{
+class AddHotel extends Component{
 
     constructor(props) {
         super(props);
@@ -24,11 +24,18 @@ class AddNewHotel extends Component{
             checkOutHour:"",
             latitude:"",
             longitude:"",
-            imageComponents:0
+            stars:0,
+            imageComponents:0,
+            redirect:false
         }
     }
 
     render() {
+        if(this.state.redirect){
+            return (
+                <Navigate to={"/"} />
+            )
+        }
         return(
             <div className={"lightBackground pt-5 pb-5"}>
                 <div className={"container text-center"} style={{width:'65%'}}>
@@ -102,7 +109,7 @@ class AddNewHotel extends Component{
                             </div>
 
                             <div className={"col-md-12 ps-3"}>
-                                <label htmlFor={"amenities"} className={"form-label pb-2"}>Amenities for hotel:</label>
+                                <label htmlFor={"amenities"} className={"form-label pb-2 fw-bold"}>Amenities for hotel:</label>
                                 <ul className={"list-unstyled row"}>
                                     {this.state.amenities.map((term)=>{
                                         return(
@@ -113,6 +120,15 @@ class AddNewHotel extends Component{
                                         )
                                     })}
                                 </ul>
+                            </div>
+
+                            <div className={"col-md-6 form-floating"}>
+                                <input type="number" className="form-control shadow-sm border-0 " name="stars"
+                                       placeholder="Enter number of stars the hotel has"
+                                       max={5} min={1}
+                                       onChange={this.handleChange}
+                                       required/>
+                                <label htmlFor="stars" className="form-label ps-4">Number of stars</label>
                             </div>
 
                             <div className="col-md-12 form-floating">
@@ -136,6 +152,10 @@ class AddNewHotel extends Component{
                             <FontAwesomeIcon icon={faPlus} />
                             <br/>
                         </button>
+                        <button name="quantity" className={"btn btn-minus ms-3"} type="button" onClick={this.handleMinusClick}
+                                style={{backgroundColor: '#8AA6CA', color: '#f3f7f0'}} >
+                            <FontAwesomeIcon icon={faMinus} />
+                        </button>
                         <div id={"hotelImages"}>
                             <div className={"text-start pt-3 row g-4"}>
                                 <div className="col-md-6 form-floating">
@@ -153,9 +173,9 @@ class AddNewHotel extends Component{
                             </div>
 
                             {Array.apply(null, {length: this.state.imageComponents})
-                                .map((t)=><HotelImages imageTags={this.state.imageTags} /> )}
+                                .map((t)=><AddHotelImages imageTags={this.state.imageTags} /> )}
                         </div>
-                        <button onClick={this.testing}>f</button>
+
                         <div className={"d-grid gap-2 col-md-8 mx-auto pt-5"}>
                             <button  type="submit" className="btn btn-block text-white"
                                     style={{backgroundColor: '#8AA6CA'}}>
@@ -182,6 +202,16 @@ class AddNewHotel extends Component{
             })
     }
 
+    addNewHotel=(name, description, address, city, country, amenities, checkInHour, checkOutHour, latitude, longitude,stars, imagesUrl)=>{
+        HotelService.addNewHotel(name, description, address, city, country, amenities, checkInHour, checkOutHour, latitude, longitude, stars,imagesUrl)
+            .then(()=>{
+                this.setState({
+                    ...this.state,
+                    redirect:true
+                })
+            })
+    }
+
     handleChange=(e)=>{
         this.setState({
             ...this.state,
@@ -195,14 +225,16 @@ class AddNewHotel extends Component{
             imageComponents : this.state.imageComponents+1
         })
     };
-    testing=(e)=>{
-        e.preventDefault();
-        let selectedAmenities=[]
-        $('input[name="amenities"]:checked').each(function (){
-            selectedAmenities.push(this.value)
-        })
-        console.log(selectedAmenities.toString())
-    }
+
+    handleMinusClick = (e) => {
+        if(this.state.imageComponents > 0){
+            this.setState({
+                ...this.state,
+                imageComponents : this.state.imageComponents-1
+            })
+        }
+    };
+
     onFormSubmit=(e)=>{
         e.preventDefault();
         let selectedAmenities=[]
@@ -218,7 +250,7 @@ class AddNewHotel extends Component{
             let image = {"imageUrl":this.value, "imageTag":imagesTags[index] }
             imagesUrl.push(image)
         })
-        console.log(imagesUrl)
+
         const name=this.state.name;
         const description=this.state.description;
         const address=this.state.address;
@@ -229,12 +261,12 @@ class AddNewHotel extends Component{
         const checkOutHour=this.state.checkOutHour
         const latitude=this.state.latitude
         const longitude=this.state.longitude
+        const stars = this.state.stars;
 
-        this.props.onAddNewHotel(name, description, address, city, country, amenities, checkInHour, checkOutHour,
-            latitude, longitude, imagesUrl)
-
+        this.addNewHotel(name, description, address, city, country, amenities, checkInHour, checkOutHour,
+            latitude, longitude,stars, imagesUrl)
     }
 
 }
 
-export default AddNewHotel;
+export default AddHotel;

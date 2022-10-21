@@ -33,7 +33,7 @@ class DatePicker extends Component{
     render() {
         const { focusedInput, startDate, endDate } = this.state;
         let minimumNights  = 1;
-        let maximumNights = 8;
+        let maximumNights = 11;
         let maximumEndDate = moment().add(maximumNights, 'days');
         let condition;
 

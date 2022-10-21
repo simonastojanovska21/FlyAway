@@ -1,9 +1,9 @@
-package com.example.backend.model.dto;
+package com.example.backend.model.forms;
 
 import lombok.Data;
 
 @Data
-public class RegisterDto {
+public class RegisterForm {
 
     private String username;
 

@@ -23,6 +23,7 @@ public class Room {
 
     private int numberOfGuests;
 
+    @Enumerated(value = EnumType.STRING)
     private RoomType roomType;
 
     @ManyToOne

@@ -1,11 +1,11 @@
-package com.example.backend.model.dto;
+package com.example.backend.model.forms;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class HotelDto {
+public class HotelForm {
     private String name;
 
     private String description;
@@ -26,5 +26,7 @@ public class HotelDto {
 
     private double longitude;
 
-    private List<ImageDto> imagesUrl;
+    private int stars;
+
+    private List<ImageForm> imagesUrl;
 }

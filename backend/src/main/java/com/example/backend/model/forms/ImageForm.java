@@ -1,9 +1,9 @@
-package com.example.backend.model.dto;
+package com.example.backend.model.forms;
 
 import lombok.Data;
 
 @Data
-public class ImageDto {
+public class ImageForm {
     private String imageUrl;
     private String imageTag;
 }
