@@ -40,7 +40,7 @@ class EditHotelImages extends Component{
                         {this.state.images.map((term)=>{
                             return(
                                 <div className={"col-3 pe-3"} >
-                                    <div className=" card mb-3 shadow p-3 rounded" style={{height:'370px'}}>
+                                    <div className=" card mb-3 shadow p-3 rounded" style={{height:'300px'}}>
                                         <img src={term.url} className={"rounded"} alt="hotel room"/>
                                         <div className="card-body">
                                             <span>{term.imageTag}</span>

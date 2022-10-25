@@ -78,7 +78,7 @@ class EditRoom extends Component{
 
     componentDidMount() {
         const roomId=localStorage.getItem("selectedRoomId")
-        roomId !== null ? this.getRoomDetails(roomId) : this.getRoomDetails(roomId)
+        roomId !== null ? this.getRoomDetails(roomId) : this.getRoomDetails(this.props.selectedRoomId)
 
         this.getRoomData()
     }

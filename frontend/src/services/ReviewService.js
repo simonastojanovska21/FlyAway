@@ -11,6 +11,15 @@ const ReviewService={
 
     getThreeReviews:()=>{
         return axios.get('/api/review/reviewList')
+    },
+
+    leaveHotelReview:(stars,description,username,hotelId)=>{
+        return axios.post('/api/review/addHotelReview',{
+            "stars":stars,
+            "description":description,
+            "username":username,
+            "hotelId":hotelId
+        })
     }
 }
 

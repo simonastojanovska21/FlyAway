@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class RoomForm {
-    private String roomNumber;
+    private int numberOfAvailableRooms;
 
     private double pricePerNight;
 

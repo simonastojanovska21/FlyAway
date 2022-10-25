@@ -1,6 +1,7 @@
 package com.example.backend.web;
 
 import com.example.backend.model.dto.HotelNameIdDto;
+import com.example.backend.model.dto.TripDetailsDto;
 import com.example.backend.model.dto.TripDto;
 import com.example.backend.model.forms.TripForm;
 import com.example.backend.service.TripService;
@@ -21,6 +22,13 @@ public class TripRestController {
     @GetMapping("/all")
     public List<TripDto> getAllTrips(){
         return this.tripService.getAllTrips();
+    }
+
+    @GetMapping("/details/{tripId}")
+    public ResponseEntity<TripDetailsDto> getTripDetails(@PathVariable String tripId){
+        return this.tripService.getTripDetails(tripId)
+                .map(tripDetailsDto -> ResponseEntity.ok().body(tripDetailsDto))
+                .orElseGet(()->ResponseEntity.badRequest().build());
     }
 
     @PostMapping("/addNewTrip")

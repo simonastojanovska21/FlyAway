@@ -31,7 +31,7 @@ class RoomAdminList extends Component{
                     <table className="table table-striped">
                         <thead>
                         <tr>
-                            <th>Room number</th>
+                            <th>Number of available rooms</th>
                             <th>Room type</th>
                             <th>Price per night (&euro;)</th>
                             <th>Actions</th>
@@ -41,7 +41,7 @@ class RoomAdminList extends Component{
                         {this.state.roomsList.map((term)=>{
                             return(
                                 <tr>
-                                    <td className={"align-middle fw-bold"}>{term.roomNumber}</td>
+                                    <td className={"align-middle fw-bold"}>{term.numberOfAvailableRooms}</td>
                                     <td className={"align-middle"}>{term.roomType}</td>
                                     <td className={"align-middle"}>{term.pricePerNight}</td>
                                     <td className={"text-end align-middle"}>
@@ -57,9 +57,7 @@ class RoomAdminList extends Component{
                                             Edit room images
                                         </Link>
                                         <br/>
-                                        <Link className={"btn me-3 mt-3"} style={{backgroundColor: '#8AA6CA'}}>
-                                            Check availability
-                                        </Link>
+
                                         <ConfirmDelete itemId={term.id} onDeleteItem={this.deleteRoom} />
                                     </td>
                                 </tr>

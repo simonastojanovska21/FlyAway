@@ -3,6 +3,7 @@ package com.example.backend.service;
 import com.example.backend.model.Hotel;
 import com.example.backend.model.dto.EditHotelDto;
 import com.example.backend.model.dto.HotelNameIdDto;
+import com.example.backend.model.dto.TripInHotelDetailsDto;
 import com.example.backend.model.forms.HotelForm;
 import com.example.backend.model.dto.HotelItem;
 
@@ -17,4 +18,5 @@ public interface HotelService {
     Optional<Hotel> updateHotel(String hotelId, EditHotelDto editHotelDto);
     boolean deleteHotel(String hotelId);
     List<HotelNameIdDto> getHotelsNameAndId();
+    TripInHotelDetailsDto getTripInHotelDetails(String tripId,String hotelId);
 }

@@ -13,7 +13,7 @@ class AddRoom extends Component{
         super(props);
         this.state={
             roomTypes:[],
-            roomNumber:"",
+            numberOfAvailableRooms:0,
             roomType:"",
             numberOfGuests:1,
             pricePerNight:0,
@@ -38,11 +38,11 @@ class AddRoom extends Component{
 
                         <div className={"row g-4 pb-4"}>
                             <div className="col-md-6 form-floating ">
-                                <input type="text" className="form-control shadow-sm border-0 " name="roomNumber"
+                                <input type="text" className="form-control shadow-sm border-0 " name="numberOfAvailableRooms"
                                        placeholder="Enter room number"
                                        onChange={this.handleChange}
                                        required/>
-                                <label htmlFor="roomNumber" className="form-label ps-4">Room number</label>
+                                <label htmlFor="numberOfAvailableRooms" className="form-label ps-4">Room number</label>
 
                             </div>
                             <div className="col-md-6 form-floating">
@@ -129,8 +129,8 @@ class AddRoom extends Component{
             })
     }
 
-    addNewRoomForHotel=(roomNumber,pricePerNight,numberOfGuests,roomType,hotelId,imagesUrl)=>{
-        RoomService.addNewRoom(roomNumber,pricePerNight,numberOfGuests,roomType,hotelId,imagesUrl)
+    addNewRoomForHotel=(numberOfAvailableRooms,pricePerNight,numberOfGuests,roomType,hotelId,imagesUrl)=>{
+        RoomService.addNewRoom(numberOfAvailableRooms,pricePerNight,numberOfGuests,roomType,hotelId,imagesUrl)
             .then(()=>{
                 this.setState({
                     ...this.state,
@@ -170,12 +170,12 @@ class AddRoom extends Component{
         })
         console.log(imagesUrl)
 
-        const roomNumber=this.state.roomNumber;
+        const numberOfAvailableRooms=this.state.numberOfAvailableRooms;
         const roomType=this.state.roomType;
         const numberOfGuests=this.state.numberOfGuests;
         const pricePerNight=this.state.pricePerNight
 
-        this.addNewRoomForHotel(roomNumber,pricePerNight,numberOfGuests,roomType,localStorage.getItem("selectedHotelId"),imagesUrl)
+        this.addNewRoomForHotel(numberOfAvailableRooms,pricePerNight,numberOfGuests,roomType,localStorage.getItem("selectedHotelId"),imagesUrl)
     }
 }
 

@@ -17,7 +17,7 @@ public class Room {
     @GeneratedValue
     private UUID id;
 
-    private String roomNumber;
+    private int numberOfAvailableRooms;
 
     private double pricePerNight;
 
@@ -29,8 +29,8 @@ public class Room {
     @ManyToOne
     private Hotel roomInHotel;
 
-    public Room(String roomNumber, double pricePerNight, int numberOfGuests, RoomType roomType, Hotel roomInHotel) {
-        this.roomNumber = roomNumber;
+    public Room(int numberOfAvailableRooms, double pricePerNight, int numberOfGuests, RoomType roomType, Hotel roomInHotel) {
+        this.numberOfAvailableRooms = numberOfAvailableRooms;
         this.pricePerNight = pricePerNight;
         this.numberOfGuests = numberOfGuests;
         this.roomType = roomType;

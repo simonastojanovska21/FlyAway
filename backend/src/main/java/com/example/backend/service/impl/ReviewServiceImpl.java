@@ -45,7 +45,7 @@ public class ReviewServiceImpl implements ReviewService {
         Hotel hotel = this.hotelService.getHotelDetails(hotelReviewForm.getHotelId())
                 .orElseThrow(()->new HotelNotFoundException("Hotel with id " + hotelReviewForm.getHotelId()
                         +" is not found"));
-        HotelReview hotelReview = new HotelReview(hotelReviewForm.getStars(), hotelReviewForm.getDescriptions(),
+        HotelReview hotelReview = new HotelReview(hotelReviewForm.getStars(), hotelReviewForm.getDescription(),
                 hotel,user);
         return Optional.of(this.hotelReviewRepository.save(hotelReview));
     }

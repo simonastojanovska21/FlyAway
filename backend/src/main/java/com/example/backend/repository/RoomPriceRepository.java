@@ -8,4 +8,6 @@ import java.util.UUID;
 
 @Repository
 public interface RoomPriceRepository extends JpaRepository<RoomPrice, UUID> {
+    RoomPrice findFirstByRoomPriceForTrip_IdOrderByRoomPrice(UUID tripId);
+    RoomPrice findByRoomPriceForTrip_IdAndRoomType(UUID tripId, String roomType);
 }

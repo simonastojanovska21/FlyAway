@@ -12,6 +12,10 @@
   font-weight: bold;
 }
 
+.redButtonBackground{
+  background-color: #BB0422;
+}
+
 .companyName{
   font-size: 36px;
   color: #cccec9;
@@ -137,6 +141,44 @@
   clip: rect(0,0,0,0);
 }
 
+.viewOfferButton{
+  position:absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.pricePerNight{
+  position:absolute;
+  bottom: 20%;
+  right: 2%;
+}
+
+.showOnMap{
+  position:absolute;
+  top:2%;
+  right:43%;
+  z-index: 11;
+}
+
+.showAllImagesForHotel{
+  position:absolute;
+  bottom: 4%;
+  right: 10%;
+}
+
+#tripMap {
+  width: 100%;
+  height: 500px;
+}
+
+.modal-90w {
+  max-width: 90% !important;
+}
+
+.modal-60w {
+  max-width: 60% !important;
+}
+
 .rate-area:not(:checked) > label {
   float: right;
   width: 1em;
@@ -220,6 +262,10 @@
   border-radius: 2px;
 }
 
+.redText{
+  color: #BB0422;
+}
+
 .selectedProfileLink{
   border-left: 2px solid #BB0422;
 }
@@ -228,8 +274,52 @@
   color:revert;
 }
 
-/*&:not(:focus)::placeholder {*/
-/*   color: transparent;*/
-/* }*/
-/*...*/
+.bookingDetails{
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 10px;
+  z-index: 1;
+  max-height: 500px;
+  height: 200px;
+}
+
+.choose-room-header{
+  font-size: 18px;
+  padding: 20px 0 0 20px;
+}
+
+.choose-room-content{
+  max-height: 55vh;
+  overflow-y: scroll;
+}
+
+.choose-room-images{
+  width: 80%;
+}
+
+.checkText {
+  font-size: 1.2rem;
+  line-height: 2rem;
+}
+
+#tripDetailsMap{
+  width: 100%;
+  height: 300px;
+}
+
+/*#checkOutButton button{*/
+/*  color: #BB0422;*/
 /*}*/
+.StripeCheckout   {
+  background: #BB0422 !important;
+  padding: 3px 3px !important;
+  width: 100%;
+}
+
+.StripeCheckout span{
+  background: #BB0422 !important;
+  box-shadow: none !important;
+  font-size: 18px !important;
+  width: 100%;
+}

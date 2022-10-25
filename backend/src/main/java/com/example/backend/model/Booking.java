@@ -33,11 +33,14 @@ public class Booking {
     @OneToOne
     private Room bookingForRoom;
 
-    public Booking(BookingStatus bookingStatus, LocalDateTime bookingTime, User userMakesBooking, Trip bookingForTrip, Room bookingForRoom) {
-        this.bookingStatus = bookingStatus;
-        this.bookingTime = bookingTime;
+    private double totalPrice;
+
+    public Booking(User userMakesBooking, Trip bookingForTrip, Room bookingForRoom, double totalPrice) {
+        this.bookingStatus = BookingStatus.RESERVED;
+        this.bookingTime = LocalDateTime.now();
         this.userMakesBooking = userMakesBooking;
         this.bookingForTrip = bookingForTrip;
         this.bookingForRoom = bookingForRoom;
+        this.totalPrice = totalPrice;
     }
 }

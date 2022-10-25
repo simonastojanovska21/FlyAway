@@ -20,6 +20,10 @@ import EditRoomImages from "../Room/editRoomImages";
 import HotelList from "../Hotel/hotelList";
 import AddTrip from "../Trip/addTrip";
 import TripList from "../Trip/tripList";
+import TripDetails from "../TripDetails/tripDetails";
+import UpcomingBookingsForUser from "../Bookings/upcomingBookingsForUser";
+import PayForBooking from "../Payment/payForBooking";
+import SuccessfulPayment from "../Payment/successfulPayment";
 
 class App extends Component{
   constructor(props) {
@@ -31,6 +35,8 @@ class App extends Component{
         selectedHotelId:'',
         selectedHotelName:'',
         selectedRoomId:'',
+        selectedTripId:'',
+        selectedBookingId:'',
       }
   }
 
@@ -56,8 +62,13 @@ class App extends Component{
                         <Route path={"/admin/hotels"}
                                element={ <HotelAdminList setSelectedHotelId={this.setSelectedHotelId} /> } />
 
-                        <Route path={"/trips/add"} element={ <AddTrip  /> } />
-                        <Route path={"/trips"} element={ <TripList  /> } />
+                        <Route path={"/trips/add"}
+                               element={ <AddTrip  /> } />
+                        <Route path={"/trips/details/:tripId"}
+                               element={<TripDetails selectedHotelId={this.state.selectedHotelId}
+                                                     selectedTripId={this.state.selectedTripId} /> } />
+                        <Route path={"/trips"}
+                               element={ <TripList setSelectedTripId={this.setSelectedTripId}  /> } />
 
                         <Route path={"/admin/rooms/add"}
                                element={<AddRoom selectedHotelId={this.state.selectedHotelId}/> } />
@@ -70,7 +81,11 @@ class App extends Component{
                                                         selectedHotelName={this.state.selectedHotelName}
                                                         setSelectedRoomId={this.setSelectedRoomId}/> } />
 
-
+                        <Route path={"/bookings"}
+                               element={ <UpcomingBookingsForUser setSelectedBookingId={this.setSelectedBookingId} /> } />
+                        <Route path={"/payment/:bookingId"}
+                               element={ <PayForBooking selectedBookingId={this.state.selectedBookingId} /> } />
+                        <Route path={"/successfulPayment"} element={ <SuccessfulPayment  /> } />
 
                     </Routes>
                 </div>
@@ -86,6 +101,7 @@ class App extends Component{
       if (currentUser) {
           this.setState({ loggedInUser: currentUser })
           this.getInfoAboutUser(currentUser.username);
+          localStorage.setItem("username",currentUser.username)
       }
       if(localStorage.getItem("selectedHotelId") !== null) {
           this.setState({selectedHotelId: localStorage.getItem("selectedHotelId")})
@@ -93,6 +109,8 @@ class App extends Component{
       }
       if(localStorage.getItem("selectedRoomId") !== null)
           this.setState({selectedRoomId: localStorage.getItem("selectedRoomId")})
+      if(localStorage.getItem("selectedTripId") !==null)
+          this.setState({selectedTripId: localStorage.getItem("selectedTripId")})
   }
 
     setSelectedHotelId=(hotelId,hotelName)=>{
@@ -109,6 +127,21 @@ class App extends Component{
       localStorage.setItem("selectedRoomId",roomId)
         this.setState({
             selectedRoomId:roomId
+        })
+    }
+    setSelectedTripId=(selectedTripId,hotelId)=>{
+        localStorage.setItem("selectedTripId",selectedTripId)
+        localStorage.setItem("selectedHotelId",hotelId)
+        this.setState({
+            selectedTripId:selectedTripId,
+            selectedHotelId:hotelId
+        })
+    }
+
+    setSelectedBookingId=(selectedBookingId)=>{
+      localStorage.setItem("selectedBookingId",selectedBookingId)
+        this.setState({
+            selectedBookingId:selectedBookingId
         })
     }
 

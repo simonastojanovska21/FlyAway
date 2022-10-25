@@ -8,6 +8,14 @@ const TripService={
             "startDate": startDate,
             "endDate": endDate
         })
+    },
+
+    getAllTrips:()=>{
+        return axios.get('/api/trips/all')
+    },
+
+    getTripDetails:(tripId)=>{
+        return axios.get(`/api/trips/details/${tripId}`)
     }
 }
 

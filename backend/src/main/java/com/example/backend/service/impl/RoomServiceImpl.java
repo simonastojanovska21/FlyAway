@@ -4,6 +4,7 @@ import com.example.backend.model.Hotel;
 import com.example.backend.model.Room;
 import com.example.backend.model.RoomImage;
 import com.example.backend.model.dto.EditRoomDto;
+import com.example.backend.model.dto.RoomDto;
 import com.example.backend.model.dto.RoomTypesAndPriceDto;
 import com.example.backend.model.exceptions.RoomNotFoundException;
 import com.example.backend.model.forms.RoomForm;
@@ -11,6 +12,7 @@ import com.example.backend.model.enumerations.RoomType;
 import com.example.backend.model.exceptions.HotelNotFoundException;
 import com.example.backend.repository.HotelRepository;
 import com.example.backend.repository.RoomImageRepository;
+import com.example.backend.repository.RoomPriceRepository;
 import com.example.backend.repository.RoomRepository;
 import com.example.backend.service.RoomService;
 import lombok.AllArgsConstructor;
@@ -26,13 +28,14 @@ public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
     private final HotelRepository hotelRepository;
     private final RoomImageRepository roomImageRepository;
+    private final RoomPriceRepository roomPriceRepository;
 
     @Override
     public Optional<Room> addNewRoomForHotel(RoomForm roomForm) {
         Hotel hotel = this.hotelRepository.findById(UUID.fromString(roomForm.getHotelId()))
                 .orElseThrow(()->new HotelNotFoundException("Hotel with id " + roomForm.getHotelId()
                         +" is not found"));
-        Room room = this.roomRepository.save(new Room(roomForm.getRoomNumber(), roomForm.getPricePerNight(), roomForm.getNumberOfGuests(),
+        Room room = this.roomRepository.save(new Room(roomForm.getNumberOfAvailableRooms(), roomForm.getPricePerNight(), roomForm.getNumberOfGuests(),
                 RoomType.valueOf(roomForm.getRoomType()),hotel));
         roomForm.getImagesUrl().forEach(image->this.addRoomImage(image,room));
         return Optional.of(room);
@@ -82,6 +85,22 @@ public class RoomServiceImpl implements RoomService {
     public List<RoomTypesAndPriceDto> getRoomTypesAndPriceInHotel(String hotelId) {
         return this.getRoomsInHotel(hotelId).stream()
                 .map(room -> new RoomTypesAndPriceDto(room.getRoomType().toString(),room.getPricePerNight()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getRoomImages(UUID roomId){
+        return this.roomImageRepository.findAllByImageForRoom_Id(roomId).stream()
+                .map(RoomImage::getUrl).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RoomDto> getRoomsInHotelForTrip(String tripId, String hotelId) {
+        return this.roomRepository.findAllByRoomInHotelId(UUID.fromString(hotelId))
+                .stream().map(room -> new RoomDto(room.getId().toString(),room.getRoomType().toString(),
+                        room.getNumberOfGuests(),true,
+                        this.roomPriceRepository.findByRoomPriceForTrip_IdAndRoomType(UUID.fromString(tripId),
+                                room.getRoomType().toString()).getRoomPrice(), getRoomImages(room.getId())))
                 .collect(Collectors.toList());
     }
 }

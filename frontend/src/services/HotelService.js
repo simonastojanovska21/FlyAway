@@ -47,6 +47,10 @@ const HotelService={
 
     getHotelsNameAndId:()=>{
         return axios.get('/api/hotels/getHotelsNameAndId')
+    },
+
+    getTripInHotelDetails:(tripId,hotelId)=>{
+        return axios.get(`/api/hotels/getTripInHotelDetails/${tripId}/${hotelId}`)
     }
 }
 

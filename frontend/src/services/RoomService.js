@@ -5,9 +5,9 @@ const RoomService={
         return axios.get('/api/rooms/roomData')
     },
 
-    addNewRoom:(roomNumber,pricePerNight,numberOfGuests,roomType,hotelId,imagesUrl)=>{
+    addNewRoom:(numberOfAvailableRooms,pricePerNight,numberOfGuests,roomType,hotelId,imagesUrl)=>{
         return axios.post('/api/rooms/addNewRoom',{
-            "roomNumber":roomNumber,
+            "numberOfAvailableRooms":numberOfAvailableRooms,
             "pricePerNight":pricePerNight,
             "numberOfGuests":numberOfGuests,
             "roomType":roomType,

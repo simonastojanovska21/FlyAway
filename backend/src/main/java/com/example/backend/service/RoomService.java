@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.model.Room;
 import com.example.backend.model.dto.EditRoomDto;
+import com.example.backend.model.dto.RoomDto;
 import com.example.backend.model.dto.RoomTypesAndPriceDto;
 import com.example.backend.model.forms.RoomForm;
 
@@ -19,4 +20,6 @@ public interface RoomService {
     Optional<Room> updateRoom(String roomId, EditRoomDto editRoomDto);
     boolean deleteRoom(String roomId);
     List<RoomTypesAndPriceDto> getRoomTypesAndPriceInHotel(String hotelId);
+    List<String> getRoomImages(UUID roomId);
+    List<RoomDto> getRoomsInHotelForTrip(String tripId, String hotelId);
 }

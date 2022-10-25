@@ -3,6 +3,7 @@ package com.example.backend.web;
 import com.example.backend.model.Hotel;
 import com.example.backend.model.dto.EditHotelDto;
 import com.example.backend.model.dto.HotelNameIdDto;
+import com.example.backend.model.dto.TripInHotelDetailsDto;
 import com.example.backend.model.forms.HotelForm;
 import com.example.backend.model.dto.HotelItem;
 import com.example.backend.model.enumerations.Amenities;
@@ -49,6 +50,11 @@ public class HotelRestController {
     @GetMapping("/getHotelsNameAndId")
     public List<HotelNameIdDto> getHotelsNameAndId(){
         return this.hotelService.getHotelsNameAndId();
+    }
+
+    @GetMapping("/getTripInHotelDetails/{tripId}/{hotelId}")
+    public TripInHotelDetailsDto getTripInHotelDetails(@PathVariable String tripId,@PathVariable String hotelId){
+        return this.hotelService.getTripInHotelDetails(tripId,hotelId);
     }
 
     @PostMapping("/addHotel")

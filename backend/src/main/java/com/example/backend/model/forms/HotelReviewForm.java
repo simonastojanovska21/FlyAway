@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class HotelReviewForm {
     Integer stars;
-    String descriptions;
+    String description;
     String username;
     String hotelId;
 }

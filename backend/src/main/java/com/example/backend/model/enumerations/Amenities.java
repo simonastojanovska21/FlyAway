@@ -10,7 +10,7 @@ public enum Amenities {
     BAR("Bar"),
     RESTAURANT("Restaurant"),
     PLAYGROUND("Playground"),
-    ATM("ATM"),
+    Business_Center("Business center"),
     SPA("Spa"),
     SAFE_DEPOSIT_BOX("Safe deposit box");
 

@@ -2,21 +2,22 @@ package com.example.backend.service.impl;
 
 import com.example.backend.model.Hotel;
 import com.example.backend.model.HotelImage;
+import com.example.backend.model.HotelReview;
 import com.example.backend.model.Location;
-import com.example.backend.model.dto.EditHotelDto;
-import com.example.backend.model.dto.HotelNameIdDto;
+import com.example.backend.model.dto.*;
 import com.example.backend.model.exceptions.HotelNotFoundException;
 import com.example.backend.model.forms.HotelForm;
-import com.example.backend.model.dto.HotelItem;
 import com.example.backend.model.enumerations.ImageTag;
 import com.example.backend.repository.HotelImageRepository;
 import com.example.backend.repository.HotelRepository;
+import com.example.backend.repository.HotelReviewRepository;
 import com.example.backend.service.HotelService;
 import com.example.backend.service.LocationService;
 import com.example.backend.service.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,6 +31,9 @@ public class HotelServiceImpl implements HotelService {
     private final HotelImageRepository hotelImagesRepository;
     private final LocationService locationService;
     private final RoomService roomService;
+    private final HotelReviewRepository hotelReviewRepository;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
+
     @Override
     public Optional<Hotel> addNewHotel(HotelForm hotelForm) {
         Location location = this.locationService.addNewLocation(hotelForm.getLatitude(), hotelForm.getLongitude(),
@@ -85,5 +89,17 @@ public class HotelServiceImpl implements HotelService {
         return this.hotelRepository.findAll().stream()
                 .map(hotel -> new HotelNameIdDto(hotel.getId().toString(),hotel.getName()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public TripInHotelDetailsDto getTripInHotelDetails(String tripId,String hotelId) {
+        HotelReview hotelReview = this.hotelReviewRepository.getRandomReview(UUID.fromString(hotelId));
+        HotelReviewDto hotelReviewDto = new HotelReviewDto(hotelReview.getUserGivesReview().getName()+" "+hotelReview.getUserGivesReview().getSurname(),
+                formatter.format(hotelReview.getTime()),hotelReview.getDescription(),hotelReview.getStars());
+        List<RoomDto> roomDtoList = this.roomService.getRoomsInHotelForTrip(tripId,hotelId);
+        List<String> allHotelImages=this.hotelImagesRepository.findAllByImageForHotel_Id(UUID.fromString(hotelId))
+                .stream().map(HotelImage::getUrl).collect(Collectors.toList());
+        roomDtoList.forEach(roomDto -> allHotelImages.addAll(roomDto.getRoomImages()));
+        return new TripInHotelDetailsDto(hotelReviewDto,allHotelImages,roomDtoList);
     }
 }

@@ -2,6 +2,8 @@ import React from "react";
 import logo from '../../images/logo.png'
 import {Link} from "react-router-dom";
 import Authentication from "../Authentication/authentication";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 
 const Header=(props)=>{
 
@@ -27,31 +29,31 @@ const Header=(props)=>{
                     <div className="collapse navbar-collapse justify-content-end">
                         <ul className="nav navbar-nav navbar-right">
                             <li className="nav-item me-3 greyButtonBackground rounded">
-                                <a className={"btn fw-bold"} href={"/trips"}>Testing</a>
+                                <a className={"btn greyText fw-bold"} href={"/trips"}>Testing</a>
                             </li>
                             <li className="nav-item me-3 greyButtonBackground rounded">
-                                <a className={"btn fw-bold"} href={"/"}>Trips</a>
+                                <a className={"btn greyText fw-bold"} href={"/"}>Trips</a>
                             </li>
                             <li className="nav-item me-3 greyButtonBackground rounded">
-                                <a className={"btn fw-bold"} href={"/"}>Destinations</a>
+                                <a className={"btn greyText fw-bold"} href={"/"}>Destinations</a>
                             </li>
                             <li className="nav-item me-3 greyButtonBackground rounded">
-                                <a className={"btn fw-bold"} href={"/"}>Orders</a>
+                                <a className={"btn greyText fw-bold"} href={"/bookings"}>Bookings</a>
                             </li>
                             {props.username !== undefined &&
-                            <li className="nav-item me-3 greyButtonBackground rounded">
-                                <a className={"btn brownText fw-bold"} id={"profileButton"} href={"/profile"}>{props.username}'s profile</a>
+                            <li className="nav-item me-3 redButtonBackground rounded">
+                                <a className={"btn text-white fw-bold"} href={"/profile"}>My profile</a>
                             </li>
                             }
                             {props.username !== undefined &&
                             <li className="nav-item greyButtonBackground rounded">
                                 <button id={"logoutButton"} type={"button"} className={"btn fw-bold"}
-                                        onClick={handleLogout}>Logout
+                                        onClick={handleLogout}><FontAwesomeIcon icon={faRightFromBracket}  />
                                 </button>
                             </li>
                             }
                             {props.username === undefined &&
-                            <li className="nav-item me-3 headerButton rounded">
+                            <li className="nav-item me-3 redButtonBackground rounded">
                                 <button className={"btn fw-bold"} onClick={() => setAuthenticationShow(true)}>
                                     Login
                                 </button>
