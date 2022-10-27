@@ -10,5 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, UUID> {
-
+    @Query(nativeQuery = true,value = "select * from review r order by random() limit 3")
+    List<Review> findThreeReviews();
 }

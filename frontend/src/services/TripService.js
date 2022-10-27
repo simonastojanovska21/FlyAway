@@ -16,6 +16,10 @@ const TripService={
 
     getTripDetails:(tripId)=>{
         return axios.get(`/api/trips/details/${tripId}`)
+    },
+
+    getTopFiveOffers:()=>{
+        return axios.get('/api/trips/getTopFiveOffers')
     }
 }
 

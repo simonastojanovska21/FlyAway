@@ -4,7 +4,7 @@ import {faCircleQuestion, faMinus, faPlus} from "@fortawesome/free-solid-svg-ico
 import $ from "jquery";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import HotelService from "../../../services/HotelService";
+import HotelService from "../../services/HotelService";
 import AddHotelImages from "./addHotelImages";
 import {Navigate} from "react-router-dom";
 
@@ -42,7 +42,6 @@ class AddHotel extends Component{
                     <h3 className="title">Add new hotel</h3>
                     <hr/>
                     <form className={"pt-4 text-start"} onSubmit={this.onFormSubmit}>
-
                         <div className={"row g-4 pb-4"}>
                             <div className="col-md-6 form-floating ">
                                 <input type="text" className="form-control shadow-sm border-0 "  name="name"

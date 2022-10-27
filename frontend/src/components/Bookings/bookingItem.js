@@ -4,8 +4,8 @@ import {Link} from "react-router-dom";
 const BookingItem=(props)=>{
 
     return(
-        <div className={"col-6 text-start"}>
-            <div className={"p-3 shadow bg-body"}>
+        <div className={"col-6 text-start "}>
+            <div className={"p-3 shadow bg-body h-100"}>
                 <h4 className={"redText"}>{props.booking.hotelName}</h4>
                 <p className={"text-muted ps-3"}>Booking id: {props.booking.bookingId}</p>
                 <p className={"ps-3"}>

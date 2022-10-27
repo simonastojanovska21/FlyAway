@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import HotelService from "../../../services/HotelService";
+import HotelService from "../../services/HotelService";
 import {Link} from "react-router-dom";
-import ConfirmDelete from "../../ConfirmDelete/confirmDelete";
+import ConfirmDelete from "../ConfirmDelete/confirmDelete";
 
 class HotelAdminList extends Component{
     constructor(props) {

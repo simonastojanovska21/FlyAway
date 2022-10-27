@@ -1,10 +1,8 @@
 package com.example.backend.service.impl;
 
-import com.example.backend.model.Hotel;
-import com.example.backend.model.HotelImage;
-import com.example.backend.model.RoomPrice;
-import com.example.backend.model.Trip;
+import com.example.backend.model.*;
 import com.example.backend.model.dto.RoomDto;
+import com.example.backend.model.dto.TopOfferDto;
 import com.example.backend.model.dto.TripDetailsDto;
 import com.example.backend.model.dto.TripDto;
 import com.example.backend.model.exceptions.HotelNotFoundException;
@@ -16,6 +14,7 @@ import com.example.backend.service.TripService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +30,7 @@ public class TripServiceImpl implements TripService {
     private final HotelRepository hotelRepository;
     private final HotelImageRepository hotelImageRepository;
     private final HotelReviewRepository hotelReviewRepository;
-    private final RoomService roomService;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
 
     @Override
     public Optional<Trip> addNewTrip(TripForm tripForm) {
@@ -95,5 +94,16 @@ public class TripServiceImpl implements TripService {
         return Optional.of(tripDetailsDto);
     }
 
-
+    @Override
+    public List<TopOfferDto> getTopFiveOffers() {
+        return this.tripRepository.findTopFiveOffers()
+                .stream().map(trip -> {
+                    Hotel hotel = trip.getTripInHotel();
+                    Location location=hotel.getHotelLocation();
+                    return new TopOfferDto(formatter.format(trip.getStartDate()),formatter.format(trip.getEndDate()),
+                            getHotelImagesUrls(hotel.getId()).get(0),
+                            location.getCity()+" - "+location.getCountry(),
+                            hotel.getName(),hotel.getStars(),getMinimumPricePerNight(trip.getId()));
+                }).collect(Collectors.toList());
+    }
 }

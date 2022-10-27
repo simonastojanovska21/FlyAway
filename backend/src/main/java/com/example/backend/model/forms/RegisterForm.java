@@ -1,8 +1,10 @@
 package com.example.backend.model.forms;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class RegisterForm {
 
     private String username;
@@ -14,8 +16,4 @@ public class RegisterForm {
     private String name;
 
     private String surname;
-
-    private String phoneNumber;
-
-    private String address;
 }

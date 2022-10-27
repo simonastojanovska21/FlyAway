@@ -52,10 +52,6 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> getThreeReviews() {
-        List<Review> reviews = this.reviewRepository.findAll();
-        if(reviews.size() <= 3)
-            return reviews;
-        Collections.shuffle(reviews);
-        return reviews.subList(0,3);
+        return this.reviewRepository.findThreeReviews();
     }
 }

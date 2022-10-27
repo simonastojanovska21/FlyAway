@@ -4,7 +4,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleQuestion, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
-import AddHotelImages from "../Hotel/admin/addHotelImages";
+import AddHotelImages from "../Hotel/addHotelImages";
 import $ from "jquery";
 import RoomService from "../../services/RoomService";
 

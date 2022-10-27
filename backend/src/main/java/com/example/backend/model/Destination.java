@@ -15,16 +15,16 @@ public class Destination {
     @GeneratedValue
     private UUID id;
 
-    private String destinationName;
-
     private String destinationImage;
+
+    private String destinationThumbnail;
 
     @OneToOne
     private Location destinationLocation;
 
-    public Destination(String destinationName, String destinationImage, Location destinationLocation) {
-        this.destinationName = destinationName;
+    public Destination( String destinationImage, String destinationThumbnail, Location destinationLocation) {
         this.destinationImage = destinationImage;
+        this.destinationThumbnail = destinationThumbnail;
         this.destinationLocation = destinationLocation;
     }
 }

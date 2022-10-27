@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Navigate} from "react-router-dom";
-import HotelService from "../../../services/HotelService";
+import HotelService from "../../services/HotelService";
 import $ from "jquery";
 
 class EditHotel extends Component{

@@ -7,23 +7,26 @@ import Footer from "../Footer/footer";
 import AuthenticationService from "../../services/AuthenticationService";
 import Profile from "../Profile/profile";
 import ReviewService from "../../services/ReviewService";
-import AddHotel from "../Hotel/admin/addHotel";
-import HotelService from "../../services/HotelService";
-import HotelAdminList from "../Hotel/admin/hotelAdminList";
+import AddHotel from "../Hotel/addHotel";
+import HotelAdminList from "../Hotel/hotelAdminList";
 import RoomAdminList from "../Room/roomAdminList";
 import AddRoom from "../Room/addRoom";
 import ScrollToTop from "./ScrollToTop";
-import EditHotel from "../Hotel/admin/editHotel";
-import EditHotelImages from "../Hotel/admin/editHotelImages";
+import EditHotel from "../Hotel/editHotel";
+import EditHotelImages from "../Hotel/editHotelImages";
 import EditRoom from "../Room/editRoom";
 import EditRoomImages from "../Room/editRoomImages";
-import HotelList from "../Hotel/hotelList";
 import AddTrip from "../Trip/addTrip";
 import TripList from "../Trip/tripList";
 import TripDetails from "../TripDetails/tripDetails";
 import UpcomingBookingsForUser from "../Bookings/upcomingBookingsForUser";
 import PayForBooking from "../Payment/payForBooking";
 import SuccessfulPayment from "../Payment/successfulPayment";
+import PaymentError from "../Payment/paymentError";
+import TripService from "../../services/TripService";
+import AddDestination from "../Destionations/addDestination";
+import DestinationList from "../Destionations/destinationList";
+import DestinationDetails from "../Destionations/destinationDetails";
 
 class App extends Component{
   constructor(props) {
@@ -32,11 +35,13 @@ class App extends Component{
         loggedInUser:{},
         userInfo:{},
         reviews:[],
+        topOffers:[],
         selectedHotelId:'',
         selectedHotelName:'',
         selectedRoomId:'',
         selectedTripId:'',
         selectedBookingId:'',
+        selectedDestinationId:''
       }
   }
 
@@ -49,12 +54,11 @@ class App extends Component{
             <main>
                 <div>
                     <Routes>
-                        <Route path={"/"} element={ <Home reviews={this.state.reviews} />  }/>
-                        <Route path={"/profile"} element={
-                            <Profile user={this.state.userInfo}  onLeaveReview={this.leaveReview} />  }  />
+                        <Route path={"/"} element={ <Home reviews={this.state.reviews} topOffers={this.state.topOffers} />  }/>
+                        <Route path={"/profile"}
+                               element={ <Profile user={this.state.userInfo}  onLeaveReview={this.leaveReview} />  }  />
 
-                        <Route path={"/admin/hotels/add"} element={
-                            <AddHotel /> } />
+                        <Route path={"/admin/hotels/add"} element={ <AddHotel /> } />
                         <Route path={"/admin/hotels/edit/:hotelId"}
                                element={ <EditHotel selectedHotelId={this.state.selectedHotelId} /> } />
                         <Route path={"/admin/hotels/imagesForHotel/:hotelId"}
@@ -86,6 +90,13 @@ class App extends Component{
                         <Route path={"/payment/:bookingId"}
                                element={ <PayForBooking selectedBookingId={this.state.selectedBookingId} /> } />
                         <Route path={"/successfulPayment"} element={ <SuccessfulPayment  /> } />
+                        <Route path={"/paymentError"} element={ <PaymentError /> } />
+
+                        <Route path={"/destinations/add"} element={ <AddDestination  />  }  />
+                        <Route path={"/destinations/:destinationId"}
+                               element={ <DestinationDetails selectedDestinationId={this.state.selectedDestinationId} /> } />
+                        <Route path={"/destinations"}
+                               element={ <DestinationList setSelectedDestinationId={this.setSelectedDestinationId} /> } />
 
                     </Routes>
                 </div>
@@ -97,6 +108,7 @@ class App extends Component{
 
   componentDidMount() {
       this.getThreeReviews()
+      this.getTopFiveTrips()
       const currentUser = AuthenticationService.getCurrentUser();
       if (currentUser) {
           this.setState({ loggedInUser: currentUser })
@@ -111,6 +123,8 @@ class App extends Component{
           this.setState({selectedRoomId: localStorage.getItem("selectedRoomId")})
       if(localStorage.getItem("selectedTripId") !==null)
           this.setState({selectedTripId: localStorage.getItem("selectedTripId")})
+      if(localStorage.getItem("selectedDestinationId") !== null)
+          this.setState({selectedDestinationId:localStorage.getItem("selectedDestinationId")})
   }
 
     setSelectedHotelId=(hotelId,hotelName)=>{
@@ -119,7 +133,6 @@ class App extends Component{
       this.setState({
           selectedHotelId:hotelId,
           selectedHotelName:hotelName
-          //selectedHotelId :'c07018fd-42e0-44f6-b42d-5a20cdbb55f4'
       })
     }
 
@@ -145,6 +158,13 @@ class App extends Component{
         })
     }
 
+    setSelectedDestinationId=(selectedDestinationId)=>{
+      localStorage.setItem("selectedDestinationId",selectedDestinationId)
+        this.setState({
+            selectedDestinationId: selectedDestinationId
+        })
+    }
+
     loginUser=(username,password)=>{
         AuthenticationService.loginUser(username,password)
             .then(()=>{
@@ -154,24 +174,18 @@ class App extends Component{
                 localStorage.removeItem("loginError")
                 const currentUser = AuthenticationService.getCurrentUser();
                 localStorage.setItem("userRole",currentUser.role);
-                //console.log(localStorage.getItem("userRole"))
-                //this.getOrderItemsForUser(currentUser.username);
-                //this.getActiveOrderForUser(currentUser.username);
             })
 
     }
     registerUser=(username, password,repeatedPassword,name,surname,phoneNumber,address)=>{
         AuthenticationService.registerUser(username, password,repeatedPassword,name,surname,phoneNumber,address)
-            .then(()=>{
-
-            })
+            .then(()=>{})
         localStorage.removeItem("passwordDoNotMatch");
         localStorage.removeItem("userExists");
     }
     logoutUser=()=>{
         AuthenticationService.logout();
         localStorage.removeItem("userRole");
-        //console.log('User is logged out');
         window.location.href="http://localhost:3000/"
     }
     getInfoAboutUser=(username)=>{
@@ -198,7 +212,14 @@ class App extends Component{
             })
     }
 
-
+    getTopFiveTrips=()=>{
+      TripService.getTopFiveOffers()
+          .then((data)=>{
+              this.setState({
+                  topOffers : data.data
+              })
+          })
+    }
 }
 
 export default App;

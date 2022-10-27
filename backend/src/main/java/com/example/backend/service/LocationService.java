@@ -5,4 +5,5 @@ import java.util.Optional;
 
 public interface LocationService {
     Location addNewLocation(double latitude, double longitude, String city, String country);
+    Location addNewLocationForDestination( String city, String country);
 }

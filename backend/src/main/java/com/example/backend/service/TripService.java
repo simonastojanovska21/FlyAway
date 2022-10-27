@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Trip;
+import com.example.backend.model.dto.TopOfferDto;
 import com.example.backend.model.dto.TripDetailsDto;
 import com.example.backend.model.dto.TripDto;
 import com.example.backend.model.forms.TripForm;
@@ -18,5 +19,5 @@ public interface TripService {
     List<String> getHotelImagesUrls(UUID hotelId);
     int getHotelRating(UUID hotelId);
     Optional<TripDetailsDto> getTripDetails(String tripId);
-
+    List<TopOfferDto> getTopFiveOffers();
 }

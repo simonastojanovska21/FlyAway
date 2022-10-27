@@ -33,7 +33,6 @@ const TopOffers=(props)=>{
                                         </span>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

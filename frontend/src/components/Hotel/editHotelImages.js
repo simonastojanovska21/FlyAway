@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import {Link, Navigate} from "react-router-dom";
-import HotelService from "../../../services/HotelService";
+import HotelService from "../../services/HotelService";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 import AddHotelImages from "./addHotelImages";
-import ImageService from "../../../services/ImageService";
+import ImageService from "../../services/ImageService";
 import $ from "jquery";
-import ConfirmDelete from "../../ConfirmDelete/confirmDelete";
+import ConfirmDelete from "../ConfirmDelete/confirmDelete";
 
 class EditHotelImages extends Component{
 
