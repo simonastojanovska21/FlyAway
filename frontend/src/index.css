@@ -321,3 +321,20 @@
   font-size: 18px !important;
   width: 100%;
 }
+
+.darkenedImages{
+  filter: brightness(70%) !important;
+}
+
+.weatherForecastColumn{
+  width: 12.5% !important;
+}
+
+.selectedAttractionButton{
+  background: #BB0422 !important;
+  border: #BB0422 !important;
+}
+
+.touristAttractionColumn{
+  width: 20% !important;
+}

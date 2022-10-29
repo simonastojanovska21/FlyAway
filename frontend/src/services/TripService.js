@@ -18,9 +18,26 @@ const TripService={
         return axios.get(`/api/trips/details/${tripId}`)
     },
 
-    getTopFiveOffers:()=>{
-        return axios.get('/api/trips/getTopFiveOffers')
+    getAllTripsForLocation:(location)=>{
+        return axios.get(`/api/trips/tripsForDestination/${location}`)
+    },
+
+    getAllTripsForDate:(startDate, endDate)=>{
+        return axios.get(`/api/trips/tripsForTime/${startDate}/${endDate}`)
+    },
+
+    getAllTripsForLocationAndDate:(location, startDate, endDate)=>{
+        return axios.get(`/api/trips/tripsForDestinationAndTime/${location}/${startDate}/${endDate}`)
+    },
+
+    getTopThreeOffers:()=>{
+        return axios.get('/api/trips/getTopThreeOffers')
+    },
+
+    getTopThreeOffersForDestination:(destination)=>{
+        return axios.get(`/api/trips/getTopThreeOffersForDestination/${destination}`)
     }
+
 }
 
 export default TripService;

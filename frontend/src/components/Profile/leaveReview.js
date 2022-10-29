@@ -46,7 +46,7 @@ const LeaveReview=(props)=>{
                 <br/>
                 <div className="form-group">
                     <ul className="rate-area">
-                        <input type="checkbox" id={"fiveStar"} name="stars" value="5"
+                        <input type="checkbox" id={"5-star"} name="stars" value="5"
                                onChange={handleChange}/>
                         <label htmlFor="5-star" title="Amazing" style={{fontSize: '400%'}}>5 stars</label>
 

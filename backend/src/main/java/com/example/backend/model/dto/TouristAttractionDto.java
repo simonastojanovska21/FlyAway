@@ -5,16 +5,15 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class MuseumDto {
+public class TouristAttractionDto {
 
     private String name;
 
-    private double longitude;
-
     private double latitude;
+
+    private double longitude;
 
     private String imageUrl;
 
     private String description;
-
 }

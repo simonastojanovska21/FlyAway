@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 const DestinationItem=(props)=>{
-//style={{height:'70%'}}
+
     return(
         <div className="col-4">
             <div className={"card shadow p-3  rounded"} style={{height:'350px'}}>
@@ -18,10 +18,12 @@ const DestinationItem=(props)=>{
                         Explore {props.destination.destinationLocation.city}
                     </Link>
 
-                    <button className={"btn text-white me-2 w-100 "}
+                    <Link className={"btn text-white me-2 w-100 "}
+                            to={`/trips`}
+                            onClick={()=>props.setSearchTrip(props.destination.destinationLocation.city,'any','any')}
                           style={{backgroundColor:'#BB0422'}} >
                         Book now
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

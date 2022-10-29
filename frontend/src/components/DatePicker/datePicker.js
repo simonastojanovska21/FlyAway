@@ -32,22 +32,7 @@ class DatePicker extends Component{
 
     render() {
         const { focusedInput, startDate, endDate } = this.state;
-        let minimumNights  = 1;
-        let maximumNights = 11;
-        let maximumEndDate = moment().add(maximumNights, 'days');
-        let condition;
 
-        if(startDate){
-            maximumEndDate = startDate.clone().add(maximumNights, 'days')
-        }
-
-        if(focusedInput === END_DATE) {
-            condition = (day) => !isInclusivelyAfterDay(day, moment()) || isInclusivelyAfterDay(day, maximumEndDate);
-        }
-
-        if(focusedInput === START_DATE) {
-            condition = (day) => !isInclusivelyAfterDay(day, moment());
-        }
 
         return (
 
@@ -61,8 +46,6 @@ class DatePicker extends Component{
                     endDate={endDate}
                     endDateId="check_out" // PropTypes.string.isRequired,
                     endDatePlaceholderText={"Check Out"}
-                    minimumNights={minimumNights}
-                    isOutsideRange={condition}
                     displayFormat={() => "DD/MM/YYYY"}
                 />
         );

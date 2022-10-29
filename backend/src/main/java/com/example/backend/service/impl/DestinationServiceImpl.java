@@ -3,23 +3,24 @@ package com.example.backend.service.impl;
 import com.example.backend.model.Destination;
 import com.example.backend.model.Location;
 import com.example.backend.model.dto.DestinationDto;
-import com.example.backend.model.dto.MuseumDto;
+import com.example.backend.model.dto.TouristAttractionDto;
 import com.example.backend.model.forms.DestinationForm;
 import com.example.backend.repository.DestinationRepository;
 import com.example.backend.service.DestinationService;
 import com.example.backend.service.LocationService;
 import com.example.backend.service.QueryService;
-import com.example.backend.utils.SPARQLQueries;
+import com.example.backend.utils.FormatHelper;
 import lombok.AllArgsConstructor;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.example.backend.utils.SPARQLQueries.getDestinationDetails;
+import static com.example.backend.utils.SPARQLQueries.*;
 
 @Service
 @AllArgsConstructor
@@ -54,20 +55,62 @@ public class DestinationServiceImpl implements DestinationService {
     }
 
     @Override
-    public DestinationDto getDestinationDetailsFromDbpedia(String destinationId) {
-        Destination destination = this.getDestination(destinationId).get();
+    public DestinationDto getDestinationDetailsFromDbpedia(String city) {
         ResultSet resultSet = this.queryService
-                .executeQueryUsingDbpediaSPARQLEndpoint(getDestinationDetails(destination.getDestinationLocation().getCity(),
-                        destination.getDestinationLocation().getCountry()));
+                .executeQueryUsingDbpediaSPARQLEndpoint(getDestinationDetails(city,city));
         QuerySolution querySolution = resultSet.nextSolution();
         String homepage = querySolution.get("homepage") == null ? "" : querySolution.get("homepage").toString();
         String currency = querySolution.get("currency") == null ? "" : querySolution.get("currency").asResource().getLocalName();
         String countryCode = querySolution.get("countryCode") == null ? "" : querySolution.get("countryCode").toString();
-        return new DestinationDto(querySolution.get("abstract").toString(), homepage,currency,countryCode);
+        return new DestinationDto(querySolution.get("abstract").toString().replace("@en",""), homepage,currency,countryCode);
     }
 
     @Override
-    public List<MuseumDto> getMuseumsForDestination(String destinationId) {
-        return null;
+    public List<TouristAttractionDto> getMuseumsForDestination(String city) {
+        ResultSet resultSet = this.queryService
+                .executeQueryUsingOSMEndpoint(getMuseumsInDestinations(city));
+        return this.getTouristAttractionsFromQueryResult(resultSet);
     }
+
+    @Override
+    public List<TouristAttractionDto> getAttractionsForDestination(String city) {
+        ResultSet resultSet = this.queryService
+                .executeQueryUsingOSMEndpoint(getAttractionsInDestinations(city));
+        return this.getTouristAttractionsFromQueryResult(resultSet);
+    }
+
+    @Override
+    public List<TouristAttractionDto> getRestaurantsForDestination(String city) {
+        ResultSet resultSet = this.queryService
+                .executeQueryUsingOSMEndpoint(getRestaurantsInDestinations(city));
+        return this.getTouristAttractionsFromQueryResult(resultSet);
+    }
+
+    @Override
+    public List<TouristAttractionDto> getBarsForDestination(String city) {
+        ResultSet resultSet = this.queryService
+                .executeQueryUsingOSMEndpoint(getBarsInDestinations(city));
+        return this.getTouristAttractionsFromQueryResult(resultSet);
+    }
+
+    @Override
+    public List<TouristAttractionDto> getNightClubsForDestination(String city) {
+        ResultSet resultSet = this.queryService
+                .executeQueryUsingOSMEndpoint(getNightClubsInDestinations(city));
+        return this.getTouristAttractionsFromQueryResult(resultSet);
+    }
+
+    private List<TouristAttractionDto> getTouristAttractionsFromQueryResult(ResultSet resultSet){
+        List<TouristAttractionDto> touristAttractions=new ArrayList<>();
+        resultSet.forEachRemaining(each->{
+            String name = each.get("name").toString();
+            String location = each.get("loc").toString();
+            double [] coordinates = FormatHelper.getLocationCoordinates(location);
+            String imageURL = each.get("imageURL").toString();
+            String description = each.get("description").toString().replace("@en","");
+            touristAttractions.add(new TouristAttractionDto(name,coordinates[1],coordinates[0],imageURL,description));
+        });
+        return touristAttractions;
+    }
+
 }

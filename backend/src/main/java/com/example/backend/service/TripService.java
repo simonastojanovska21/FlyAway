@@ -19,5 +19,9 @@ public interface TripService {
     List<String> getHotelImagesUrls(UUID hotelId);
     int getHotelRating(UUID hotelId);
     Optional<TripDetailsDto> getTripDetails(String tripId);
-    List<TopOfferDto> getTopFiveOffers();
+    List<TopOfferDto> getTopThreeOffers();
+    List<TopOfferDto> getTopThreeOffersForDestination(String destination);
+    List<TripDto> getTripsForDestination(String destinationId);
+    List<TripDto> getTripsForTime(String startTime, String endTime);
+    List<TripDto> getTripsForDestinationAndTime(String destination, String startTime, String endTime);
 }

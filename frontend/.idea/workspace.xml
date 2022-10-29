@@ -13,6 +13,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="SCSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -30,6 +31,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -43,11 +45,11 @@
       <recent name="D:\GitHub\FlyAway\frontend\src\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GitHub\FlyAway\frontend\src\components\DestinationDetails" />
+      <recent name="D:\GitHub\FlyAway\frontend\src" />
       <recent name="D:\GitHub\FlyAway\frontend\src\components\Hotel" />
       <recent name="D:\GitHub\FlyAway\frontend\src\components\TripDetails" />
       <recent name="D:\GitHub\FlyAway\frontend\src\components\Hotel\admin" />
-      <recent name="D:\GitHub\FlyAway\frontend\src\components\RatingStars" />
-      <recent name="D:\GitHub\FlyAway\frontend\src\components\TopOffers" />
     </key>
   </component>
   <component name="RunManager" selected="npm.npm start">
@@ -100,7 +102,10 @@
       <workItem from="1666705874707" duration="11390000" />
       <workItem from="1666780330825" duration="11144000" />
       <workItem from="1666888465547" duration="10000" />
-      <workItem from="1666888489369" duration="4384000" />
+      <workItem from="1666888489369" duration="7911000" />
+      <workItem from="1666952697988" duration="27012000" />
+      <workItem from="1667045349481" duration="22000" />
+      <workItem from="1667045385241" duration="3295000" />
     </task>
     <servers />
   </component>

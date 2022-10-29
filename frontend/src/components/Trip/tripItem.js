@@ -45,6 +45,9 @@ const TripItem=(props)=>{
                             <Circles hotelRating={props.trip.hotelRating}/>
                         </span>
 
+                        <p className={"pt-3"}>
+                            Trip from:<span className={"fw-bold"}>
+                    {props.trip.startTime}</span> to: <span className={"fw-bold"}>{props.trip.endTime}</span></p>
                         <span className={"card-text text-end pricePerNight"}>
                             Price per night from: <br/>
                             <span className={"fw-bold"}>{props.trip.pricePerNight} (&euro;)</span>

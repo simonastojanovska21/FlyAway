@@ -1,5 +1,6 @@
 package com.example.backend.web;
 
+import com.example.backend.model.Trip;
 import com.example.backend.model.dto.HotelNameIdDto;
 import com.example.backend.model.dto.TopOfferDto;
 import com.example.backend.model.dto.TripDetailsDto;
@@ -25,9 +26,30 @@ public class TripRestController {
         return this.tripService.getAllTrips();
     }
 
-    @GetMapping("/getTopFiveOffers")
-    public List<TopOfferDto> getTopFiveOffers(){
-        return this.tripService.getTopFiveOffers();
+    @GetMapping("/tripsForDestination/{destination}")
+    public List<TripDto> getAllTripsForDestination(@PathVariable String destination){
+        return this.tripService.getTripsForDestination(destination);
+    }
+
+    @GetMapping("/tripsForDestinationAndTime/{destination}/{startTime}/{endTime}")
+    public List<TripDto> tripsForDestinationAndTime(@PathVariable String destination,@PathVariable String startTime,
+                                                    @PathVariable String endTime){
+        return this.tripService.getTripsForDestinationAndTime(destination,startTime,endTime);
+    }
+
+    @GetMapping("/tripsForTime/{startTime}/{endTime}")
+    public List<TripDto> tripsForTime(@PathVariable String startTime, @PathVariable String endTime){
+        return this.tripService.getTripsForTime(startTime, endTime);
+    }
+
+    @GetMapping("/getTopThreeOffers")
+    public List<TopOfferDto> getTopThreeOffers(){
+        return this.tripService.getTopThreeOffers();
+    }
+
+    @GetMapping("/getTopThreeOffersForDestination/{destination}")
+    public List<TopOfferDto> getTopThreeOffersForDestination(@PathVariable String destination){
+        return this.tripService.getTopThreeOffersForDestination(destination);
     }
 
     @GetMapping("/details/{tripId}")

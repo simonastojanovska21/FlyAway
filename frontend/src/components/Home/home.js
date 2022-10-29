@@ -3,11 +3,11 @@ import cover from "../../images/cover.jpg"
 import {Link} from "react-router-dom";
 import Search from "../Search/search";
 import TopOffers from "../TopOffers/topOffers";
-import Colors from "./colors";
 import ReviewList from "../Reviews/reviewList";
 import PopularDestinations from "../Destionations/popularDestinations";
 
 const Home=(props)=>{
+    //console.log(props.reviews)
     return(
         <div>
 
@@ -25,7 +25,7 @@ const Home=(props)=>{
             <div className={"lightBackground pb-2"} style={{paddingTop:'120px'}} id={"topOffers"}>
                 <div className={"container text-center"}>
                     <span className={"title"}>Top 5 offers</span>
-                    <TopOffers />
+                    <TopOffers offers={props.topOffers}/>
                 </div>
             </div>
 
@@ -39,7 +39,7 @@ const Home=(props)=>{
             <div className={"lightBackground pt-5 pb-5"}>
                 <div className={"container text-center"}>
                     <span className={"title"}>Popular destinations</span>
-                    <PopularDestinations />
+                    <PopularDestinations  popularDestinations={props.popularDestinations}/>
                 </div>
             </div>
 

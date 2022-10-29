@@ -48,11 +48,11 @@ const Footer=(props)=>{
                         <br/>
                         <h4>Working hours</h4>
                         <hr className={"bg-white mb-2 mt-0 d-inline-block mx-auto w-25"}/>
-                        <div className={"d-flex justify-content-start pb-2 pt-3"}>
+                        <div className={"d-flex justify-content-between pb-2 pt-3 pe-5"}>
                             <div className={"me-5"}><h6>Monday-Friday</h6></div>
                             <div><h6>08:00-24:00</h6></div>
                         </div>
-                        <div className={"d-flex justify-content-start"}>
+                        <div className={"d-flex justify-content-between pe-5"}>
                             <div className={"me-5"}><h6>Saturday-Sunday</h6></div>
                             <div><h6>08:00-22:00</h6></div>
                         </div>

@@ -21,7 +21,8 @@ class DestinationList extends Component{
                             this.state.destinations.map((term)=>{
                                 return(
                                     <DestinationItem destination={term}
-                                                     setSelectedDestinationId={this.props.setSelectedDestinationId} />
+                                                     setSelectedDestinationId={this.props.setSelectedDestinationId}
+                                                     setSearchTrip={this.props.setSearchTrip}/>
                                 )
                             })
                         }

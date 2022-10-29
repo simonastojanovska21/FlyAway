@@ -2,7 +2,7 @@ package com.example.backend.web;
 
 import com.example.backend.model.Destination;
 import com.example.backend.model.dto.DestinationDto;
-import com.example.backend.model.dto.MuseumDto;
+import com.example.backend.model.dto.TouristAttractionDto;
 import com.example.backend.model.dto.WeatherDto;
 import com.example.backend.model.forms.DestinationForm;
 import com.example.backend.service.DestinationService;
@@ -46,25 +46,35 @@ public class DestinationRestController {
         return this.openWeatherService.getWeatherConditionsAboutDestination(destinationId);
     }
 
-    @GetMapping("/getDestinationDetailsFromDbpedia/{destinationId}")
-    public DestinationDto getDestinationDetailsFromDbpedia(@PathVariable String destinationId){
-        return this.destinationService.getDestinationDetailsFromDbpedia(destinationId);
+    @GetMapping("/getDestinationDetailsFromDbpedia/{destination}")
+    public DestinationDto getDestinationDetailsFromDbpedia(@PathVariable String destination){
+        return this.destinationService.getDestinationDetailsFromDbpedia(destination);
     }
 
-    @GetMapping("/getMuseumsForDestination/{destinationId}")
-    public List<MuseumDto> getMuseumsForDestination(@PathVariable String destinationId){
-        return this.destinationService.getMuseumsForDestination(destinationId);
+    @GetMapping("/getMuseumsForDestination/{destination}")
+    public List<TouristAttractionDto> getMuseumsForDestination(@PathVariable String destination){
+        return this.destinationService.getMuseumsForDestination(destination);
     }
 
-//    @GetMapping("/getAllCountries")
-//    public List<String> getAllCountries(){
-//        return this.destinationService.getAllCountries();
-//    }
-//
-//    @GetMapping("/getAllCitiesInCountry/{country}")
-//    public List<String> getAllCitiesInCountry(@PathVariable String country){
-//        return this.destinationService.getAllCitiesInCountry(country);
-//    }
+    @GetMapping("/getAttractionsForDestination/{destination}")
+    public List<TouristAttractionDto> getAttractionsForDestination(@PathVariable String destination){
+        return this.destinationService.getAttractionsForDestination(destination);
+    }
+
+    @GetMapping("/getRestaurantsForDestination/{destination}")
+    public List<TouristAttractionDto> getRestaurantsForDestination(@PathVariable String destination){
+        return this.destinationService.getRestaurantsForDestination(destination);
+    }
+
+    @GetMapping("/getBarsForDestination/{destination}")
+    public List<TouristAttractionDto> getBarsForDestination(@PathVariable String destination){
+        return this.destinationService.getBarsForDestination(destination);
+    }
+
+    @GetMapping("/getNightClubsForDestination/{destination}")
+    public List<TouristAttractionDto> getNightClubsForDestination(@PathVariable String destination){
+        return this.destinationService.getNightClubsForDestination(destination);
+    }
 
     @PostMapping("/addNewDestination")
     public ResponseEntity<Destination> addNewDestination(@RequestBody DestinationForm destinationForm){

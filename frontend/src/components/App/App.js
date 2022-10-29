@@ -26,7 +26,8 @@ import PaymentError from "../Payment/paymentError";
 import TripService from "../../services/TripService";
 import AddDestination from "../Destionations/addDestination";
 import DestinationList from "../Destionations/destinationList";
-import DestinationDetails from "../Destionations/destinationDetails";
+import DestinationDetails from "../DestinationDetails/destinationDetails";
+import DestinationService from "../../services/DestinationService";
 
 class App extends Component{
   constructor(props) {
@@ -36,6 +37,7 @@ class App extends Component{
         userInfo:{},
         reviews:[],
         topOffers:[],
+        popularDestinations:[],
         selectedHotelId:'',
         selectedHotelName:'',
         selectedRoomId:'',
@@ -54,7 +56,10 @@ class App extends Component{
             <main>
                 <div>
                     <Routes>
-                        <Route path={"/"} element={ <Home reviews={this.state.reviews} topOffers={this.state.topOffers} />  }/>
+                        <Route path={"/"}
+                               element={ <Home reviews={this.state.reviews}
+                                               topOffers={this.state.topOffers}
+                                               popularDestinations={this.state.popularDestinations} />  }/>
                         <Route path={"/profile"}
                                element={ <Profile user={this.state.userInfo}  onLeaveReview={this.leaveReview} />  }  />
 
@@ -94,9 +99,11 @@ class App extends Component{
 
                         <Route path={"/destinations/add"} element={ <AddDestination  />  }  />
                         <Route path={"/destinations/:destinationId"}
-                               element={ <DestinationDetails selectedDestinationId={this.state.selectedDestinationId} /> } />
+                               element={ <DestinationDetails
+                                   selectedDestinationId={this.state.selectedDestinationId} /> } />
                         <Route path={"/destinations"}
-                               element={ <DestinationList setSelectedDestinationId={this.setSelectedDestinationId} /> } />
+                               element={ <DestinationList setSearchTrip={this.setSearchTrip}
+                                                          setSelectedDestinationId={this.setSelectedDestinationId} /> } />
 
                     </Routes>
                 </div>
@@ -108,7 +115,8 @@ class App extends Component{
 
   componentDidMount() {
       this.getThreeReviews()
-      this.getTopFiveTrips()
+      this.getTopThreeOffers()
+      this.getPopularDestinations()
       const currentUser = AuthenticationService.getCurrentUser();
       if (currentUser) {
           this.setState({ loggedInUser: currentUser })
@@ -165,6 +173,18 @@ class App extends Component{
         })
     }
 
+    setSearchTrip=(location, startDate, endDate)=>{
+        localStorage.removeItem("location")
+        localStorage.removeItem("startDate")
+        localStorage.removeItem("endDate")
+        if(location !== 'any')
+            localStorage.setItem("location",location)
+        if(startDate !== 'any')
+            localStorage.setItem("startDate",startDate)
+        if(endDate !== 'any')
+            localStorage.setItem("endDate",endDate)
+    }
+
     loginUser=(username,password)=>{
         AuthenticationService.loginUser(username,password)
             .then(()=>{
@@ -212,11 +232,20 @@ class App extends Component{
             })
     }
 
-    getTopFiveTrips=()=>{
-      TripService.getTopFiveOffers()
+    getTopThreeOffers=()=>{
+      TripService.getTopThreeOffers()
           .then((data)=>{
               this.setState({
                   topOffers : data.data
+              })
+          })
+    }
+
+    getPopularDestinations=()=>{
+      DestinationService.getTopThreeDestinations()
+          .then((data)=>{
+              this.setState({
+                  popularDestinations:data.data
               })
           })
     }

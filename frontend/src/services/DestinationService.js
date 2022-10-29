@@ -15,11 +15,39 @@ const DestinationService={
     },
 
     getDestinationDetails:(destinationId)=>{
-        return axios.get(`/api/destinations/${destinationId}`)
+        return axios.get(`/api/destinations/getDestinationDetails/${destinationId}`)
     },
 
     getWeatherDataForDestination:(destinationId)=>{
         return axios.get(`/api/destinations/getWeatherConditions/${destinationId}`)
+    },
+
+    getDestinationDetailsFromDbpedia:(destination)=>{
+        return axios.get(`/api/destinations/getDestinationDetailsFromDbpedia/${destination}`)
+    },
+
+    getMuseumsForDestination:(destination)=>{
+        return axios.get(`/api/destinations/getMuseumsForDestination/${destination}`)
+    },
+
+    getAttractionsForDestination:(destination)=>{
+        return axios.get(`/api/destinations/getAttractionsForDestination/${destination}`)
+    },
+
+    getRestaurantsForDestination:(destination)=>{
+        return axios.get(`/api/destinations/getRestaurantsForDestination/${destination}`)
+    },
+
+    getBarsForDestination:(destination)=>{
+        return axios.get(`/api/destinations/getBarsForDestination/${destination}`)
+    },
+
+    getNightClubsForDestination:(destination)=>{
+        return axios.get(`/api/destinations/getNightClubsForDestination/${destination}`)
+    },
+
+    getTopThreeDestinations:()=>{
+        return axios.get(`/api/destinations/getTopThreeDestinations`)
     }
 }
 
