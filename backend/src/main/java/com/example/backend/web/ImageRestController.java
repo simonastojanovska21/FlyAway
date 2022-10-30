@@ -25,7 +25,7 @@ public class ImageRestController {
 
     @PostMapping("/addForHotel/{hotelId}")
     public ResponseEntity<?> addImageForHotel(@PathVariable String hotelId, @RequestBody ImageForm imageForm){
-        return this.imageService.addImageForHotel(hotelId,imageForm)
+        return this.imageService.addImageForHotel(hotelId,imageForm.getImageUrl())
                 .map(hotelImage -> ResponseEntity.ok().body(hotelImage))
                 .orElseGet(()->ResponseEntity.badRequest().build());
     }

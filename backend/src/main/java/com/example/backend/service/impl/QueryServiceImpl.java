@@ -15,14 +15,16 @@ public class QueryServiceImpl implements QueryService {
     @Override
     public ResultSet executeQueryUsingOSMEndpoint(String queryString) {
         Query query = QueryFactory.create(queryString);
-        QueryExecution queryExecution = QueryExecutionFactory.sparqlService(OSM_SPARQL_Endpoint,query);
-        return queryExecution.execSelect();
+        try(QueryExecution queryExecution = QueryExecutionFactory.sparqlService(OSM_SPARQL_Endpoint,query)){
+            return queryExecution.execSelect();
+        }
     }
 
     @Override
     public ResultSet executeQueryUsingDbpediaSPARQLEndpoint(String queryString) {
         Query query = QueryFactory.create(queryString);
-        QueryExecution queryExecution = QueryExecutionFactory.sparqlService(DbpediaSPARQLEndpoint, query);
-        return queryExecution.execSelect();
+        try(QueryExecution queryExecution = QueryExecutionFactory.sparqlService(DbpediaSPARQLEndpoint, query)){
+            return queryExecution.execSelect();
+        }
     }
 }

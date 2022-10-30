@@ -1,8 +1,7 @@
 package com.example.backend.service.impl;
 
 import com.example.backend.model.*;
-import com.example.backend.model.dto.RoomDto;
-import com.example.backend.model.dto.TopOfferDto;
+import com.example.backend.model.dto.OfferDto;
 import com.example.backend.model.dto.TripDetailsDto;
 import com.example.backend.model.dto.TripDto;
 import com.example.backend.model.exceptions.HotelNotFoundException;
@@ -10,7 +9,7 @@ import com.example.backend.model.exceptions.TripDoesNotExistException;
 import com.example.backend.model.forms.TripForm;
 import com.example.backend.repository.*;
 import com.example.backend.service.DestinationService;
-import com.example.backend.service.RoomService;
+import com.example.backend.service.HotelService;
 import com.example.backend.service.TripService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,15 +29,14 @@ public class TripServiceImpl implements TripService {
 
     private final TripRepository tripRepository;
     private final RoomPriceRepository roomPriceRepository;
-    private final HotelRepository hotelRepository;
-    private final HotelImageRepository hotelImageRepository;
-    private final HotelReviewRepository hotelReviewRepository;
-    private final DestinationService destinationService;
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
+    private final HotelService hotelService;
+
+    private static final DateTimeFormatter formatterForDatabaseData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter formatterForReceivedData = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @Override
     public Optional<Trip> addNewTrip(TripForm tripForm) {
-        Hotel hotel = this.hotelRepository.findById(UUID.fromString(tripForm.getHotelId()))
+        Hotel hotel = this.hotelService.getHotelDetails(tripForm.getHotelId())
                 .orElseThrow(()->new HotelNotFoundException("Hotel with id " + tripForm.getHotelId()
                         +" is not found"));
         Trip trip = this.tripRepository.save(new Trip(tripForm.getStartDate(),tripForm.getEndDate(),hotel));
@@ -57,31 +55,8 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<TripDto> getAllTrips() {
-        return this.tripRepository.findAll().stream().map(trip -> new TripDto(trip.getId().toString(),
-                        trip.getStartDate(),trip.getEndDate(),
-                this.getMinimumPricePerNight(trip.getId()),trip.getTripInHotel(),
-                getHotelImagesUrls(trip.getTripInHotel().getId()),this.getHotelRating(trip.getTripInHotel().getId())))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public double getMinimumPricePerNight(UUID tripId) {
         return this.roomPriceRepository.findFirstByRoomPriceForTrip_IdOrderByRoomPrice(tripId).getRoomPrice();
-    }
-
-    @Override
-    public List<String> getHotelImagesUrls(UUID hotelId) {
-        return this.hotelImageRepository.findAllByImageForHotel_Id(hotelId)
-                .stream().map(HotelImage::getUrl).collect(Collectors.toList());
-    }
-
-    @Override
-    public int getHotelRating(UUID hotelId) {
-        Double rating = this.hotelReviewRepository.getAverageRatingOfHotel(hotelId);
-        if(rating==null)
-            return 0;
-        return (int) Math.round(rating);
     }
 
     @Override
@@ -90,8 +65,8 @@ public class TripServiceImpl implements TripService {
                 .orElseThrow(()->new TripDoesNotExistException("Trip with id "+tripId+" does not exist"));
         TripDetailsDto tripDetailsDto = new TripDetailsDto();
         tripDetailsDto.setTripId(tripId);
-        tripDetailsDto.setStartDate(trip.getStartDate());
-        tripDetailsDto.setEndDate(trip.getEndDate());
+        tripDetailsDto.setStartDate(trip.getStartDate().format(formatterForDatabaseData));
+        tripDetailsDto.setEndDate(trip.getEndDate().format(formatterForDatabaseData));
         int duration= (int) (Math.abs(ChronoUnit.DAYS.between(trip.getEndDate(), trip.getStartDate())) + 1);
         tripDetailsDto.setTripDuration(duration);
         tripDetailsDto.setTripInHotel(trip.getTripInHotel());
@@ -99,66 +74,77 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<TopOfferDto> getTopThreeOffers() {
+    public List<OfferDto> getTopThreeOffers() {
         List<Trip> trips = this.tripRepository.findAllByStartDateAfter(LocalDate.now());
-        Collections.shuffle(trips);
-        return trips.stream().map(trip -> {
-                    Hotel hotel = trip.getTripInHotel();
-                    Location location=hotel.getHotelLocation();
-                    return new TopOfferDto(formatter.format(trip.getStartDate()),formatter.format(trip.getEndDate()),
-                            getHotelImagesUrls(hotel.getId()).get(0),
-                            location.getCity()+" - "+location.getCountry(),
-                            hotel.getName(),hotel.getStars(),getMinimumPricePerNight(trip.getId()));
-                }).collect(Collectors.toList());
+        return this.getNRandomOffers(trips,3);
     }
 
     @Override
-    public List<TopOfferDto> getTopThreeOffersForDestination(String destination) {
+    public List<OfferDto> getTopThreeOffersForDestination(String destination) {
         List<Trip> trips = this.tripRepository.findAllByStartDateAfterAndTripInHotel_HotelLocation_City(LocalDate.now(),destination);
-        Collections.shuffle(trips);
-        return trips.stream().map(trip -> {
-            Hotel hotel = trip.getTripInHotel();
-            Location location=hotel.getHotelLocation();
-            return new TopOfferDto(formatter.format(trip.getStartDate()),formatter.format(trip.getEndDate()),
-                    getHotelImagesUrls(hotel.getId()).get(0),
-                    location.getCity()+" - "+location.getCountry(),
-                    hotel.getName(),hotel.getStars(),getMinimumPricePerNight(trip.getId()));
-        }).collect(Collectors.toList());
+        return this.getNRandomOffers(trips,3);
+    }
+
+    @Override
+    public List<TripDto> getAllTrips() {
+        return this.tripRepository.findAll()
+                .stream().map(this::getTripDtoFromTrip)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<TripDto> getTripsForDestination(String destination) {
         return this.tripRepository
                 .findAllByTripInHotel_HotelLocation_CityOrTripInHotel_HotelLocation_Country(destination,destination)
-                .stream().map(trip -> new TripDto(trip.getId().toString(),
-                        trip.getStartDate(),trip.getEndDate(),
-                        this.getMinimumPricePerNight(trip.getId()),trip.getTripInHotel(),
-                        getHotelImagesUrls(trip.getTripInHotel().getId()),this.getHotelRating(trip.getTripInHotel().getId())))
+                .stream().map(this::getTripDtoFromTrip)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<TripDto> getTripsForTime(String startTime, String endTime) {
         return this.tripRepository
-                .findAllByStartDateAfterAndEndDateBefore(LocalDate.parse(startTime).minusDays(1), LocalDate.parse(endTime).plusDays(1))
-                .stream().map(trip -> new TripDto(trip.getId().toString(),
-                        trip.getStartDate(),trip.getEndDate(),
-                        this.getMinimumPricePerNight(trip.getId()),trip.getTripInHotel(),
-                        getHotelImagesUrls(trip.getTripInHotel().getId()),this.getHotelRating(trip.getTripInHotel().getId())))
+                .findAllByStartDateAfterAndEndDateBefore(LocalDate.parse(startTime,formatterForReceivedData).minusDays(1),
+                        LocalDate.parse(endTime,formatterForReceivedData).plusDays(1))
+                .stream().map(this::getTripDtoFromTrip)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<TripDto> getTripsForDestinationAndTime(String destination, String startTime, String endTime) {
         return this.tripRepository
-                .findAllByStartDateAfterAndEndDateBefore(LocalDate.parse(startTime).minusDays(1), LocalDate.parse(endTime).plusDays(1))
+                .findAllByStartDateAfterAndEndDateBefore(LocalDate.parse(startTime,formatterForReceivedData).minusDays(1),
+                        LocalDate.parse(endTime,formatterForReceivedData).plusDays(1))
                 .stream().filter(trip->{
                     Location location = trip.getTripInHotel().getHotelLocation();
-                    return location.getCity().equals(destination) || location.getCountry().equals(destination);
-                }).map(trip -> new TripDto(trip.getId().toString(),
-                        trip.getStartDate(),trip.getEndDate(),
-                        this.getMinimumPricePerNight(trip.getId()),trip.getTripInHotel(),
-                        getHotelImagesUrls(trip.getTripInHotel().getId()),this.getHotelRating(trip.getTripInHotel().getId())))
+                    return location.getCity().equals(destination) || location.getCountry().equals(destination);})
+                .map(this::getTripDtoFromTrip)
                 .collect(Collectors.toList());
+    }
+
+    private TripDto getTripDtoFromTrip(Trip trip){
+        return new TripDto(trip.getId().toString(),
+                trip.getStartDate().format(formatterForDatabaseData),
+                trip.getEndDate().format(formatterForDatabaseData),
+                this.getMinimumPricePerNight(trip.getId()),trip.getTripInHotel(),
+                this.hotelService.getHotelImagesUrls(trip.getTripInHotel().getId()),
+                this.hotelService.getHotelRating(trip.getTripInHotel().getId()));
+    }
+
+    private List<OfferDto> getNRandomOffers(List<Trip> trips, int N){
+        if(trips.size()<= N)
+            return trips.stream().map(this::getOfferDtoFromTrip).collect(Collectors.toList());
+        Collections.shuffle(trips);
+        return trips.subList(0,N).stream().map(this::getOfferDtoFromTrip).collect(Collectors.toList());
+    }
+
+    private OfferDto getOfferDtoFromTrip(Trip trip){
+        Hotel hotel = trip.getTripInHotel();
+        Location location=hotel.getHotelLocation();
+        return new OfferDto(trip.getId().toString(),hotel.getId().toString(),
+                trip.getStartDate().format(formatterForDatabaseData),
+                trip.getEndDate().format(formatterForDatabaseData),
+                this.hotelService.getHotelImagesUrls(hotel.getId()).get(0),
+                location.getCity()+" - "+location.getCountry(),
+                hotel.getName(),hotel.getStars(),getMinimumPricePerNight(trip.getId()));
     }
 }

@@ -84,7 +84,7 @@ const Profile=(props)=>{
                             </li>
                             <li className="nav-item mb-3" id={"manageItems"}>
                                 <button className={"btn border-0"} style={{color:'#BB0422'}} onClick={displayManageItems}>
-                                    Manage hotels and destinations
+                                    Manage trips and destinations
                                 </button>
                             </li>
                         </ul>

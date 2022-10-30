@@ -42,7 +42,7 @@ class AddRoom extends Component{
                                        placeholder="Enter room number"
                                        onChange={this.handleChange}
                                        required/>
-                                <label htmlFor="numberOfAvailableRooms" className="form-label ps-4">Room number</label>
+                                <label htmlFor="numberOfAvailableRooms" className="form-label ps-4">Number of available rooms</label>
 
                             </div>
                             <div className="col-md-6 form-floating">

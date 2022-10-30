@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const PopularDestinations=(props)=>{
     //console.log(props.popularDestinations)
@@ -16,11 +17,14 @@ const PopularDestinations=(props)=>{
                                     </div>
 
                                     <div className={"col-7 blueBackground rounded-end pt-3 ps-3 pb-3 text-start"}>
-
-                                        <h4 className={"fw-bold text-start"}>{term.destinationLocation.city}</h4>
-                                        <span style={{fontSize:'12px'}} >
-                                Explore restaurants, museums, tourist attractions...
-                            </span>
+                                        <Link className={"btn"}
+                                              to={`/destinations/${term.id}`}
+                                              onClick={()=>props.setSelectedDestinationId(term.id)}>
+                                              <h4 className={"fw-bold text-start"}>{term.destinationLocation.city}</h4>
+                                        </Link>
+                                        <p style={{fontSize:'12px'}} >
+                                            Explore restaurants, museums, tourist attractions...
+                                        </p>
                                     </div>
                                 </div>
                             </div>

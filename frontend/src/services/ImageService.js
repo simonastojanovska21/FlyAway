@@ -6,10 +6,9 @@ const ImageService={
         return axios.get(`/api/images/forHotel/${hotelId}`)
     },
 
-    addImageForHotel:(hotelId, imageUrl, imageTag)=>{
+    addImageForHotel:(hotelId, imageUrl)=>{
         return axios.post(`/api/images/addForHotel/${hotelId}`,{
-            "imageUrl":imageUrl,
-            "imageTag":imageTag
+            "imageUrl":imageUrl
         })
     },
 

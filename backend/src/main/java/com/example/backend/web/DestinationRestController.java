@@ -46,9 +46,9 @@ public class DestinationRestController {
         return this.openWeatherService.getWeatherConditionsAboutDestination(destinationId);
     }
 
-    @GetMapping("/getDestinationDetailsFromDbpedia/{destination}")
-    public DestinationDto getDestinationDetailsFromDbpedia(@PathVariable String destination){
-        return this.destinationService.getDestinationDetailsFromDbpedia(destination);
+    @GetMapping("/getDestinationDetailsFromDbpedia/{city}/{country}")
+    public DestinationDto getDestinationDetailsFromDbpedia(@PathVariable String city, @PathVariable String country){
+        return this.destinationService.getDestinationDetailsFromDbpedia(city,country);
     }
 
     @GetMapping("/getMuseumsForDestination/{destination}")

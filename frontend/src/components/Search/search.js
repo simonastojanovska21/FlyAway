@@ -25,6 +25,20 @@ const Search=(props)=>{
         $('#quantity').val(inputText)
     };
 
+    const handleSearch = (e)=>{
+        const destination = $('#location').val();
+        console.log(destination)
+        const checkIn = $('#check_in').val().replaceAll('/','-')
+        console.log(checkIn)
+        const checkOut = $('#check_out').val().replaceAll('/','-')
+        console.log(checkOut)
+        let location = destination === "" ? 'any' : destination
+        let startDate = checkIn === "" ? 'any' : checkIn
+        let endDate = checkOut === "" ? 'any' : checkOut
+        props.setSearchTrip(location,startDate,endDate);
+        window.location.href="http://localhost:3000/trips"
+    }
+
     return(
         <div className={"border border-5 shadow-lg p-3 mb-5 whiteBackground"} >
             <div className={"row  pt-2 pb-2"}>
@@ -33,7 +47,7 @@ const Search=(props)=>{
                         <span className="input-group-text border-0 bg-body">
                             <FontAwesomeIcon icon={faSearch} size={"lg"}/>
                         </span>
-                        <input type="text" className="form-control border-0" placeholder="Where would you like to go?" />
+                        <input type="text" id={"location"} className="form-control border-0" placeholder="Where would you like to go?" />
                     </div>
                 </div>
 
@@ -42,7 +56,7 @@ const Search=(props)=>{
                         <span className="input-group-text border-0 bg-body">
                             <FontAwesomeIcon icon={faCalendarDays} size={"lg"}/>
                         </span>
-                        <div className={"form-control border-0 customDatePickerWidth"} style={{zIndex:'11'}} >
+                        <div className={"form-control border-0 customDatePickerWidth"} style={{zIndex:'15'}} >
                             <DatePicker/>
                         </div>
                     </div>
@@ -64,7 +78,10 @@ const Search=(props)=>{
                 </div>
 
                 <div className={"col-2 d-grid gap-2"}>
-                    <Link className={" btn rounded-0 text-white fontSize"} to={"/"} style={{backgroundColor :'#BB0422'}}>
+                    <Link className={" btn rounded-0 text-white fontSize"}
+                            onClick={()=>handleSearch()}
+                            to={'/trips'}
+                            style={{backgroundColor :'#BB0422'}}>
                         Search
                     </Link>
                 </div>

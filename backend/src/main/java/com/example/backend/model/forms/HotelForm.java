@@ -28,5 +28,5 @@ public class HotelForm {
 
     private int stars;
 
-    private List<ImageForm> imagesUrl;
+    private List<String> imagesUrl;
 }

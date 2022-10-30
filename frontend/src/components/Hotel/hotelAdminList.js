@@ -72,12 +72,6 @@ class HotelAdminList extends Component{
                                               to={`/admin/hotels/imagesForHotel/${term.hotelId}`}>
                                             Edit hotel images
                                         </Link>
-                                        <br/>
-                                        {/*<button className={"btn text-white me-3 mt-3"} style={{backgroundColor: '#BB0422'}}*/}
-                                        {/*    onClick={()=>this.deleteHotel(term.hotelId)}>*/}
-                                        {/*    Delete hotel*/}
-                                        {/*</button>*/}
-                                        <ConfirmDelete itemId={term.hotelId} onDeleteItem={this.deleteHotel} />
                                     </td>
                                 </tr>
                             )

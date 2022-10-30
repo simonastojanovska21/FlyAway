@@ -51,14 +51,11 @@ class RoomAdminList extends Component{
                                               to={`/admin/rooms/edit/${term.id}`}>
                                             Edit room
                                         </Link>
-                                        <Link className={"btn text-white me-3"} style={{backgroundColor: '#515153'}}
+                                        <Link className={"btn me-3"} style={{backgroundColor: '#8AA6CA'}}
                                               onClick={()=>this.props.setSelectedRoomId(term.id)}
                                               to={`/admin/rooms/imagesForRoom/${term.id}`}>
                                             Edit room images
                                         </Link>
-                                        <br/>
-
-                                        <ConfirmDelete itemId={term.id} onDeleteItem={this.deleteRoom} />
                                     </td>
                                 </tr>
                             )

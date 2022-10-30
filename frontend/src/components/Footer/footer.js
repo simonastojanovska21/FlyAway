@@ -1,6 +1,7 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHome, faEnvelope, faPhone, faPrint, faLocationDot, faCircleQuestion} from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
 
 const Footer=(props)=>{
     return(
@@ -28,13 +29,20 @@ const Footer=(props)=>{
                         <h4>Frequently visited pages</h4>
                         <hr className={"bg-white mb-2 mt-0 d-inline-block mx-auto w-25"}/>
                         <ul className={"list-unstyled"}>
-                            <li><a className={"text-decoration-none text-white fw-bold"} href={"/"}></a></li>
-                            <li><a className={"text-decoration-none text-white fw-bold"} href={"/"}></a></li>
-                            <li><a className={"text-decoration-none text-white fw-bold"} href={"/"}></a></li>
-                            <li><a className={"text-decoration-none text-white fw-bold"} href={"/"}></a></li>
-                            <li><a className={"text-decoration-none text-white fw-bold"} href={"/"}></a></li>
-                            <li><a className={"text-decoration-none text-white fw-bold"} href={"/"}></a></li>
-                            <li><a className={"text-decoration-none text-white fw-bold"} href={"/"}></a></li>
+                            <li>
+                                <Link className={"text-decoration-none text-white fw-bold"} to={"/"}>Home</Link>
+                            </li>
+                            <li>
+                                <Link className={"text-decoration-none text-white fw-bold"}
+                                      onClick={()=>props.setSearchTrip('any','any','any')}
+                                      to={"/trips"}>Trips</Link>
+                            </li>
+                            <li>
+                                <Link className={"text-decoration-none text-white fw-bold"} to={"/destinations"}>Destinations</Link>
+                            </li>
+                            <li>
+                                <Link className={"text-decoration-none text-white fw-bold"} to={"/aboutUs"}>About us</Link>
+                            </li>
                         </ul>
                     </div>
 

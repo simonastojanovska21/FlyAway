@@ -51,11 +51,7 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingDto> getUpcomingBookingsForUser(String username) {
         return this.bookingRepository.findAllUpcomingTripsForUser(username, LocalDate.now())
                 .stream()
-                .map(booking -> new BookingDto(username,booking.getId().toString(),booking.getBookingStatus().toString(),
-                        booking.getBookingForTrip().getTripInHotel().getName(),
-                        booking.getBookingForTrip().getTripInHotel().getHotelLocation().getCity(),booking.getTotalPrice(),
-                        booking.getBookingForTrip().getStartDate(),booking.getBookingForTrip().getEndDate(),
-                        booking.getBookingForRoom().getRoomType().toString(),booking.getBookingForRoom().getNumberOfGuests()))
+                .map(this::createBookingDtoFromBooking)
                 .collect(Collectors.toList());
     }
 
@@ -63,11 +59,7 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingDto> getAllBookingsForUser(String username) {
         return this.bookingRepository.findAllByUserMakesBooking_Username(username)
                 .stream()
-                .map(booking -> new BookingDto(username,booking.getId().toString(),booking.getBookingStatus().toString(),
-                        booking.getBookingForTrip().getTripInHotel().getName(),
-                        booking.getBookingForTrip().getTripInHotel().getHotelLocation().getCity(),booking.getTotalPrice(),
-                        booking.getBookingForTrip().getStartDate(),booking.getBookingForTrip().getEndDate(),
-                        booking.getBookingForRoom().getRoomType().toString(),booking.getBookingForRoom().getNumberOfGuests()))
+                .map(this::createBookingDtoFromBooking)
                 .collect(Collectors.toList());
     }
 
@@ -82,12 +74,7 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingDto> getAllBookingsForTrip(String tripId) {
         return this.bookingRepository.findAllByBookingForTrip_Id(UUID.fromString(tripId))
                 .stream()
-                .map(booking -> new BookingDto(booking.getUserMakesBooking().getUsername(),booking.getId().toString(),
-                        booking.getBookingStatus().toString(),
-                        booking.getBookingForTrip().getTripInHotel().getName(),
-                        booking.getBookingForTrip().getTripInHotel().getHotelLocation().getCity(),booking.getTotalPrice(),
-                        booking.getBookingForTrip().getStartDate(),booking.getBookingForTrip().getEndDate(),
-                        booking.getBookingForRoom().getRoomType().toString(),booking.getBookingForRoom().getNumberOfGuests()))
+                .map(this::createBookingDtoFromBooking)
                 .collect(Collectors.toList());
     }
 
@@ -101,10 +88,19 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Optional<BookingDto> getBookingDetails(String bookingId) {
         Booking booking=this.bookingRepository.getById(UUID.fromString(bookingId));
-        return Optional.of(new BookingDto(booking.getUserMakesBooking().getName()+" " +booking.getUserMakesBooking().getSurname(),
-                bookingId,booking.getBookingStatus().toString(), booking.getBookingForTrip().getTripInHotel().getName(),
-                booking.getBookingForTrip().getTripInHotel().getHotelLocation().getCity(),booking.getTotalPrice(),
-                booking.getBookingForTrip().getStartDate(),booking.getBookingForTrip().getEndDate(),
-                booking.getBookingForRoom().getRoomType().toString(),booking.getBookingForRoom().getNumberOfGuests()));
+        return Optional.of(this.createBookingDtoFromBooking(booking));
+    }
+
+    private BookingDto createBookingDtoFromBooking(Booking booking){
+        return new BookingDto(booking.getUserMakesBooking().getUsername(),
+                booking.getId().toString(),
+                booking.getBookingStatus().toString(),
+                booking.getBookingForTrip().getTripInHotel().getName(),
+                booking.getBookingForTrip().getTripInHotel().getHotelLocation().getCity(),
+                booking.getTotalPrice(),
+                booking.getBookingForTrip().getStartDate(),
+                booking.getBookingForTrip().getEndDate(),
+                booking.getBookingForRoom().getRoomType().toString(),
+                booking.getBookingForRoom().getNumberOfGuests());
     }
 }

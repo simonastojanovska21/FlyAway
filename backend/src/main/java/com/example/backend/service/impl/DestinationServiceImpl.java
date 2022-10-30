@@ -55,9 +55,9 @@ public class DestinationServiceImpl implements DestinationService {
     }
 
     @Override
-    public DestinationDto getDestinationDetailsFromDbpedia(String city) {
+    public DestinationDto getDestinationDetailsFromDbpedia(String city, String country) {
         ResultSet resultSet = this.queryService
-                .executeQueryUsingDbpediaSPARQLEndpoint(getDestinationDetails(city,city));
+                .executeQueryUsingDbpediaSPARQLEndpoint(getDestinationDetails(city,country));
         QuerySolution querySolution = resultSet.nextSolution();
         String homepage = querySolution.get("homepage") == null ? "" : querySolution.get("homepage").toString();
         String currency = querySolution.get("currency") == null ? "" : querySolution.get("currency").asResource().getLocalName();

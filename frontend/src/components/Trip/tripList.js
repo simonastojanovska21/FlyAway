@@ -16,7 +16,7 @@ class TripList extends Component{
             return(
                 <div className={"lightBackground pb-5"}>
                     <div className={"container text-center"}>
-                        <Search />
+                        <Search setSearchTrip={this.props.setSearchTrip}/>
                         <h2 className={"fw-bold pt-3"}>We are sorry, but we could not find trips matching you criteria.
                         <br/>
                             Try with different search words.
@@ -28,7 +28,7 @@ class TripList extends Component{
         return(
             <div className={"lightBackground pb-5"}>
                 <div className={"container text-center"}>
-                    <Search />
+                    <Search setSearchTrip={this.props.setSearchTrip}/>
                     <h2 className={"fw-bold pt-3"}>Offers matching your search</h2>
                     <div className={"pt-5"} id={"tripsList"}>
                         {this.state.tripsList.map((trip)=>{
@@ -46,7 +46,9 @@ class TripList extends Component{
         const location = localStorage.getItem("location");
         console.log(location)
         const startDate = localStorage.getItem("startDate");
+        console.log(startDate)
         const endDate = localStorage.getItem("endDate")
+        console.log(endDate)
         if(location !== null && startDate !== null)
             this.getAllTripsForLocationAndDate(location, startDate, endDate);
         else if(location === null && startDate !== null)

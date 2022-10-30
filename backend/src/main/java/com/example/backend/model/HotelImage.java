@@ -18,15 +18,11 @@ public class HotelImage {
 
     private String url;
 
-    @Enumerated(EnumType.STRING)
-    private ImageTag imageTag;
-
     @ManyToOne
     private Hotel imageForHotel;
 
-    public HotelImage(String url, ImageTag imageTag, Hotel imageForHotel) {
+    public HotelImage(String url, Hotel imageForHotel) {
         this.url = url;
-        this.imageTag=imageTag;
         this.imageForHotel = imageForHotel;
     }
 }

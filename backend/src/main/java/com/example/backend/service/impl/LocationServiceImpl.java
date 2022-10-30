@@ -33,9 +33,3 @@ public class LocationServiceImpl implements LocationService {
         return this.locationRepository.save(new Location(latitude,longitude,city,country));
     }
 }
-
-//    ResultSet resultSet = this.queryService
-//            .executeQueryUsingOSMEndpoint(SPARQLQueries.getCoordinatesForDestinationLocation(city));
-//    String location = resultSet.next().get("loc").toString();
-//    double [] coordinates = FormatHelper.getLocationCoordinates(location);
-//        return this.locationRepository.save(new Location(coordinates[1],coordinates[0],city,country));

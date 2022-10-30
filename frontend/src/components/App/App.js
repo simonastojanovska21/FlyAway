@@ -52,14 +52,18 @@ class App extends Component{
         <Router>
             <ScrollToTop />
             <Header username={this.state.loggedInUser.username} onLogoutUser={this.logoutUser}
+                    setSearchTrip={this.setSearchTrip}
                     onLoginUser={this.loginUser} onRegisterUser={this.registerUser}/>
             <main>
                 <div>
                     <Routes>
                         <Route path={"/"}
-                               element={ <Home reviews={this.state.reviews}
+                               element={ <Home setSearchTrip={this.setSearchTrip}
+                                               reviews={this.state.reviews}
                                                topOffers={this.state.topOffers}
-                                               popularDestinations={this.state.popularDestinations} />  }/>
+                                               popularDestinations={this.state.popularDestinations}
+                                               setSelectedDestinationId={this.setSelectedDestinationId}
+                                               setSelectedTripId={this.setSelectedTripId}    />  }/>
                         <Route path={"/profile"}
                                element={ <Profile user={this.state.userInfo}  onLeaveReview={this.leaveReview} />  }  />
 
@@ -77,7 +81,8 @@ class App extends Component{
                                element={<TripDetails selectedHotelId={this.state.selectedHotelId}
                                                      selectedTripId={this.state.selectedTripId} /> } />
                         <Route path={"/trips"}
-                               element={ <TripList setSelectedTripId={this.setSelectedTripId}  /> } />
+                               element={ <TripList setSearchTrip={this.setSearchTrip}
+                                                   setSelectedTripId={this.setSelectedTripId}  /> } />
 
                         <Route path={"/admin/rooms/add"}
                                element={<AddRoom selectedHotelId={this.state.selectedHotelId}/> } />
@@ -99,8 +104,9 @@ class App extends Component{
 
                         <Route path={"/destinations/add"} element={ <AddDestination  />  }  />
                         <Route path={"/destinations/:destinationId"}
-                               element={ <DestinationDetails
-                                   selectedDestinationId={this.state.selectedDestinationId} /> } />
+                               element={ <DestinationDetails setSearchTrip={this.setSearchTrip}
+                                                             selectedDestinationId={this.state.selectedDestinationId}
+                                                             setSelectedTripId={this.setSelectedTripId} /> } />
                         <Route path={"/destinations"}
                                element={ <DestinationList setSearchTrip={this.setSearchTrip}
                                                           setSelectedDestinationId={this.setSelectedDestinationId} /> } />
@@ -108,7 +114,7 @@ class App extends Component{
                     </Routes>
                 </div>
             </main>
-            <Footer/>
+            <Footer setSearchTrip={this.setSearchTrip}/>
         </Router>
     )
   }
@@ -177,6 +183,7 @@ class App extends Component{
         localStorage.removeItem("location")
         localStorage.removeItem("startDate")
         localStorage.removeItem("endDate")
+        console.log(location+", "+startDate+", "+endDate)
         if(location !== 'any')
             localStorage.setItem("location",location)
         if(startDate !== 'any')

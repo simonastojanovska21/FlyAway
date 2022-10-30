@@ -22,8 +22,8 @@ const DestinationService={
         return axios.get(`/api/destinations/getWeatherConditions/${destinationId}`)
     },
 
-    getDestinationDetailsFromDbpedia:(destination)=>{
-        return axios.get(`/api/destinations/getDestinationDetailsFromDbpedia/${destination}`)
+    getDestinationDetailsFromDbpedia:(city,country)=>{
+        return axios.get(`/api/destinations/getDestinationDetailsFromDbpedia/${city}/${country}`)
     },
 
     getMuseumsForDestination:(destination)=>{

@@ -11,7 +11,7 @@ const TopOffers=(props)=>{
                     {props.offers.map((term)=>{
                         return(
                             <div className={"col-4"}>
-                                <OfferItem item={term}  />
+                                <OfferItem item={term} setSelectedTripId={props.setSelectedTripId}  />
                             </div>
                         )
                     })}

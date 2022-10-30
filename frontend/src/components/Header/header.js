@@ -29,9 +29,6 @@ const Header=(props)=>{
                     <div className="collapse navbar-collapse justify-content-end">
                         <ul className="nav navbar-nav navbar-right">
                             <li className="nav-item me-3 greyButtonBackground rounded">
-                                <a className={"btn greyText fw-bold"} href={"/destinations"}>Testing</a>
-                            </li>
-                            <li className="nav-item me-3 greyButtonBackground rounded">
                                 <a className={"btn greyText fw-bold"} href={"/"}>Trips</a>
                             </li>
                             <li className="nav-item me-3 greyButtonBackground rounded">

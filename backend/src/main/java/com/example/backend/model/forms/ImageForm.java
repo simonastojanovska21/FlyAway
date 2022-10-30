@@ -5,5 +5,4 @@ import lombok.Data;
 @Data
 public class ImageForm {
     private String imageUrl;
-    private String imageTag;
 }

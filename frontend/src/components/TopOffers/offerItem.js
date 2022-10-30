@@ -2,6 +2,7 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMapPin} from "@fortawesome/free-solid-svg-icons";
 import Stars from "../RatingStars/stars";
+import {Link} from "react-router-dom";
 
 const OfferItem=(props)=>{
 
@@ -33,6 +34,11 @@ const OfferItem=(props)=>{
                     </div>
                 </div>
             </div>
+            <Link className={"btn w-100 text-white"}
+                  style={{backgroundColor:'#8AA6CA'}}
+                  onClick={()=>props.setSelectedTripId(props.item.tripId,props.item.hotelId)} to={`/trips/details/${props.item.tripId}`}>
+                See details
+            </Link>
         </div>
     )
 }

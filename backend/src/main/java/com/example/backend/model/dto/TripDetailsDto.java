@@ -12,9 +12,9 @@ import java.util.List;
 public class TripDetailsDto {
     private String tripId;
 
-    private LocalDate startDate;
+    private String startDate;
 
-    private LocalDate endDate;
+    private String endDate;
 
     private int tripDuration;
 

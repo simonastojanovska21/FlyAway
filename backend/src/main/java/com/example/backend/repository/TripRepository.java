@@ -1,10 +1,7 @@
 package com.example.backend.repository;
 
-import com.example.backend.model.HotelReview;
 import com.example.backend.model.Trip;
-import com.example.backend.model.dto.TopOfferDto;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;

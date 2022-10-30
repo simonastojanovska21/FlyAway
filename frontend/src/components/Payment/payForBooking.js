@@ -87,11 +87,12 @@ class PayForBooking extends Component{
         )
     }
     componentDidMount() {
-        this.getDetailsAboutBooking()
+        const bookingId = localStorage.getItem("selectedBookingId")
+        this.getDetailsAboutBooking(bookingId)
     }
 
-    getDetailsAboutBooking=()=>{
-        BookingService.getBookingDetails('187aa188-6231-447d-b19b-57e675610432')
+    getDetailsAboutBooking=(bookingId)=>{
+        BookingService.getBookingDetails(bookingId)
             .then((data)=>{
                 this.setState({
                     booking: data.data

@@ -13,7 +13,7 @@ public interface DestinationService {
     List<Destination> getAllDestinations();
     List<Destination> findTopThreeDestinations();
     Optional<Destination> getDestination(String destinationId);
-    DestinationDto getDestinationDetailsFromDbpedia(String city);
+    DestinationDto getDestinationDetailsFromDbpedia(String city, String country);
     List<TouristAttractionDto> getMuseumsForDestination(String city);
     List<TouristAttractionDto> getAttractionsForDestination(String city);
     List<TouristAttractionDto> getRestaurantsForDestination(String city);

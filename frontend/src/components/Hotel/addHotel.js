@@ -14,7 +14,6 @@ class AddHotel extends Component{
         super(props);
         this.state={
             amenities:[],
-            imageTags:[],
             name:"",
             description:"",
             address:"",
@@ -33,7 +32,7 @@ class AddHotel extends Component{
     render() {
         if(this.state.redirect){
             return (
-                <Navigate to={"/"} />
+                <Navigate to={"/admin/hotels"} />
             )
         }
         return(
@@ -163,16 +162,12 @@ class AddHotel extends Component{
                                            required/>
                                     <label htmlFor="imagesUrl" className="form-label ps-4">Hotel cover image url</label>
                                 </div>
-                                <div className="col-md-6 form-floating">
-                                    <select className="form-select" name="imageTag" disabled >
-                                        <option value="Cover">Cover</option>
-                                    </select>
-                                    <label htmlFor="imageTag" className={"form-label ps-4"}>Image tag</label>
-                                </div>
+
+                                {Array.apply(null, {length: this.state.imageComponents})
+                                    .map((t)=><AddHotelImages  /> )}
                             </div>
 
-                            {Array.apply(null, {length: this.state.imageComponents})
-                                .map((t)=><AddHotelImages imageTags={this.state.imageTags} /> )}
+
                         </div>
 
                         <div className={"d-grid gap-2 col-md-8 mx-auto pt-5"}>
@@ -195,8 +190,7 @@ class AddHotel extends Component{
         HotelService.getHotelData()
             .then((data)=>{
                 this.setState({
-                    amenities:data.data.amenities,
-                    imageTags:data.data.imageTags
+                    amenities:data.data
                 })
             })
     }
@@ -240,14 +234,9 @@ class AddHotel extends Component{
         $('input[name="amenities"]:checked').each(function (){
             selectedAmenities.push(this.value)
         })
-        let imagesTags=[]
-        $('select[name="imageTag"] option:selected').each(function (){
-            imagesTags.push(this.value)
-        })
         let imagesUrl=[]
-        $('input[name="imageUrl"]').each(function (index){
-            let image = {"imageUrl":this.value, "imageTag":imagesTags[index] }
-            imagesUrl.push(image)
+        $('input[name="imageUrl"]').each(function (){
+            imagesUrl.push(this.value)
         })
 
         const name=this.state.name;

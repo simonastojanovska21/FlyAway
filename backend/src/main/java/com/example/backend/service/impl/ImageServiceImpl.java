@@ -35,11 +35,10 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Optional<HotelImage> addImageForHotel(String hotelId, ImageForm imageForm) {
+    public Optional<HotelImage> addImageForHotel(String hotelId, String url) {
         Hotel hotel = this.hotelRepository.findById(UUID.fromString(hotelId))
                 .orElseThrow(()->new HotelNotFoundException("Hotel with id " + hotelId +" is not found"));
-        return Optional.of(this.hotelImageRepository.save(new HotelImage(imageForm.getImageUrl(),
-                ImageTag.valueOf(imageForm.getImageTag()),hotel)));
+        return Optional.of(this.hotelImageRepository.save(new HotelImage(url,hotel)));
     }
 
     @Override

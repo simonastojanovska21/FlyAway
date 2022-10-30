@@ -21,18 +21,13 @@ public class AuthenticationRestController {
     @GetMapping("/userInfo/{username}")
     public ResponseEntity<User> getInfoForUser(@PathVariable String username)
     {
-        try{
-            return this.userService.getUserInfo(username)
-                    .map(user->ResponseEntity.ok().body(user))
-                    .orElseGet(()->ResponseEntity.badRequest().build());
-        } catch (UserNotFoundException e)
-        {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage(),e);
-        }
+        return this.userService.getUserInfo(username)
+                .map(user->ResponseEntity.ok().body(user))
+                .orElseGet(()->ResponseEntity.badRequest().build());
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody RegisterForm registerForm) {
+    public ResponseEntity<User> registerUser(@RequestBody RegisterForm registerForm) {
         return this.userService.register(registerForm)
                 .map(user->ResponseEntity.ok().body(user))
                 .orElseGet(()->ResponseEntity.badRequest().build());

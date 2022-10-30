@@ -13,9 +13,9 @@ public class TripDto {
 
     private String tripId;
 
-    private LocalDate startTime;
+    private String startTime;
 
-    private LocalDate endTime;
+    private String endTime;
 
     private double pricePerNight;
 

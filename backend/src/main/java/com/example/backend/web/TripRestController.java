@@ -1,8 +1,6 @@
 package com.example.backend.web;
 
-import com.example.backend.model.Trip;
-import com.example.backend.model.dto.HotelNameIdDto;
-import com.example.backend.model.dto.TopOfferDto;
+import com.example.backend.model.dto.OfferDto;
 import com.example.backend.model.dto.TripDetailsDto;
 import com.example.backend.model.dto.TripDto;
 import com.example.backend.model.forms.TripForm;
@@ -43,12 +41,12 @@ public class TripRestController {
     }
 
     @GetMapping("/getTopThreeOffers")
-    public List<TopOfferDto> getTopThreeOffers(){
+    public List<OfferDto> getTopThreeOffers(){
         return this.tripService.getTopThreeOffers();
     }
 
     @GetMapping("/getTopThreeOffersForDestination/{destination}")
-    public List<TopOfferDto> getTopThreeOffersForDestination(@PathVariable String destination){
+    public List<OfferDto> getTopThreeOffersForDestination(@PathVariable String destination){
         return this.tripService.getTopThreeOffersForDestination(destination);
     }
 

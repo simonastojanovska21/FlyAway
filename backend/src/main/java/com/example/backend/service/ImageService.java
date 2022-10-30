@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ImageService {
     List<HotelImage> getImagesForHotel(String hotelId);
-    Optional<HotelImage> addImageForHotel(String hotelId, ImageForm imageForm);
+    Optional<HotelImage> addImageForHotel(String hotelId, String url);
     boolean deleteImageForHotel(String hotelImageId);
 
     List<RoomImage> getImagesForRoom(String roomId);

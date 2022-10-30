@@ -5,7 +5,11 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class TopOfferDto {
+public class OfferDto {
+    private String tripId;
+
+    private String hotelId;
+
     private String startDate;
 
     private String endDate;

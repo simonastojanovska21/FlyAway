@@ -13,7 +13,6 @@ class EditHotelImages extends Component{
     constructor(props) {
         super(props);
         this.state={
-            imageTags:[],
             images:[],
         }
     }
@@ -27,7 +26,7 @@ class EditHotelImages extends Component{
                     <hr/>
                     <div className={"d-flex justify-content-start "}>
                         <div className={"col-8"}>
-                            <AddHotelImages imageTags={this.state.imageTags} />
+                            <AddHotelImages  />
                         </div>
                         <button className={"col-3 ms-4 mt-3 btn text-white"} type={"submit"}
                                 onClick={this.onFormSubmit}
@@ -43,7 +42,7 @@ class EditHotelImages extends Component{
                                     <div className=" card mb-3 shadow p-3 rounded" style={{height:'300px'}}>
                                         <img src={term.url} className={"rounded"} alt="hotel room"/>
                                         <div className="card-body">
-                                            <span>{term.imageTag}</span>
+                                            <span></span>
                                         </div>
                                         <div className="d-grid gap-2 ">
                                             {/*<Link className={"btn mt-2 mb-2 text-white"} style={{backgroundColor: '#BB0422'}}*/}
@@ -87,8 +86,8 @@ class EditHotelImages extends Component{
             })
     }
 
-    addImageForHotel=(hotelId, imageUrl, imageTag)=>{
-        ImageService.addImageForHotel(hotelId,imageUrl, imageTag)
+    addImageForHotel=(hotelId, imageUrl)=>{
+        ImageService.addImageForHotel(hotelId,imageUrl)
             .then(()=>{
                 this.getImagesForHotel(hotelId)
             })
@@ -104,9 +103,9 @@ class EditHotelImages extends Component{
 
     onFormSubmit=()=>{
         const imageUrl = $('input[name="imageUrl"]')[0].value
-        const imageTag = $('select[name="imageTag"] option:selected')[0].value
+
         const hotelId=localStorage.getItem("selectedHotelId");
-        this.addImageForHotel(hotelId, imageUrl,imageTag);
+        this.addImageForHotel(hotelId, imageUrl);
         $('input[name="imageUrl"]')[0].value=""
     }
 

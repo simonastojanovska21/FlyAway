@@ -28,11 +28,8 @@ public class HotelRestController {
     private final HotelService hotelService;
 
     @GetMapping("/hotelData")
-    public Map<String,List<String>> getHotelAmenities(){
-        Map<String,List<String>> map = new HashMap<>();
-        map.put("amenities",Arrays.stream(Amenities.values()).map(each->each.label).collect(Collectors.toList()));
-        map.put("imageTags",Arrays.stream(ImageTag.values()).map(Enum::toString).collect(Collectors.toList()));
-        return map;
+    public List<String> getHotelAmenities(){
+        return Arrays.stream(Amenities.values()).map(each->each.label).collect(Collectors.toList());
     }
 
     @GetMapping("/adminHotelList")

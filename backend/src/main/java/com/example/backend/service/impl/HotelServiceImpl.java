@@ -42,14 +42,28 @@ public class HotelServiceImpl implements HotelService {
         Hotel hotel = this.hotelRepository.save(new Hotel(hotelForm.getName(), hotelForm.getDescription(),
                 hotelForm.getAddress(), hotelForm.getAmenities(), hotelForm.getCheckInHour(),
                 hotelForm.getCheckOutHour(), hotelForm.getStars(),location));
-        hotelForm.getImagesUrl().forEach(imageDto -> this.addHotelImage(imageDto.getImageUrl(),imageDto.getImageTag(),hotel));
+        hotelForm.getImagesUrl().forEach(imageDto -> this.addHotelImage(imageDto,hotel));
         return Optional.of(hotel);
     }
 
     @Override
-    public void addHotelImage(String imageUrl, String imageTag, Hotel hotel) {
-        HotelImage hotelImage = new HotelImage(imageUrl, ImageTag.valueOf(imageTag),hotel);
+    public void addHotelImage(String imageUrl, Hotel hotel) {
+        HotelImage hotelImage = new HotelImage(imageUrl,hotel);
         this.hotelImagesRepository.save(hotelImage);
+    }
+
+    @Override
+    public List<String> getHotelImagesUrls(UUID hotelId) {
+        return this.hotelImagesRepository.findAllByImageForHotel_Id(hotelId)
+                .stream().map(HotelImage::getUrl).collect(Collectors.toList());
+    }
+
+    @Override
+    public int getHotelRating(UUID hotelId) {
+        Double rating = this.hotelReviewRepository.getAverageRatingOfHotel(hotelId);
+        if(rating==null)
+            return 0;
+        return (int) Math.round(rating);
     }
 
     @Override

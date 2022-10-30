@@ -9,6 +9,7 @@ import TouristAttractionItem from "./touristAttractionItem";
 import DestinationAttractionsMap from "../Maps/destinationAttractionsMap";
 import TripService from "../../services/TripService";
 import OfferItem from "../TopOffers/offerItem";
+import {Link} from "react-router-dom";
 
 class DestinationDetails extends Component{
     constructor(props) {
@@ -43,10 +44,12 @@ class DestinationDetails extends Component{
                                 <p className={"fw-bold"} style={{fontSize:'60px'}}>
                                     {this.state.destinationLocation.city}
                                 </p>
-                                <button className={"btn text-white p-3 fw-bold "}
-                                        style={{backgroundColor:'#BB0422'}} >
+                                <Link className={"btn btn-lg text-white me-2"}
+                                      to={`/trips`}
+                                      onClick={()=>this.props.setSearchTrip(this.state.destinationLocation.city,'any','any')}
+                                      style={{backgroundColor:'#BB0422'}} >
                                     Book now
-                                </button>
+                                </Link>
                             </div>
                         </div>}
                 </div>
@@ -195,29 +198,19 @@ class DestinationDetails extends Component{
                     </div>
                 </div>
 
-                <div className={""}>
-                    <div className={"container"}>
-                        <h2>Trips in this destinations</h2>
-                        <div className={"row"}>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div className={"container text-center"}>
-                    <span className={"title"}>Top 5 offers</span>
+                <div className={"container text-center pt-5 pb-5"}>
+                    <span className={"title"}>Trips in this destination</span>
                     {this.state.offersInDestination === null ? <></> :
-                        <div className={"row"}>
+                        <div className={"row pt-5"}>
                             {this.state.offersInDestination.map((term)=>{
                                 return(
                                     <div className={"col-4"}>
-                                        <OfferItem item={term}  />
+                                        <OfferItem item={term} setSelectedTripId={this.props.setSelectedTripId}  />
                                     </div>
                                 )
                             })}
                         </div>}
                 </div>
-
             </div>
         );
     }
@@ -255,7 +248,7 @@ class DestinationDetails extends Component{
                     destinationDetails:data.data,
                     destinationLocation:data.data.destinationLocation
                 })
-                this.getDestinationDetailsFromDbpedia(data.data.destinationLocation.city);
+                this.getDestinationDetailsFromDbpedia(data.data.destinationLocation.city,data.data.destinationLocation.country);
                 this.getAttractionsForDestination(data.data.destinationLocation.city);
                 this.getMuseumsForDestination(data.data.destinationLocation.city);
                 this.getRestaurantsForDestination(data.data.destinationLocation.city);
@@ -274,8 +267,8 @@ class DestinationDetails extends Component{
             })
     }
 
-    getDestinationDetailsFromDbpedia=(destination)=>{
-        DestinationService.getDestinationDetailsFromDbpedia(destination)
+    getDestinationDetailsFromDbpedia=(city,country)=>{
+        DestinationService.getDestinationDetailsFromDbpedia(city,country)
             .then((data)=>{
                 this.setState({
                     detailsDbpedia:data.data
