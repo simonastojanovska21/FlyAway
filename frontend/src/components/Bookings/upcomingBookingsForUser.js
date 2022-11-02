@@ -22,7 +22,8 @@ class UpcomingBookingsForUser extends Component{
 
                             this.state.bookings.map((term)=>{
                                 return(
-                                    <BookingItem booking={term} setSelectedBookingId={this.props.setSelectedBookingId} />
+                                    <BookingItem booking={term}
+                                                 setSelectedBookingId={this.props.setSelectedBookingId} />
                                 )
                             })
                         }

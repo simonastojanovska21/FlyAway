@@ -46,6 +46,8 @@ public class SPARQLQueries {
     }
 
     public static String getMuseumsInDestinations(String city){
+        if(city.equals("Rome"))
+            city = "Roma";
         return osmmPrefix + osmtPrefix + wdtPrefix + schemaPrefix +
                 "SELECT ?name ?loc ?imageURL ?description  \n" +
                 "WHERE {\n" +
@@ -63,10 +65,12 @@ public class SPARQLQueries {
     }
 
     public static String getAttractionsInDestinations(String city){
+        if(city.equals("Rome"))
+            city = "Roma";
         return osmmPrefix + osmtPrefix + wdtPrefix + schemaPrefix +
                 "SELECT ?name ?loc ?imageURL ?description  \n" +
                 "WHERE {\n" +
-                "   ?museum osmt:addr:city \""+ city +"\";\n" +
+                "   ?tour osmt:addr:city \""+ city +"\";\n" +
                 "      osmt:tourism \"attraction\";\n" +
                 "      osmm:loc ?loc ;\n" +
                 "      osmt:wikidata ?wikidataID;\n" +
@@ -80,10 +84,12 @@ public class SPARQLQueries {
     }
 
     public static String getRestaurantsInDestinations(String city){
+        if(city.equals("Rome"))
+            city = "Roma";
         return osmmPrefix + osmtPrefix + wdtPrefix + schemaPrefix +
                 "SELECT ?name ?loc ?imageURL ?description  \n" +
                 "WHERE {\n" +
-                "   ?museum osmt:addr:city \""+ city +"\";\n" +
+                "   ?rest osmt:addr:city \""+ city +"\";\n" +
                 "      osmt:amenity \"restaurant\";\n" +
                 "      osmm:loc ?loc ;\n" +
                 "      osmt:wikidata ?wikidataID;\n" +
@@ -97,10 +103,12 @@ public class SPARQLQueries {
     }
 
     public static String getBarsInDestinations(String city){
+        if(city.equals("Rome"))
+            city = "Roma";
         return osmmPrefix + osmtPrefix + wdtPrefix + schemaPrefix +
                 "SELECT ?name ?loc ?imageURL ?description  \n" +
                 "WHERE {\n" +
-                "   ?museum osmt:addr:city \""+ city +"\";\n" +
+                "   ?bar osmt:addr:city \""+ city +"\";\n" +
                 "      osmt:amenity \"bar\";\n" +
                 "      osmm:loc ?loc ;\n" +
                 "      osmt:wikidata ?wikidataID;\n" +
@@ -114,10 +122,12 @@ public class SPARQLQueries {
     }
 
     public static String getNightClubsInDestinations(String city){
+        if(city.equals("Rome"))
+            city = "Roma";
         return osmmPrefix + osmtPrefix + wdtPrefix + schemaPrefix +
                 "SELECT ?name ?loc ?imageURL ?description  \n" +
                 "WHERE {\n" +
-                "   ?museum osmt:addr:city \""+ city +"\";\n" +
+                "   ?club osmt:addr:city \""+ city +"\";\n" +
                 "      osmt:amenity \"nightclub\";\n" +
                 "      osmm:loc ?loc ;\n" +
                 "      osmt:wikidata ?wikidataID;\n" +
@@ -129,13 +139,5 @@ public class SPARQLQueries {
                 "  }  \n" +
                 "} LIMIT 5";
     }
-    public static String getCoordinatesForHotelLocation(String address, String city, String country){
-        return "";
-//        return osmmPrefix + osmtPrefix +
-//                "SELECT ?loc\n" +
-//                "WHERE {\n" +
-//                "   ?node osmt:addr:city \""+city+"\";\n" +
-//                "         osmm:loc ?loc ;\n" +
-//                "} LIMIT 1";
-    }
+
 }

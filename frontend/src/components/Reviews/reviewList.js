@@ -3,6 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleUser} from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import Stars from "../RatingStars/stars";
+import GenerateSemanticData from "../../semantic/GenerateSemanticData";
 
 const ReviewList=(props)=>{
     //console.log(props.reviews)
@@ -27,6 +28,9 @@ const ReviewList=(props)=>{
                                         <Stars numberStars={term.stars}/>
                                     </div>
                                 </div>
+                                <script type="application/ld+json">
+                                    {JSON.stringify(GenerateSemanticData.createReview(term))}
+                                </script>
                             </div>
                         )
                     })}

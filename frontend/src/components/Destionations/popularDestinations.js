@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import GenerateSemanticData from "../../semantic/GenerateSemanticData";
 
 const PopularDestinations=(props)=>{
     //console.log(props.popularDestinations)
@@ -20,13 +21,16 @@ const PopularDestinations=(props)=>{
                                         <Link className={"btn"}
                                               to={`/destinations/${term.id}`}
                                               onClick={()=>props.setSelectedDestinationId(term.id)}>
-                                              <h4 className={"fw-bold text-start"}>{term.destinationLocation.city}</h4>
+                                              <h4 className={"fw-bold text-start"}>{term.destinationLocation.city.split(',')[0]}</h4>
                                         </Link>
                                         <p style={{fontSize:'12px'}} >
                                             Explore restaurants, museums, tourist attractions...
                                         </p>
                                     </div>
                                 </div>
+                                <script type="application/ld+json">
+                                    {JSON.stringify(GenerateSemanticData.createTouristDestination(term))}
+                                </script>
                             </div>
                         )
                     })}

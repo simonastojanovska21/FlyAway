@@ -94,6 +94,7 @@ public class BookingServiceImpl implements BookingService {
     private BookingDto createBookingDtoFromBooking(Booking booking){
         return new BookingDto(booking.getUserMakesBooking().getUsername(),
                 booking.getId().toString(),
+                booking.getBookingForTrip().getTripInHotel().getHotelLocation().getId().toString(),
                 booking.getBookingStatus().toString(),
                 booking.getBookingForTrip().getTripInHotel().getName(),
                 booking.getBookingForTrip().getTripInHotel().getHotelLocation().getCity(),

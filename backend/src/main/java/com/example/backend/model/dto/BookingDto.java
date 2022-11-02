@@ -12,6 +12,8 @@ public class BookingDto {
 
     private String bookingId;
 
+    private String destinationId;
+
     private String bookingStatus;
 
     private String hotelName;

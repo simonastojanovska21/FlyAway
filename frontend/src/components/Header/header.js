@@ -29,14 +29,24 @@ const Header=(props)=>{
                     <div className="collapse navbar-collapse justify-content-end">
                         <ul className="nav navbar-nav navbar-right">
                             <li className="nav-item me-3 greyButtonBackground rounded">
-                                <a className={"btn greyText fw-bold"} href={"/"}>Trips</a>
+                                <Link className={"btn greyText fw-bold"}
+                                      onClick={()=>props.setSearchTrip('any','any','any')}
+                                      to={"/trips"}>
+                                    Trips
+                                </Link>
                             </li>
                             <li className="nav-item me-3 greyButtonBackground rounded">
-                                <a className={"btn greyText fw-bold"} href={"/"}>Destinations</a>
+                                <Link className={"btn greyText fw-bold"}
+                                      to={"/destinations"}>
+                                    Destinations
+                                </Link>
                             </li>
-                            <li className="nav-item me-3 greyButtonBackground rounded">
-                                <a className={"btn greyText fw-bold"} href={"/bookings"}>Bookings</a>
-                            </li>
+                            {
+                                localStorage.getItem("userRole") !== null &&
+                                <li className="nav-item me-3 greyButtonBackground rounded">
+                                    <a className={"btn greyText fw-bold"} href={"/bookings"}>My bookings</a>
+                                </li>
+                            }
                             {props.username !== undefined &&
                             <li className="nav-item me-3 redButtonBackground rounded">
                                 <a className={"btn text-white fw-bold"} href={"/profile"}>My profile</a>

@@ -1,7 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import BookingService from "../../services/BookingService";
 
 const BookingItem=(props)=>{
+    const reload=()=>{
+        window.location.reload()
+    }
 
     return(
         <div className={"col-6 text-start "}>
@@ -22,9 +26,7 @@ const BookingItem=(props)=>{
                 </div>
 
                 <div className={"d-flex justify-content-between ps-3 pe-3"}>
-                    <Link className={"btn text-white me-2"} to={`/destinations/${props.booking.hotelCity}`} style={{backgroundColor:'#8AA6CA'}} >
-                        Explore {props.booking.hotelCity}
-                    </Link>
+
                     {props.booking.bookingStatus==='RESERVED' &&
                         <Link className={"btn text-white me-2"}
                               onClick={()=>props.setSelectedBookingId(props.booking.bookingId)}
@@ -35,10 +37,21 @@ const BookingItem=(props)=>{
                     <button className={"btn text-white me-2"} disabled style={{backgroundColor:'#515153'}} >
                         Paid trip
                     </button> }
-                    {/*Only for employee*/}
-                    <Link className={"btn text-white "} to={`/destinations/${props.booking.hotelCity}`} style={{backgroundColor:'#BB0422'}} >
-                        Cancel booking
-                    </Link>
+                    {props.booking.bookingStatus==='CANCELED' &&
+                    <button className={"btn text-white me-2"} disabled style={{backgroundColor:'#515153'}} >
+                        Canceled trip
+                    </button> }
+                    {
+                        props.booking.bookingStatus !=='CANCELED' &&
+                        localStorage.getItem("userRole") !== null &&
+                        localStorage.getItem("userRole").endsWith("EMPLOYEE") &&
+                        <button className={"btn text-white "}
+                                onClick={()=>{BookingService.cancelBookingForTrip(props.booking.bookingId); window.location.reload();}}
+                              style={{backgroundColor:'#BB0422'}} >
+                            Cancel booking
+                        </button>
+                    }
+
                 </div>
 
             </div>

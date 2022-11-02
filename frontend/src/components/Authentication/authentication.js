@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import Register from "./register";
 import Login from "./login";
 import $ from 'jquery';
+import AuthenticationService from "../../services/AuthenticationService";
 
 const Authentication=(props)=>{
 
@@ -24,8 +25,24 @@ const Authentication=(props)=>{
 
     const hideModal=(e)=>{
         e.preventDefault()
-        props.onHide()
         setDisplayLogin(true)
+        props.onHide()
+    }
+
+    const loginUser=(username,password)=>{
+        AuthenticationService.loginUser(username,password)
+            .then(()=>{
+                const currentUser = AuthenticationService.getCurrentUser();
+                localStorage.setItem("userRole",currentUser.role);
+                setDisplayLogin(true)
+            })
+    }
+
+    const registerUser=(username, password,repeatedPassword,name,surname)=>{
+        AuthenticationService.registerUser(username, password,repeatedPassword,name,surname)
+            .then(()=>{
+                setDisplayLogin(true)
+            })
     }
 
     return(
@@ -53,7 +70,7 @@ const Authentication=(props)=>{
             </Modal.Header>
             <Modal.Body >
                 {displayLogin ? <Login onLoginUser={props.onLoginUser}  hideWindow={props.onHide}/>
-                    : <Register onRegisterUser={props.onRegisterUser} hideWindow={props.onHide} /> }
+                    : <Register onRegisterUser={registerUser} hideWindow={props.onHide} /> }
 
             </Modal.Body>
 

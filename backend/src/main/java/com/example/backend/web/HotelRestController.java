@@ -7,16 +7,13 @@ import com.example.backend.model.dto.TripInHotelDetailsDto;
 import com.example.backend.model.forms.HotelForm;
 import com.example.backend.model.dto.HotelItem;
 import com.example.backend.model.enumerations.Amenities;
-import com.example.backend.model.enumerations.ImageTag;
 import com.example.backend.service.HotelService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -67,14 +64,4 @@ public class HotelRestController {
                 .map(hotel -> ResponseEntity.ok().body(hotel))
                 .orElseGet(()->ResponseEntity.badRequest().build());
     }
-
-    @DeleteMapping("/delete/{hotelId}")
-    public ResponseEntity deleteHotel(@PathVariable String hotelId){
-        boolean result;
-        result = this.hotelService.deleteHotel(hotelId);
-        if(result)
-            return ResponseEntity.ok().build();
-        return ResponseEntity.badRequest().build();
-    }
-
 }

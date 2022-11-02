@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import PersonalDetails from "./personalDetails";
 import LeaveReview from "./leaveReview";
@@ -7,6 +7,8 @@ import MyBookings from "./myBookings";
 import $ from 'jquery';
 
 const Profile=(props)=>{
+
+
     const [personalDetails, setPersonalDetails] = React.useState(true);
     const [myBookings, setMyBookings] = React.useState(false);
     const [leaveReview, setLeaveReview] = React.useState(false);
@@ -77,22 +79,28 @@ const Profile=(props)=>{
                                     My bookings
                                 </button>
                             </li>
+
                             <li className="nav-item mb-3" id={"leaveReview"}>
                                 <button className={"btn border-0"} style={{color:'#BB0422'}} onClick={displayLeaveRating}>
                                     Leave review
                                 </button>
                             </li>
-                            <li className="nav-item mb-3" id={"manageItems"}>
-                                <button className={"btn border-0"} style={{color:'#BB0422'}} onClick={displayManageItems}>
-                                    Manage trips and destinations
-                                </button>
-                            </li>
+                            {
+                                localStorage.getItem("userRole") !== null &&
+                                localStorage.getItem("userRole").endsWith("ADMIN") &&
+                                <li className="nav-item mb-3" id={"manageItems"}>
+                                    <button className={"btn border-0"} style={{color:'#BB0422'}} onClick={displayManageItems}>
+                                        Manage trips and destinations
+                                    </button>
+                                </li>
+                            }
+
                         </ul>
                     </div>
 
                     <div className={"col-9"}>
                         {personalDetails && <PersonalDetails user={props.user} />}
-                        {myBookings && <MyBookings />}
+                        {myBookings && <MyBookings setSearchTrip={props.setSearchTrip}/>}
                         {leaveReview && <LeaveReview username={props.user.username}
                                                      onLeaveReview={props.onLeaveReview} /> }
 

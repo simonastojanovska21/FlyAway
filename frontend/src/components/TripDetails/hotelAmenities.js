@@ -7,16 +7,16 @@ const HotelAmenities=(props)=>{
     const amenitiesMap={
         'Wi-Fi':faWifi,
         "Parking" : faSquareParking,
-        "Air conditioning" : faSnowflake,
+        "A/C" : faSnowflake,
         "Pool" : faPersonSwimming,
         "Fitness centre" : faDumbbell,
         "Pets allowed":faPaw,
         "Bar":faMartiniGlass,
         "Restaurant" :faUtensils,
         "Playground" :faChildren,
-        "Business center" :faBriefcase,
+        "Business" :faBriefcase,
         "Spa" :faSpa,
-        "Safe deposit box" :faVault
+        "Safe" :faVault
     }
     return(
 

@@ -28,7 +28,7 @@ const Login=(props)=>{
 
         setTimeout(()=>{
             props.hideWindow()
-        },1000)
+        },500)
     }
 
     (function () {
@@ -82,7 +82,7 @@ const Login=(props)=>{
                             <span className="input-group-text" id="inputGroupPassword">
                                 <FontAwesomeIcon icon={faLock} size={"lg"}/>
                             </span>
-                            <input type="text" className="form-control" id="password" name="password"
+                            <input type="password" className="form-control" id="password" name="password"
                                    aria-describedby="inputGroupPassword" placeholder="Your password"
                                    onChange={handleChange}
                                    required/>
@@ -102,9 +102,6 @@ const Login=(props)=>{
 
 
                 </form>
-                <span className={"text-muted d-flex justify-content-center mt-2"}>Don't have an account?
-                        <a href={"/register"}> Register now</a>
-                    </span>
             </div>
         </div>
     )

@@ -14,7 +14,7 @@ class AddRoom extends Component{
         this.state={
             roomTypes:[],
             numberOfAvailableRooms:0,
-            roomType:"",
+            roomType:"Single",
             numberOfGuests:1,
             pricePerNight:0,
             imagesUrl:[],

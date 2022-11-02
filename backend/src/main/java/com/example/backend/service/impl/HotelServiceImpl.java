@@ -7,7 +7,6 @@ import com.example.backend.model.Location;
 import com.example.backend.model.dto.*;
 import com.example.backend.model.exceptions.HotelNotFoundException;
 import com.example.backend.model.forms.HotelForm;
-import com.example.backend.model.enumerations.ImageTag;
 import com.example.backend.repository.HotelImageRepository;
 import com.example.backend.repository.HotelRepository;
 import com.example.backend.repository.HotelReviewRepository;

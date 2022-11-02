@@ -14,12 +14,12 @@ const ManageItems=(props)=>{
                 Hotels list
             </Link>
             <br/>
-            <Link className={"btn mt-3 w-50 fw-bold text-white"} to={"/trips"} onClick={()=>handleTrips()}
+            <Link className={"btn mt-3 w-50 fw-bold text-white"}  to={"/trips/add"}
                   style={{backgroundColor: '#BB0422'}}>
-                Trips
+                Add trip
             </Link>
             <br/>
-            <Link className={"btn mt-3 w-50 fw-bold text-white"}  to={"/destination"}
+            <Link className={"btn mt-3 w-50 fw-bold text-white"}  to={"/destinations"}
                   style={{backgroundColor: '#BB0422'}}>
                 Destinations
             </Link>

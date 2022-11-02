@@ -11,7 +11,7 @@ import TripDetailsMap from "../Maps/tripDetailsMap";
 import HotelReview from "../Reviews/hotelReview";
 import LeaveHotelReview from "../Reviews/leaveHotelReview";
 import ReviewService from "../../services/ReviewService";
-import HotelAmenities from "../Trip/hotelAmenities";
+import HotelAmenities from "./hotelAmenities";
 import TripDetailsImages from "./tripDetailsImages";
 import BookingService from "../../services/BookingService";
 
@@ -114,10 +114,15 @@ class TripDetails extends Component{
                             <div className={"shadow bg-body mt-5 p-4"} >
                                 <div className={"d-flex justify-content-between pb-4"}>
                                     <h3>Customer reviews</h3>
-                                    <button className={"btn text-white"} style={{backgroundColor:'#8AA6CA'}}
-                                            onClick={() => this.setShowLeaveReviewModal(true)}>
-                                        Leave review for hotel
-                                    </button>
+                                    {
+                                        localStorage.getItem("userRole") !== null &&
+                                        localStorage.getItem("userRole").endsWith("USER") &&
+                                        <button className={"btn text-white"} style={{backgroundColor:'#8AA6CA'}}
+                                                onClick={() => this.setShowLeaveReviewModal(true)}>
+                                            Leave review for hotel
+                                        </button>
+                                    }
+
                                 </div>
                                 <LeaveHotelReview show={this.state.showLeaveReviewModal}
                                                   onHide={() => this.setShowLeaveReviewModal(false)}
@@ -140,6 +145,7 @@ class TripDetails extends Component{
                                 </div>
                                 <div className={"d-grid g-2 mb-3"}>
                                     <button className={"btn text-white p-2"} style={{backgroundColor:'#BB0422'}}
+                                            disabled={localStorage.getItem("userRole")===null}
                                             onClick={()=>this.addNewBooking()}>
                                         Book now
                                     </button>

@@ -2,16 +2,25 @@ import React, {Component} from "react";
 import Search from "../Search/search";
 import TripService from "../../services/TripService";
 import TripItem from "./tripItem";
+import ReactPaginate from 'react-paginate';
+import {faAnglesRight, faAnglesLeft} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class TripList extends Component{
     constructor(props) {
         super(props);
         this.state={
-            tripsList:[]
+            tripsList:[],
+            page: 0,
+            size:5
         }
     }
 
     render() {
+        const offset=this.state.size * this.state.page;
+        const nextPageOffset=offset+this.state.size;
+        const pageCount=Math.ceil(this.state.tripsList.length / this.state.size);
+
         if(this.state.tripsList.length === 0){
             return(
                 <div className={"lightBackground pb-5"}>
@@ -35,20 +44,38 @@ class TripList extends Component{
                             return(
                                 <TripItem trip={trip} setSelectedTripId={this.props.setSelectedTripId} />
                             )
+                        }).filter((trip,index)=>{
+                            return index>=offset && index<nextPageOffset;
                         })}
                     </div>
                 </div>
+
+                <ReactPaginate
+                    containerClassName="pagination circlesPagination justify-content-center"
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    pageClassName="page-item"
+                    previousClassName="page-item"
+                    nextClassName="page-item"
+                    nextLabel={<FontAwesomeIcon icon={faAnglesRight} size={"lg"}/>}
+                    previousLabel={<FontAwesomeIcon icon={faAnglesLeft} size={"lg"}/>}
+                    pageLinkClassName="page-link"
+                    previousLinkClassName="page-link"
+                    nextLinkClassName="page-link"
+                    activeClassName="redActive"
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={2}
+                    onPageChange={this.handlePageClick}
+                />
             </div>
         )
     }
 
     componentDidMount() {
         const location = localStorage.getItem("location");
-        console.log(location)
         const startDate = localStorage.getItem("startDate");
-        console.log(startDate)
         const endDate = localStorage.getItem("endDate")
-        console.log(endDate)
         if(location !== null && startDate !== null)
             this.getAllTripsForLocationAndDate(location, startDate, endDate);
         else if(location === null && startDate !== null)
@@ -58,6 +85,14 @@ class TripList extends Component{
         else
             this.getAllTrips();
 
+    }
+
+    handlePageClick= (data)=>{
+        let selected=data.selected;
+        this.setState({
+            page:selected
+        })
+        window.scrollTo(0, 0);
     }
 
     getAllTrips=()=>{

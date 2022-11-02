@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, useEffect} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleQuestion, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 import $ from "jquery";
@@ -30,6 +30,8 @@ class AddHotel extends Component{
     }
 
     render() {
+
+
         if(this.state.redirect){
             return (
                 <Navigate to={"/admin/hotels"} />

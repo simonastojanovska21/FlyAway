@@ -10,6 +10,7 @@ import DestinationAttractionsMap from "../Maps/destinationAttractionsMap";
 import TripService from "../../services/TripService";
 import OfferItem from "../TopOffers/offerItem";
 import {Link} from "react-router-dom";
+import GenerateSemanticData from "../../semantic/GenerateSemanticData";
 
 class DestinationDetails extends Component{
     constructor(props) {
@@ -51,6 +52,9 @@ class DestinationDetails extends Component{
                                     Book now
                                 </Link>
                             </div>
+                            <script type="application/ld+json">
+                                {JSON.stringify(GenerateSemanticData.createTouristDestination(this.state.destinationDetails))}
+                            </script>
                         </div>}
                 </div>
 

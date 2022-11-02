@@ -17,10 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,27 +72,28 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public List<OfferDto> getTopThreeOffers() {
-        List<Trip> trips = this.tripRepository.findAllByStartDateAfter(LocalDate.now());
+        List<Trip> trips = this.tripRepository.findAllByStartDateAfterOrderByStartDate(LocalDate.now());
         return this.getNRandomOffers(trips,3);
     }
 
     @Override
     public List<OfferDto> getTopThreeOffersForDestination(String destination) {
-        List<Trip> trips = this.tripRepository.findAllByStartDateAfterAndTripInHotel_HotelLocation_City(LocalDate.now(),destination);
+        List<Trip> trips = this.tripRepository.findAllByStartDateAfterAndTripInHotel_HotelLocation_CityOrderByStartDate(LocalDate.now(),destination);
         return this.getNRandomOffers(trips,3);
     }
 
     @Override
     public List<TripDto> getAllTrips() {
         return this.tripRepository.findAll()
-                .stream().map(this::getTripDtoFromTrip)
+                .stream().sorted(Comparator.comparing(Trip::getStartDate))
+                .map(this::getTripDtoFromTrip)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<TripDto> getTripsForDestination(String destination) {
         return this.tripRepository
-                .findAllByTripInHotel_HotelLocation_CityOrTripInHotel_HotelLocation_Country(destination,destination)
+                .findAllByTripInHotel_HotelLocation_CityOrTripInHotel_HotelLocation_CountryOrderByStartDate(destination,destination)
                 .stream().map(this::getTripDtoFromTrip)
                 .collect(Collectors.toList());
     }
@@ -103,7 +101,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public List<TripDto> getTripsForTime(String startTime, String endTime) {
         return this.tripRepository
-                .findAllByStartDateAfterAndEndDateBefore(LocalDate.parse(startTime,formatterForReceivedData).minusDays(1),
+                .findAllByStartDateAfterAndEndDateBeforeOrderByStartDate(LocalDate.parse(startTime,formatterForReceivedData).minusDays(1),
                         LocalDate.parse(endTime,formatterForReceivedData).plusDays(1))
                 .stream().map(this::getTripDtoFromTrip)
                 .collect(Collectors.toList());
@@ -112,7 +110,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public List<TripDto> getTripsForDestinationAndTime(String destination, String startTime, String endTime) {
         return this.tripRepository
-                .findAllByStartDateAfterAndEndDateBefore(LocalDate.parse(startTime,formatterForReceivedData).minusDays(1),
+                .findAllByStartDateAfterAndEndDateBeforeOrderByStartDate(LocalDate.parse(startTime,formatterForReceivedData).minusDays(1),
                         LocalDate.parse(endTime,formatterForReceivedData).plusDays(1))
                 .stream().filter(trip->{
                     Location location = trip.getTripInHotel().getHotelLocation();
@@ -140,11 +138,14 @@ public class TripServiceImpl implements TripService {
     private OfferDto getOfferDtoFromTrip(Trip trip){
         Hotel hotel = trip.getTripInHotel();
         Location location=hotel.getHotelLocation();
+        String formattedLocation = location.getCity().split(",")[0] + " - ";
+        String tmp = location.getCountry().equals("United States of America") ? "USA" : location.getCountry();
+        formattedLocation+=tmp;
         return new OfferDto(trip.getId().toString(),hotel.getId().toString(),
                 trip.getStartDate().format(formatterForDatabaseData),
                 trip.getEndDate().format(formatterForDatabaseData),
                 this.hotelService.getHotelImagesUrls(hotel.getId()).get(0),
-                location.getCity()+" - "+location.getCountry(),
+                formattedLocation,
                 hotel.getName(),hotel.getStars(),getMinimumPricePerNight(trip.getId()));
     }
 }

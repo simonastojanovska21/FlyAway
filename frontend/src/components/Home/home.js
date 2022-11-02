@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import cover from "../../images/cover.jpg"
 import {Link} from "react-router-dom";
 import Search from "../Search/search";
@@ -7,7 +7,7 @@ import ReviewList from "../Reviews/reviewList";
 import PopularDestinations from "../Destionations/popularDestinations";
 
 const Home=(props)=>{
-    //console.log(props.reviews)
+
     return(
         <div>
 

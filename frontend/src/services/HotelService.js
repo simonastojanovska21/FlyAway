@@ -41,10 +41,6 @@ const HotelService={
         })
     },
 
-    deleteHotel:(hotelId)=>{
-        return axios.delete(`/api/hotels/delete/${hotelId}`)
-    },
-
     getHotelsNameAndId:()=>{
         return axios.get('/api/hotels/getHotelsNameAndId')
     },

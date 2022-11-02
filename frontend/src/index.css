@@ -147,6 +147,12 @@
   right: 0;
 }
 
+.viewBookingsButton{
+  position: absolute;
+  bottom: 0;
+  right: 26%;
+}
+
 .pricePerNight{
   position:absolute;
   bottom: 20%;
@@ -337,4 +343,30 @@
 
 .touristAttractionColumn{
   width: 20% !important;
+}
+
+.circlesPagination{
+  margin: 0;
+}
+
+.circlesPagination > li{
+  margin-right: 15px;
+}
+
+.circlesPagination > li > a{
+  border-radius: 50% !important;
+  padding: 15px 20px;
+  color: #BB0422;
+  text-decoration: none;
+}
+
+.circlesPagination > li > a:hover{
+  background-color: #515153 !important;
+  color: white !important;
+}
+
+.redActive a{
+  background: #BB0422 !important;
+  color: white !important;
+  text-decoration: none;
 }

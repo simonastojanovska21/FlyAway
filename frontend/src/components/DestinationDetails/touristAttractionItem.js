@@ -1,4 +1,5 @@
 import React from "react";
+import GenerateSemanticData from "../../semantic/GenerateSemanticData";
 
 const TouristAttractionItem=(props)=>{
     return(
@@ -13,6 +14,9 @@ const TouristAttractionItem=(props)=>{
                     {props.item.description}
                 </p>
             </div>
+            <script type="application/ld+json">
+                {JSON.stringify(GenerateSemanticData.createTouristAttraction(props.item))}
+            </script>
         </div>
     )
 }

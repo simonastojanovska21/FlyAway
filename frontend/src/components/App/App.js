@@ -28,6 +28,7 @@ import AddDestination from "../Destionations/addDestination";
 import DestinationList from "../Destionations/destinationList";
 import DestinationDetails from "../DestinationDetails/destinationDetails";
 import DestinationService from "../../services/DestinationService";
+import BookingsForTrip from "../Bookings/bookingsForTrip";
 
 class App extends Component{
   constructor(props) {
@@ -52,8 +53,7 @@ class App extends Component{
         <Router>
             <ScrollToTop />
             <Header username={this.state.loggedInUser.username} onLogoutUser={this.logoutUser}
-                    setSearchTrip={this.setSearchTrip}
-                    onLoginUser={this.loginUser} onRegisterUser={this.registerUser}/>
+                    setSearchTrip={this.setSearchTrip} onLoginUser={this.loginUser} />
             <main>
                 <div>
                     <Routes>
@@ -65,9 +65,12 @@ class App extends Component{
                                                setSelectedDestinationId={this.setSelectedDestinationId}
                                                setSelectedTripId={this.setSelectedTripId}    />  }/>
                         <Route path={"/profile"}
-                               element={ <Profile user={this.state.userInfo}  onLeaveReview={this.leaveReview} />  }  />
+                               element={ <Profile user={this.state.userInfo}
+                                                  setSearchTrip={this.setSearchTrip}
+                                                  onLeaveReview={this.leaveReview} />  }  />
 
-                        <Route path={"/admin/hotels/add"} element={ <AddHotel /> } />
+                        <Route path={"/admin/hotels/add"}
+                               element={ <AddHotel /> } />
                         <Route path={"/admin/hotels/edit/:hotelId"}
                                element={ <EditHotel selectedHotelId={this.state.selectedHotelId} /> } />
                         <Route path={"/admin/hotels/imagesForHotel/:hotelId"}
@@ -95,6 +98,9 @@ class App extends Component{
                                                         selectedHotelName={this.state.selectedHotelName}
                                                         setSelectedRoomId={this.setSelectedRoomId}/> } />
 
+                        <Route path={"/bookings/forTrip/:tripId"}
+                               element={<BookingsForTrip setSelectedBookingId={this.setSelectedBookingId}
+                                                           /> } />
                         <Route path={"/bookings"}
                                element={ <UpcomingBookingsForUser setSelectedBookingId={this.setSelectedBookingId} /> } />
                         <Route path={"/payment/:bookingId"}
@@ -203,12 +209,6 @@ class App extends Component{
                 localStorage.setItem("userRole",currentUser.role);
             })
 
-    }
-    registerUser=(username, password,repeatedPassword,name,surname,phoneNumber,address)=>{
-        AuthenticationService.registerUser(username, password,repeatedPassword,name,surname,phoneNumber,address)
-            .then(()=>{})
-        localStorage.removeItem("passwordDoNotMatch");
-        localStorage.removeItem("userExists");
     }
     logoutUser=()=>{
         AuthenticationService.logout();

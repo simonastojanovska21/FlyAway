@@ -25,6 +25,8 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public Location addNewLocationForDestination(String city, String country) {
+        if(city.equals("Chicago"))
+            city = "Chicago, Illinois";
         ResultSet resultSet = this.queryService
                 .executeQueryUsingDbpediaSPARQLEndpoint(SPARQLQueries.getCoordinatesForDestinationLocation(city,country));
         QuerySolution querySolution = resultSet.nextSolution();

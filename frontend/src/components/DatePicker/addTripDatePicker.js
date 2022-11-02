@@ -18,7 +18,6 @@ const AddTripDatePicker=(props)=>{
             numberOfMonths={1}
             displayFormat="DD-MM-YYYY"
             showClearDate={true}
-            isOutsideRange={() => false}
         />
     )
 }

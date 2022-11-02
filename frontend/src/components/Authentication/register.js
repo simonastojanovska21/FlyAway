@@ -1,12 +1,8 @@
 import React from "react";
-import {Link} from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAt, faLock, faUser} from "@fortawesome/free-solid-svg-icons";
 
 const Register=(props)=>{
-
-    const navigate = useNavigate();
 
     const [formData, updateFormData] = React.useState({
         username: "",
@@ -38,13 +34,13 @@ const Register=(props)=>{
 
         setTimeout(()=>{
             props.hideWindow()
-        },1000)
+        },500)
     }
 
     (function () {
 
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation')
+        let forms = document.querySelectorAll('.needs-validation')
 
         // Loop over them and prevent submission
         Array.prototype.slice.call(forms)
@@ -100,7 +96,7 @@ const Register=(props)=>{
                             <span className="input-group-text" id="inputGroupPassword">
                                 <FontAwesomeIcon icon={faLock} size={"lg"}/>
                             </span>
-                            <input type="text" className="form-control" id="password" name="password"
+                            <input type="password" className="form-control" id="password" name="password"
                                    aria-describedby="inputGroupPassword" placeholder="Your password"
                                    onChange={handleChange}
                                    required/>
@@ -117,7 +113,7 @@ const Register=(props)=>{
                                 <span className="input-group-text" id="inputGroupEmail">
                                     <FontAwesomeIcon icon={faLock} size={"lg"}/>
                                 </span>
-                            <input type="text" className="form-control" id="repeatedPassword" name="repeatedPassword"
+                            <input type="password" className="form-control" id="repeatedPassword" name="repeatedPassword"
                                    aria-describedby="inputGroupEmail" placeholder="Repeat password"
                                    onChange={handleChange}
                                    required/>
@@ -134,7 +130,7 @@ const Register=(props)=>{
                                     <FontAwesomeIcon icon={faUser} size={"lg"}/>
                                 </span>
                             <input type="text" className="form-control" id="name" name="name"
-                                   aria-describedby="inputGroupEmail" placeholder="someone@example.com"
+                                   aria-describedby="inputGroupEmail" placeholder="Name"
                                    onChange={handleChange}
                                    required/>
                             <div className="invalid-feedback" id={"emptyName"}>
@@ -150,7 +146,7 @@ const Register=(props)=>{
                                     <FontAwesomeIcon icon={faUser} size={"lg"}/>
                                 </span>
                             <input type="text" className="form-control" id="surname" name="surname"
-                                   aria-describedby="inputGroupEmail" placeholder="someone@example.com"
+                                   aria-describedby="inputGroupEmail" placeholder="Surname"
                                    onChange={handleChange}
                                    required/>
                             <div className="invalid-feedback" id={"emptySurname"}>
@@ -168,9 +164,6 @@ const Register=(props)=>{
 
                 </form>
 
-                <span className={"text-muted d-flex justify-content-center mt-2 pe-2"}>Already have and account?
-                        <Link to={"/login"}>Login now</Link>
-                    </span>
             </div>
         </div>
     )

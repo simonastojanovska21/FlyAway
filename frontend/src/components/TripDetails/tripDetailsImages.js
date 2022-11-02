@@ -10,12 +10,12 @@ const TripDetailsImages=(props)=>{
             {props.imagesForHotel === undefined ? <></>  :
 
                 <div className={"row pt-5"} >
-                    <div className={"col-7"} style={{height:'400px '}}>
+                    <div className={"col-7"} style={{height:'400px'}}>
                         <img src={props.imagesForHotel[0]} className="d-block w-100 h-100 rounded-2" alt={"hotel images"}/>
                     </div>
 
-                    <div className={"col-5"} style={{height:'400px !important'}}>
-                        <div className={"row g-4"}>
+                    <div className={"col-5"} >
+                        <div className={"row g-4"} style={{height:'420px'}}>
                             <div className={"col-6"}>
                                 <img src={props.imagesForHotel[1]} className="d-block w-100 h-100 rounded-2" alt={"hotel images"}/>
                             </div>

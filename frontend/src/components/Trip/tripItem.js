@@ -6,6 +6,7 @@ import {faMapPin, faLocationDot} from "@fortawesome/free-solid-svg-icons";
 import Circles from "../RatingStars/circles";
 import {Link} from "react-router-dom";
 import TripListMap from "../Maps/tripListMap";
+import GenerateSemanticData from "../../semantic/GenerateSemanticData";
 
 const TripItem=(props)=>{
 
@@ -60,10 +61,27 @@ const TripItem=(props)=>{
                               style={{backgroundColor:'#8AA6CA', }}>
                             Trip details
                         </Link>
+
+                        {
+                            localStorage.getItem("userRole") !== null &&
+                            (localStorage.getItem("userRole").endsWith("ADMIN") ||
+                                localStorage.getItem("userRole").endsWith("EMPLOYEE")) &&
+                            <Link className="btn rounded-1 viewBookingsButton text-white p-3 fw-bold"
+                                  onClick={()=>props.setSelectedTripId(props.trip.tripId,props.trip.hotelForTrip.id)}
+                                  to={`/bookings/forTrip/${props.trip.tripId}`}
+                                  style={{backgroundColor:'#BB0422', }}>
+                                View bookings
+                            </Link>
+                        }
+
                     </div>
 
                 </div>
             </div>
+            <script type="application/ld+json">
+                {JSON.stringify(GenerateSemanticData.createTouristTripItem(props.trip))}
+            </script>
+
         </div>
     )
 }

@@ -36,7 +36,7 @@ const AddDestination=(props)=>{
     }
     if(redirectToLocation){
         return (
-            <Navigate to={"/"} />
+            <Navigate to={"/destinations"} />
         )
     }
 
