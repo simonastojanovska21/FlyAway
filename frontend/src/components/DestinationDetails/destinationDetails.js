@@ -11,6 +11,7 @@ import TripService from "../../services/TripService";
 import OfferItem from "../TopOffers/offerItem";
 import {Link} from "react-router-dom";
 import GenerateSemanticData from "../../semantic/GenerateSemanticData";
+import {changeTitle} from "react-set-title";
 
 class DestinationDetails extends Component{
     constructor(props) {
@@ -39,7 +40,7 @@ class DestinationDetails extends Component{
                     {this.state.destinationDetails === null ? <></> :
                         <div className="card text-white border-0">
                             <img src={this.state.destinationDetails.destinationImage}
-                                 className="d-block w-100 card-img darkenedImages" alt="image from the destination" />
+                                 className="d-block w-100 card-img darkenedImages rounded-0" alt="image from the destination" />
 
                             <div className="card-img-overlay text-start" style={{top: '50%', left:'15%', }}>
                                 <p className={"fw-bold"} style={{fontSize:'60px'}}>
@@ -53,7 +54,7 @@ class DestinationDetails extends Component{
                                 </Link>
                             </div>
                             <script type="application/ld+json">
-                                {JSON.stringify(GenerateSemanticData.createTouristDestination(this.state.destinationDetails))}
+                                {JSON.stringify(GenerateSemanticData.createTouristDestinationDetails(this.state.destinationDetails,this.state.destinationLocation))}
                             </script>
                         </div>}
                 </div>
@@ -220,7 +221,9 @@ class DestinationDetails extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Destination details');
         const destinationId = localStorage.getItem("selectedDestinationId")
+        console.log(destinationId)
         this.getDestinationDetails(destinationId);
         this.getWeatherDataForDestinations(destinationId);
 

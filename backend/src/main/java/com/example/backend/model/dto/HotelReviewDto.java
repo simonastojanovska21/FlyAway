@@ -16,4 +16,6 @@ public class HotelReviewDto {
     private String reviewBody;
 
     private int reviewRating;
+
+    private String hotelName;
 }

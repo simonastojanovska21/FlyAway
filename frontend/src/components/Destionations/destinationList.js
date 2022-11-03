@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import DestinationService from "../../services/DestinationService";
-import Search from "../Search/search";
 import DestinationItem from "./destinationItem";
 import {Link} from "react-router-dom";
+import {changeTitle} from "react-set-title";
 
 class DestinationList extends Component{
     constructor(props) {
@@ -44,7 +44,9 @@ class DestinationList extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Destination list');
         this.getAllDestinations();
+        console.log(this.state.destinations)
     }
 
     getAllDestinations(){

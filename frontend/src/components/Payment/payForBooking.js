@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import BookingService from "../../services/BookingService";
 import {Link} from "react-router-dom";
 import StripeButton from "./stripeButton";
+import {changeTitle} from "react-set-title";
 
 class PayForBooking extends Component{
     constructor(props) {
@@ -87,6 +88,7 @@ class PayForBooking extends Component{
         )
     }
     componentDidMount() {
+        changeTitle('Pay for booking');
         const bookingId = localStorage.getItem("selectedBookingId")
         this.getDetailsAboutBooking(bookingId)
     }

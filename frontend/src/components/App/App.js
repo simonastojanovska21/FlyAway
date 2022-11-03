@@ -105,10 +105,13 @@ class App extends Component{
                                element={ <UpcomingBookingsForUser setSelectedBookingId={this.setSelectedBookingId} /> } />
                         <Route path={"/payment/:bookingId"}
                                element={ <PayForBooking selectedBookingId={this.state.selectedBookingId} /> } />
-                        <Route path={"/successfulPayment"} element={ <SuccessfulPayment  /> } />
-                        <Route path={"/paymentError"} element={ <PaymentError /> } />
+                        <Route path={"/successfulPayment"}
+                               element={ <SuccessfulPayment  /> } />
+                        <Route path={"/paymentError"}
+                               element={ <PaymentError /> } />
 
-                        <Route path={"/destinations/add"} element={ <AddDestination  />  }  />
+                        <Route path={"/destinations/add"}
+                               element={ <AddDestination  />  }  />
                         <Route path={"/destinations/:destinationId"}
                                element={ <DestinationDetails setSearchTrip={this.setSearchTrip}
                                                              selectedDestinationId={this.state.selectedDestinationId}

@@ -2,10 +2,8 @@ import React, {Component} from "react";
 import TripService from "../../services/TripService";
 import HotelService from "../../services/HotelService";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faCalendar, faCalendarWeek, faClock,faLocationDot} from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faCalendarWeek, faClock} from "@fortawesome/free-solid-svg-icons";
 import Stars from "../RatingStars/stars";
-import AllHotelImages from "../Trip/allHotelImages";
-import {Link} from "react-router-dom";
 import RoomForTrip from "../Trip/roomForTrip";
 import TripDetailsMap from "../Maps/tripDetailsMap";
 import HotelReview from "../Reviews/hotelReview";
@@ -14,6 +12,8 @@ import ReviewService from "../../services/ReviewService";
 import HotelAmenities from "./hotelAmenities";
 import TripDetailsImages from "./tripDetailsImages";
 import BookingService from "../../services/BookingService";
+import {changeTitle} from "react-set-title";
+import GenerateSemanticData from "../../semantic/GenerateSemanticData";
 
 class TripDetails extends Component{
     constructor(props) {
@@ -130,6 +130,12 @@ class TripDetails extends Component{
                                                   onLeaveHotelReview={this.leaveHotelReview} />
                                 <HotelReview hotelReview={this.state.hotelReview}  />
                             </div>
+                            {<script type="application/ld+json">
+                                {JSON.stringify(GenerateSemanticData.createHotel(this.state.hotelDetails,this.state.locationOnMap))}
+                            </script>
+                            }
+
+
                         </div>
 
                         <div className={"col-4 bookingDetails"}>
@@ -152,16 +158,19 @@ class TripDetails extends Component{
                                 </div>
                             </div>
 
-                            <div className={"border border-1 mt-4 bg-body"}>
+                            <div className={"border border-1 mt-2 bg-body"}>
                                 <div className={"choose-room-header"}>Choose room type</div>
                                 <hr/>
                                 <div className={"choose-room-content"}>
-                                    {this.state.roomsList.map((room)=>{
-                                        return(
-                                            <RoomForTrip room={room} onSelectRoom={this.onSelectRoom}
-                                                         isSelected={this.state.selectedRoomId===room.roomId} />
-                                        )
-                                    })}
+                                    {this.state.roomsList.length === 0 ? <></> : <>
+                                        {this.state.roomsList.map((room)=>{
+                                            return(
+                                                <RoomForTrip room={room} onSelectRoom={this.onSelectRoom}
+                                                             isSelected={this.state.selectedRoomId===room.roomId} />
+                                            )
+                                        })}
+                                    </>}
+
                                 </div>
                             </div>
                         </div>
@@ -172,6 +181,7 @@ class TripDetails extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Trip details');
         const tripId = localStorage.getItem("selectedTripId")
         this.getTripDetails(tripId)
 

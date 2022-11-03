@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import BookingService from "../../services/BookingService";
 import BookingItem from "./bookingItem";
+import {changeTitle} from "react-set-title";
 
 class UpcomingBookingsForUser extends Component{
     constructor(props) {
@@ -34,6 +35,7 @@ class UpcomingBookingsForUser extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Upcoming bookings for trip');
         this.getUpcomingBookingsForUser()
     }
 

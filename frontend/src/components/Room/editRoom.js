@@ -3,6 +3,7 @@ import {Navigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 import RoomService from "../../services/RoomService";
+import {changeTitle} from "react-set-title";
 
 class EditRoom extends Component{
     constructor(props) {
@@ -77,6 +78,7 @@ class EditRoom extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Edit room');
         const roomId=localStorage.getItem("selectedRoomId")
         roomId !== null ? this.getRoomDetails(roomId) : this.getRoomDetails(this.props.selectedRoomId)
 

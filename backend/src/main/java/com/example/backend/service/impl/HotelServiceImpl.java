@@ -107,8 +107,9 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public TripInHotelDetailsDto getTripInHotelDetails(String tripId,String hotelId) {
         HotelReview hotelReview = this.hotelReviewRepository.getRandomReview(UUID.fromString(hotelId));
+        Hotel hotel = this.hotelRepository.getById(UUID.fromString(hotelId));
         HotelReviewDto hotelReviewDto = new HotelReviewDto(hotelReview.getUserGivesReview().getName()+" "+hotelReview.getUserGivesReview().getSurname(),
-                formatter.format(hotelReview.getTime()),hotelReview.getDescription(),hotelReview.getStars());
+                formatter.format(hotelReview.getTime()),hotelReview.getDescription(),hotelReview.getStars(),hotel.getName());
         List<RoomDto> roomDtoList = this.roomService.getRoomsInHotelForTrip(tripId,hotelId);
         List<String> allHotelImages=this.hotelImagesRepository.findAllByImageForHotel_Id(UUID.fromString(hotelId))
                 .stream().map(HotelImage::getUrl).collect(Collectors.toList());

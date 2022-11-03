@@ -1,8 +1,11 @@
 import React from "react";
 import {Navigate} from "react-router-dom";
 import DestinationService from "../../services/DestinationService";
+import {changeTitle} from "react-set-title";
 
 const AddDestination=(props)=>{
+
+    changeTitle('Add destination');
 
     const [formData, updateFormData] = React.useState({
         city:"",

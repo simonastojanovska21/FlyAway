@@ -5,9 +5,10 @@ import LeaveReview from "./leaveReview";
 import ManageItems from "./manageItems";
 import MyBookings from "./myBookings";
 import $ from 'jquery';
+import {changeTitle} from "react-set-title";
 
 const Profile=(props)=>{
-
+    changeTitle('Profile');
 
     const [personalDetails, setPersonalDetails] = React.useState(true);
     const [myBookings, setMyBookings] = React.useState(false);

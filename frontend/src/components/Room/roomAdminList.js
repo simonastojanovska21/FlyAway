@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import RoomService from "../../services/RoomService";
 import {Link} from "react-router-dom";
 import ConfirmDelete from "../ConfirmDelete/confirmDelete";
+import {changeTitle} from "react-set-title";
 
 class RoomAdminList extends Component{
     constructor(props) {
@@ -70,6 +71,7 @@ class RoomAdminList extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Room admin list');
         const hotelId=localStorage.getItem("selectedHotelId");
         hotelId !== null ? this.getRoomsInHotel(hotelId) : this.getRoomsInHotel(this.props.selectedHotelId)
 

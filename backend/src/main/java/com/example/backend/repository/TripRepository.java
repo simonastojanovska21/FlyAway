@@ -11,11 +11,12 @@ import java.util.UUID;
 @Repository
 public interface TripRepository extends JpaRepository<Trip, UUID> {
 
+
     List<Trip> findAllByStartDateAfterOrderByStartDate(LocalDate startDate);
 
     List<Trip> findAllByStartDateAfterAndTripInHotel_HotelLocation_CityOrderByStartDate(LocalDate startDate, String city);
 
-    List<Trip> findAllByTripInHotel_HotelLocation_CityOrTripInHotel_HotelLocation_CountryOrderByStartDate(String city, String country);
+    List<Trip> findAllByStartDateAfterAndTripInHotel_HotelLocation_CityOrTripInHotel_HotelLocation_CountryOrderByStartDate(LocalDate startDate,String city, String country);
 
     List<Trip> findAllByStartDateAfterAndEndDateBeforeOrderByStartDate(LocalDate startDate, LocalDate endDate);
 

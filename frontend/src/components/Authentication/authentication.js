@@ -29,14 +29,6 @@ const Authentication=(props)=>{
         props.onHide()
     }
 
-    const loginUser=(username,password)=>{
-        AuthenticationService.loginUser(username,password)
-            .then(()=>{
-                const currentUser = AuthenticationService.getCurrentUser();
-                localStorage.setItem("userRole",currentUser.role);
-                setDisplayLogin(true)
-            })
-    }
 
     const registerUser=(username, password,repeatedPassword,name,surname)=>{
         AuthenticationService.registerUser(username, password,repeatedPassword,name,surname)
@@ -70,7 +62,7 @@ const Authentication=(props)=>{
             </Modal.Header>
             <Modal.Body >
                 {displayLogin ? <Login onLoginUser={props.onLoginUser}  hideWindow={props.onHide}/>
-                    : <Register onRegisterUser={registerUser} hideWindow={props.onHide} /> }
+                    : <Register onRegisterUser={registerUser} onLoginUser={props.onLoginUser} hideWindow={props.onHide} /> }
 
             </Modal.Body>
 

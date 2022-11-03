@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Navigate} from "react-router-dom";
 import HotelService from "../../services/HotelService";
 import $ from "jquery";
+import {changeTitle} from "react-set-title";
 
 class EditHotel extends Component{
     constructor(props) {
@@ -112,6 +113,7 @@ class EditHotel extends Component{
         )
     }
     componentDidMount() {
+        changeTitle('Edit hotel');
         const hotelId=localStorage.getItem("selectedHotelId");
         hotelId !== null ? this.getHotelDetails(hotelId) : this.getHotelDetails(this.props.selectedHotelId)
 

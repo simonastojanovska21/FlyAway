@@ -33,6 +33,7 @@ const Register=(props)=>{
         props.onRegisterUser(username,password,repeatedPassword,name,surname);
 
         setTimeout(()=>{
+            props.onLoginUser(username,password)
             props.hideWindow()
         },500)
     }

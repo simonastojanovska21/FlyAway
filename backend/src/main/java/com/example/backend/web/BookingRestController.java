@@ -41,7 +41,7 @@ public class BookingRestController {
     }
 
     @GetMapping("/cancelBooking/{bookingId}")
-    public ResponseEntity<?> cancelBooking(@PathVariable String bookingId){
+    public ResponseEntity<Booking> cancelBooking(@PathVariable String bookingId){
         return this.bookingService.cancelBookingForTrip(bookingId)
                 .map(booking -> ResponseEntity.ok().body(booking))
                 .orElseGet(()->ResponseEntity.badRequest().build());

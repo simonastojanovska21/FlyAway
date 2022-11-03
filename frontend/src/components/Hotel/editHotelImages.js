@@ -7,6 +7,7 @@ import AddHotelImages from "./addHotelImages";
 import ImageService from "../../services/ImageService";
 import $ from "jquery";
 import ConfirmDelete from "../ConfirmDelete/confirmDelete";
+import {changeTitle} from "react-set-title";
 
 class EditHotelImages extends Component{
 
@@ -62,6 +63,7 @@ class EditHotelImages extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Edit hotel images');
         const hotelId=localStorage.getItem("selectedHotelId");
         hotelId !== null ? this.getImagesForHotel(hotelId) : this.getImagesForHotel(this.props.selectedHotelId)
 

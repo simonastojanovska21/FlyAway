@@ -69,6 +69,26 @@ const GenerateSemanticData={
       }
     },
 
+    createHotelReview:(hotelReview)=>{
+        return{
+            "@context": "https://schema.org/",
+            "@type": "Review",
+            author:hotelReview.author,
+            datePublished:hotelReview.datePublished,
+            reviewBody: hotelReview.reviewBody,
+            itemReviewed:{
+                "@type": "Hotel",
+                name: hotelReview.hotelName,
+            },
+            reviewRating:{
+                "@type": "Rating",
+                ratingValue: hotelReview.reviewRating,
+                worstRating: 1,
+                bestRating: 5,
+            }
+        }
+    },
+
     createTouristDestination:(destination)=>{
         return{
             "@context": "https://schema.org",
@@ -80,6 +100,21 @@ const GenerateSemanticData={
             "@type": "GeoCoordinates",
                 latitude: destination.destinationLocation.latitude,
                 longitude: destination.destinationLocation.longitude
+            },
+        }
+    },
+
+    createTouristDestinationDetails:(destination, location)=>{
+        return{
+            "@context": "https://schema.org",
+            "@type": "TouristDestination",
+            name: location.city,
+            tourBookingPage: "http://localhost:3000/trips",
+            image:destination.destinationThumbnail,
+            geo: {
+                "@type": "GeoCoordinates",
+                latitude: location.latitude,
+                longitude: location.longitude
             },
         }
     },
@@ -96,6 +131,42 @@ const GenerateSemanticData={
                 latitude: attraction.latitude,
                 longitude: attraction.longitude
             },
+        }
+    },
+
+    createHotel:(hotel, location)=>{
+        return{
+            "@context": "https://schema.org",
+            "@type": "Hotel",
+            name:hotel.name,
+            checkinTime:hotel.checkInHour+":00",
+            checkoutTime:hotel.checkOutHour+":00",
+            starRating: {
+                "@type": "Rating",
+                ratingValue: hotel.stars
+            },
+            address: {
+                "@type": "PostalAddress",
+                addressCountry: location.country,
+                addressRegion: location.city,
+                streetAddress: hotel.address
+            },
+            geo: {
+                "@type": "GeoCoordinates",
+                latitude: location.latitude,
+                longitude: location.longitude
+            },
+        }
+    },
+
+    createRoom:(room)=>{
+        return{
+            "@context": "https://schema.org",
+            "@type": "HotelRoom",
+            bed: room.roomType,
+            occupancy:room.numberOfGuests,
+            photo:room.roomImages[0],
+            name: room.roomType + " room for " + room.numberOfGuests + " quests"
         }
     }
 }

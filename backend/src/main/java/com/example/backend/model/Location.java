@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @Entity
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class Location {
 

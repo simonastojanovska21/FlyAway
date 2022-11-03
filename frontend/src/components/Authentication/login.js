@@ -1,6 +1,6 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAt, faLock, faUser} from "@fortawesome/free-solid-svg-icons";
+import {faAt, faLock} from "@fortawesome/free-solid-svg-icons";
 
 
 const Login=(props)=>{

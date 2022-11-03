@@ -1,16 +1,16 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser, faBed, faCheck} from "@fortawesome/free-solid-svg-icons";
+import GenerateSemanticData from "../../semantic/GenerateSemanticData";
 
 const RoomForTrip=(props)=>{
 
-    const imageUrl=props.images
 
     return(
         <div className={"border-bottom "}>
-            <div className={"choose-room-images mx-auto text-center"}>
+            <div className={"choose-room-images mx-auto text-center pt-3"}>
                 <h5 >{props.room.roomType} room</h5>
-                <img src={props.room.roomImages[0]} className={"d-block w-75 h-75 mx-auto"}/>
+                <img src={props.room.roomImages[0]} className={"d-block w-75 h-75 mx-auto"} alt={"room"}/>
                 <span >
                     <FontAwesomeIcon icon={faUser} className={"me-2"}/>
                     Room fits {props.room.numberOfGuests} guests
@@ -35,12 +35,12 @@ const RoomForTrip=(props)=>{
                             </button>
                              }
                     </div>
-
                 </div>
+
+                <script type="application/ld+json">
+                    {JSON.stringify(GenerateSemanticData.createRoom(props.room))}
+                </script>
             </div>
-
-
-
         </div>
     )
 }

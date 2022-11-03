@@ -2,6 +2,7 @@ import React from "react";
 import {faCircleUser} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Circles from "../RatingStars/circles";
+import GenerateSemanticData from "../../semantic/GenerateSemanticData";
 
 const HotelReview=(props)=>{
 
@@ -27,6 +28,9 @@ const HotelReview=(props)=>{
                             {props.hotelReview.reviewBody}
                         </span>
                     </div>
+                    <script type="application/ld+json">
+                        {JSON.stringify(GenerateSemanticData.createHotelReview(props.hotelReview))}
+                    </script>
                 </>
             }
         </div>

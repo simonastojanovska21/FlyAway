@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import HotelService from "../../services/HotelService";
 import {Link} from "react-router-dom";
 import ConfirmDelete from "../ConfirmDelete/confirmDelete";
+import {changeTitle} from "react-set-title";
 
 class HotelAdminList extends Component{
     constructor(props) {
@@ -84,6 +85,7 @@ class HotelAdminList extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Hotel admin list');
         this.getAdminHotelList();
     }
     getAdminHotelList=()=>{

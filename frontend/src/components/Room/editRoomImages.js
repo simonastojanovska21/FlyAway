@@ -6,6 +6,7 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import ImageService from "../../services/ImageService";
 import $ from "jquery";
 import ConfirmDelete from "../ConfirmDelete/confirmDelete";
+import {changeTitle} from "react-set-title";
 
 class EditRoomImages extends Component{
     constructor(props) {
@@ -65,6 +66,7 @@ class EditRoomImages extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Edit room images');
         const roomId=localStorage.getItem("selectedRoomId")
         roomId !== null ? this.getImagesForRoom(roomId) : this.getImagesForRoom(roomId)
     }

@@ -42,12 +42,13 @@ const Search=(props)=>{
     return(
         <div className={"border border-5 shadow-lg p-3 mb-5 whiteBackground"} >
             <div className={"row  pt-2 pb-2"}>
-                <div className={"col-4  border-2 border-end"}>
+                <div className={"col-4  border-2 border-end"} >
                     <div className="input-group">
                         <span className="input-group-text border-0 bg-body">
                             <FontAwesomeIcon icon={faSearch} size={"lg"}/>
                         </span>
-                        <input type="text" id={"location"} className="form-control border-0" placeholder="Where would you like to go?" />
+                        <input type="text" id={"location"} className="form-control border-0"
+                               placeholder="Where would you like to go?" />
                     </div>
                 </div>
 

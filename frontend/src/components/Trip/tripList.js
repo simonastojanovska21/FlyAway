@@ -5,6 +5,7 @@ import TripItem from "./tripItem";
 import ReactPaginate from 'react-paginate';
 import {faAnglesRight, faAnglesLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {changeTitle} from "react-set-title";
 
 class TripList extends Component{
     constructor(props) {
@@ -73,6 +74,7 @@ class TripList extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Trip list');
         const location = localStorage.getItem("location");
         const startDate = localStorage.getItem("startDate");
         const endDate = localStorage.getItem("endDate")

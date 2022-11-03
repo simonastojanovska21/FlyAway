@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import BookingService from "../../services/BookingService";
 import BookingItem from "./bookingItem";
+import {changeTitle} from "react-set-title";
 
 class BookingsForTrip extends Component{
     constructor(props) {
@@ -36,6 +37,7 @@ class BookingsForTrip extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Bookings for trip');
         const tripId = localStorage.getItem("selectedTripId")
         this.getAllBookingsForTrip(tripId)
     }

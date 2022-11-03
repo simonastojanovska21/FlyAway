@@ -6,6 +6,7 @@ import $ from "jquery";
 import moment from 'moment';
 import AddTripDatePicker from "../DatePicker/addTripDatePicker";
 import TripService from "../../services/TripService";
+import {changeTitle} from "react-set-title";
 
 class AddTrip extends Component{
     constructor(props) {
@@ -100,6 +101,7 @@ class AddTrip extends Component{
 
     }
     componentDidMount() {
+        changeTitle('Add trip');
         this.getHotelsNameAndId();
     }
 

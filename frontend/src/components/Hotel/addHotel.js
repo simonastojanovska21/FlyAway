@@ -7,6 +7,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import HotelService from "../../services/HotelService";
 import AddHotelImages from "./addHotelImages";
 import {Navigate} from "react-router-dom";
+import { changeTitle } from 'react-set-title'
 
 class AddHotel extends Component{
 
@@ -185,6 +186,7 @@ class AddHotel extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Add hotel');
         this.getHotelData()
     }
 

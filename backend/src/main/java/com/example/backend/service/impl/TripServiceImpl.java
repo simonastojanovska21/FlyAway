@@ -84,7 +84,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public List<TripDto> getAllTrips() {
-        return this.tripRepository.findAll()
+        return this.tripRepository.findAllByStartDateAfterOrderByStartDate(LocalDate.now())
                 .stream().sorted(Comparator.comparing(Trip::getStartDate))
                 .map(this::getTripDtoFromTrip)
                 .collect(Collectors.toList());
@@ -93,7 +93,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public List<TripDto> getTripsForDestination(String destination) {
         return this.tripRepository
-                .findAllByTripInHotel_HotelLocation_CityOrTripInHotel_HotelLocation_CountryOrderByStartDate(destination,destination)
+                .findAllByStartDateAfterAndTripInHotel_HotelLocation_CityOrTripInHotel_HotelLocation_CountryOrderByStartDate(LocalDate.now(),destination,destination)
                 .stream().map(this::getTripDtoFromTrip)
                 .collect(Collectors.toList());
     }

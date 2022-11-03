@@ -7,6 +7,7 @@ import {faCircleQuestion, faMinus, faPlus} from "@fortawesome/free-solid-svg-ico
 import AddHotelImages from "../Hotel/addHotelImages";
 import $ from "jquery";
 import RoomService from "../../services/RoomService";
+import {changeTitle} from "react-set-title";
 
 class AddRoom extends Component{
     constructor(props) {
@@ -117,6 +118,7 @@ class AddRoom extends Component{
     }
 
     componentDidMount() {
+        changeTitle('Add room');
         this.getRoomData();
     }
 

@@ -2,9 +2,11 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCreditCard} from "@fortawesome/free-regular-svg-icons";
 import {Link} from "react-router-dom";
+import {changeTitle} from "react-set-title";
 
 const SuccessfulPayment=(props)=>{
 
+    changeTitle('Successful payment');
     return(
         <div className={"lightBackground pb-5"}>
             <div className={"container text-center pt-5"}>
