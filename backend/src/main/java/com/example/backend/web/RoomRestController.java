@@ -45,7 +45,7 @@ public class RoomRestController {
     }
 
     @PostMapping("/addNewRoom")
-    public ResponseEntity<?> addNewRoom(@RequestBody RoomForm roomForm){
+    public ResponseEntity<Room> addNewRoom(@RequestBody RoomForm roomForm){
         return this.roomService.addNewRoomForHotel(roomForm)
                 .map(room->ResponseEntity.ok().body(room))
                 .orElseGet(()->ResponseEntity.badRequest().build());
@@ -58,12 +58,4 @@ public class RoomRestController {
                 .orElseGet(()->ResponseEntity.badRequest().build());
     }
 
-    @DeleteMapping("/delete/{roomId}")
-    public ResponseEntity deleteHotel(@PathVariable String roomId){
-        boolean result;
-        result = this.roomService.deleteRoom(roomId);
-        if(result)
-            return ResponseEntity.ok().build();
-        return ResponseEntity.badRequest().build();
-    }
 }

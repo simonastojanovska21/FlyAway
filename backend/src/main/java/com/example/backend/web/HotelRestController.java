@@ -52,7 +52,7 @@ public class HotelRestController {
     }
 
     @PostMapping("/addHotel")
-    public ResponseEntity<?> addNewHotel(@RequestBody HotelForm hotelForm){
+    public ResponseEntity<Hotel> addNewHotel(@RequestBody HotelForm hotelForm){
         return this.hotelService.addNewHotel(hotelForm)
                 .map(hotel->ResponseEntity.ok().body(hotel))
                 .orElseGet(()->ResponseEntity.badRequest().build());

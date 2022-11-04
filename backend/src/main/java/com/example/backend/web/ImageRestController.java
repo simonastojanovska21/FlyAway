@@ -24,7 +24,7 @@ public class ImageRestController {
     }
 
     @PostMapping("/addForHotel/{hotelId}")
-    public ResponseEntity<?> addImageForHotel(@PathVariable String hotelId, @RequestBody ImageForm imageForm){
+    public ResponseEntity<HotelImage> addImageForHotel(@PathVariable String hotelId, @RequestBody ImageForm imageForm){
         return this.imageService.addImageForHotel(hotelId,imageForm.getImageUrl())
                 .map(hotelImage -> ResponseEntity.ok().body(hotelImage))
                 .orElseGet(()->ResponseEntity.badRequest().build());
@@ -45,7 +45,7 @@ public class ImageRestController {
     }
 
     @PostMapping("/addForRoom/{roomId}")
-    public ResponseEntity<?> addImageForRoom(@PathVariable String roomId, @RequestBody ImageForm imageForm){
+    public ResponseEntity<RoomImage> addImageForRoom(@PathVariable String roomId, @RequestBody ImageForm imageForm){
         return this.imageService.addImageForRoom(roomId,imageForm.getImageUrl())
                 .map(roomImage -> ResponseEntity.ok().body(roomImage))
                 .orElseGet(()->ResponseEntity.badRequest().build());

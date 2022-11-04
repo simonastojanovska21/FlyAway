@@ -1,5 +1,6 @@
 package com.example.backend.web;
 
+import com.example.backend.model.Trip;
 import com.example.backend.model.dto.OfferDto;
 import com.example.backend.model.dto.TripDetailsDto;
 import com.example.backend.model.dto.TripDto;
@@ -58,7 +59,7 @@ public class TripRestController {
     }
 
     @PostMapping("/addNewTrip")
-    public ResponseEntity<?> addNewTrip(@RequestBody TripForm tripForm){
+    public ResponseEntity<Trip> addNewTrip(@RequestBody TripForm tripForm){
         return this.tripService.addNewTrip(tripForm)
                 .map(trip->ResponseEntity.ok().body(trip))
                 .orElseGet(()->ResponseEntity.badRequest().build());

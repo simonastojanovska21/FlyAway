@@ -1,5 +1,6 @@
 package com.example.backend.web;
 
+import com.example.backend.model.HotelReview;
 import com.example.backend.model.Review;
 import com.example.backend.model.forms.HotelReviewForm;
 import com.example.backend.model.forms.ReviewForm;
@@ -23,14 +24,14 @@ public class ReviewRestController {
     }
 
     @PostMapping("/addReview")
-    public ResponseEntity<?> addNewReview(@RequestBody ReviewForm reviewForm){
+    public ResponseEntity<Review> addNewReview(@RequestBody ReviewForm reviewForm){
         return this.reviewService.addNewReview(reviewForm)
                 .map(review->ResponseEntity.ok().body(review))
                 .orElseGet(()->ResponseEntity.badRequest().build());
     }
 
     @PostMapping("/addHotelReview")
-    public ResponseEntity<?> addHotelReview(@RequestBody HotelReviewForm hotelReviewForm){
+    public ResponseEntity<HotelReview> addHotelReview(@RequestBody HotelReviewForm hotelReviewForm){
         return this.reviewService.addNewHotelReview(hotelReviewForm)
                 .map(hotelReview->ResponseEntity.ok().body(hotelReview))
                 .orElseGet(()->ResponseEntity.badRequest().build());

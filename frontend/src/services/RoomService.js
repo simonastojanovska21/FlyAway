@@ -32,10 +32,6 @@ const RoomService={
         })
     },
 
-    deleteRoom:(roomId)=>{
-        return axios.delete(`/api/rooms/delete/${roomId}`)
-    },
-
     getRoomTypesAndPriceInHotel:(hotelId)=>{
         return axios.get(`api/rooms/roomTypesAndPrice/${hotelId}`)
     }
